@@ -1,0 +1,47 @@
+$base-fz: 15;
+
+// $base-fz-xl:     14
+// $base-fz-sm:     14
+
+$fz--sm: 14;
+
+$base-desktop: 1920;
+$base-laptop: 1280;
+$base-mobile: 414;
+
+$base-container: 1760;
+$base-container--md: 1223;
+$base-container--sm: 746;
+$gap-container: 16;
+$gap-container: 16;
+
+$text-inputs: "[type='color']", "[type='date']", "[type='datetime']", "[type='datetime-local']",
+  "[type='email']", "[type='month']", "[type='number']", "[type='password']", "[type='search']",
+  "[type='tel']", "[type='text']", "[type='time']", "[type='url']", "[type='week']",
+  'input:not([type])', 'textarea';
+$check-inputs: "[type='checkbox']", "[type='radio']";
+
+$black: #0f1012;
+$white: #fff;
+$accent: var(--accent, #ce1212);
+$danger: red;
+$light: #e9eee7;
+$c-text: $light;
+$c-link: blue;
+
+$z-index-controls: 10;
+$z-index-modal: 15;
+
+// $radius: 2px
+
+$header-height: 105;
+$header-height-md: 71;
+
+@mixin reg {
+  font-family: 'opensans', sans-serif;
+}
+
+@mixin f-title {
+  font-family: 'oswald', sans-serif;
+  font-weight: 600;
+}

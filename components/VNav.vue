@@ -7,7 +7,8 @@
           class="nav__link"
           active-class="nav__link--active"
           exact-active-class="nav__link--exact-active"
-        >{{ item.title }}</nuxt-link>
+          >{{ item.title }}</nuxt-link
+        >
       </li>
     </ul>
   </nav>
@@ -35,47 +36,62 @@ export default {
 }
 </script>
 
-<style lang="sass">
-.nav
-  text-transform: uppercase
-  &__list
-    @extend %row
-    justify-content: center
+<style lang="scss">
+.nav {
+  text-transform: uppercase;
 
-  &__item
-    margin-left: 10px
-    margin-right: 10px
+  &__list {
+    @extend %row;
 
-  &__link
-    position: relative
-    display: inline-block
-    overflow: hidden
+    justify-content: center;
+  }
 
-    +hover
-      &::before
-        +tr(transform .4s $easeInExpo)
-        transform: translate(0, 0)
+  &__item {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
 
-      &::after
-        transition-delay: .3s
-        transform: translate(0, 0)
+  &__link {
+    $transition-duration: 400;
+
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+
+    @include hover-focus {
+      &::before {
+        @include tr(transform #{$transition-duration + ms} $easeInSine);
+
+        transform: translate(0, 0);
+      }
+
+      &::after {
+        transition-delay: $transition-duration + ms;
+        transform: translate(0, 0);
+      }
+    }
 
     &::before,
-    &::after
-      content: ''
+    &::after {
+      content: '';
+      position: absolute;
+      z-index: 0;
+      bottom: 0;
+      left: 0;
+      height: 3px;
+      width: 100%;
+      background-color: $accent;
+    }
 
-      position: absolute
-      bottom: 0
-      left: 0
+    &::before {
+      transform: translate(-101%, 0);
+    }
 
-      height: 3px
-      width: 100%
-      background-color: $accent
+    &::after {
+      @include tr(transform 0.4s $easeInSine);
 
-    &::before
-      transform: translate(-100%, 0)
-
-    &::after
-      +tr(transform .4s $easeInExpo)
-      transform: translate(100%, 0)
+      transform: translate(101%, 0);
+    }
+  }
+}
 </style>
