@@ -58,7 +58,7 @@ export default {
     display: inline-block;
     overflow: hidden;
 
-    @include hover-focus {
+    @include hover {
       &::before {
         @include tr(transform #{$transition-duration + ms} $easeInSine);
 

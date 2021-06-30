@@ -17,31 +17,36 @@ export default {
 }
 </script>
 
-<style lang="sass">
+<style lang="scss">
 #__nuxt,
-#__layout
-  height: 100%
+#__layout {
+  height: 100%;
+}
 
-.layout
-  $this: &
+.layout {
+  $this: &;
 
-  display: flex
-  flex-direction: column
-  min-height: 100%
+  display: flex;
+  flex-direction: column;
 
-  background-image: url('/img/dark-stone-texture.jpg')
-  background-position: 50% 50%
-  background-size: cover
-  background-color: $black
+  min-height: 100%;
+  
+  background-image: url("/img/dark-stone-texture.jpg");
+  background-position: 50% 50%;
+  background-size: cover;
+  background-color: $black;
 
-  &__header
-    position: fixed
-    top: 0
-    left: 0
-    right: 0
-    height: $header-height + px
+  &__header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: $header-height + px;
+  }
 
-  &__main
-    padding-top: $header-height + px
-    flex-grow: 1
+  &__main {
+    padding-top: $header-height + px;
+    flex-grow: 1;
+  }
+}
 </style>

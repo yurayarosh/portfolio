@@ -21,7 +21,7 @@ export default {
 
   // Global sass resources
   styleResources: {
-    sass: ['~/assets/styles/helpers/_all.scss'],
+    scss: ['~/assets/styles/helpers/_all.scss'],
   },
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
