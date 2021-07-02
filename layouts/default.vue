@@ -4,6 +4,7 @@
     <main class="main layout__main">
       <Nuxt />
     </main>
+    <v-footer class="layout__footer" />
   </div>
 </template>
 
