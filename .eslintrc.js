@@ -21,6 +21,8 @@ module.exports = {
     'vue/max-attributes-per-line': 0,
     'vue/singleline-html-element-content-newline': 0,
     'vue/multiline-html-element-content-newline': 0,
+    'vue/html-closing-bracket-newline': 0,
+    'vue/html-indent': 0,
     'curly': 0,
     'comma-dangle': ['error', 'always-multiline'],
     'arrow-parens': ['error', 'as-needed'],

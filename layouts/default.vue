@@ -1,5 +1,5 @@
 <template>
-  <div class="layout">
+  <div class="layout" :class="{ 'layout--has-menu-open': hasMenuOpen }">
     <v-header class="layout__header" />
     <main class="main layout__main">
       <Nuxt />
@@ -8,11 +8,32 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import setHTMLClassNames from '~/assets/scripts/setHTMLClassNames'
+import { preventScroll, allowScroll } from '~/assets/scripts/helpers'
 
 export default {
+  computed: {
+    ...mapGetters({
+      hasMenuOpen: 'menu/isOpen',
+    }),
+  },
+  watch: {
+    $route() {
+      this.closeModals()
+    },
+    hasMenuOpen(isOpen) {
+      isOpen ? preventScroll() : allowScroll()
+    },
+  },
   mounted() {
     setHTMLClassNames()
+  },
+  methods: {
+    closeModals() {
+      this.$store.commit('menu/close')
+      allowScroll()
+    },
   },
 }
 </script>
@@ -30,8 +51,8 @@ export default {
   flex-direction: column;
 
   min-height: 100%;
-  
-  background-image: url("/img/dark-stone-texture.jpg");
+
+  background-image: url('/img/dark-stone-texture.jpg');
   background-position: 50% 50%;
   background-size: cover;
   background-color: $black;
