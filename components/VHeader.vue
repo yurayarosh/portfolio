@@ -9,7 +9,7 @@
         </transition>
 
         <button
-          class="header__burger"
+          class="header__burger burger"
           type="button"
           aria-label="Toggle menu"
           @click="onBurgerClick"
@@ -42,3 +42,45 @@ export default {
   },
 }
 </script>
+
+<style lang="scss">
+.header {
+  &__inner {
+    display: flex;
+    align-items: center;
+
+    height: $header-height + px;
+  }
+
+  &__burger {
+    margin-left: auto;
+  }
+}
+
+.burger {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-end;
+
+  position: relative;
+
+  width: 50px;
+  height: 30px;
+
+  &::before,
+  &::after {
+    content: '';
+    display: block;
+
+    width: 100%;
+    height: 5px;
+
+    background-color: currentColor;
+  }
+
+  &::after {
+    width: 70%;
+  }
+}
+</style>

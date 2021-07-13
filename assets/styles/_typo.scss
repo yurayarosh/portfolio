@@ -9,10 +9,15 @@ h4,
 h5,
 h6 {
   font-size: inherit;
+  font-weight: inherit;
 }
 
 .title {
   @include f-title;
 
   line-height: 1;
+
+  &--h1 {
+    font-size: 140px;
+  }
 }

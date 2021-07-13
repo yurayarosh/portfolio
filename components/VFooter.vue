@@ -2,7 +2,7 @@
   <footer class="footer">
     <div class="container">
       <div class="footer__inner">
-        <p>Copyright &copy; {{ year }}</p>
+        <p>Yurii Yaroshenko &copy; {{ year }}</p>
       </div>
     </div>
   </footer>
@@ -18,3 +18,15 @@ export default {
   },
 }
 </script>
+
+<style lang="scss">
+.footer {
+  &__inner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    height: $footer-height + px;
+  }
+}
+</style>

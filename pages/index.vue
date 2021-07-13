@@ -2,10 +2,13 @@
   <section class="hero">
     <div class="container">
       <div class="hero__inner">
-        <div class="hero__text">
-          <h1 class="hero__title title title--h1">Lorem, ipsum.</h1>
+        <div class="hero__content">
+          <p class="hero__subttl title title--h1">Yurii Yaroshenko</p>
+          <h1 class="hero__title">Frontend developer.</h1>
 
-          <p class="hero__text">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ipsam, voluptatum!</p>
+          <p class="hero__text">
+            Hi, nice to see you here!
+          </p>
         </div>
 
         <div class="hero__img" />
@@ -28,7 +31,7 @@ export default {
     display: flex;
     align-items: center;
 
-    min-height: 100vh;
+    height: calc(100vh - #{$header-height + $footer-height + px});
   }
 
   &__text,
@@ -37,6 +40,8 @@ export default {
   }
 
   &__text {
+    font-size: 40px;
+
     padding-right: 15px;
   }
 
@@ -45,7 +50,14 @@ export default {
   }
 
   &__title {
+    font-size: 56px;
     margin-bottom: 40px;
+  }
+
+  &__subttl {
+    @include notlast {
+      margin-bottom: 30px;
+    }
   }
 }
 </style>
