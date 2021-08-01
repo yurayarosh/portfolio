@@ -2,14 +2,11 @@
   <header class="header">
     <div class="container">
       <div class="header__inner">
-        <transition :css="false" @enter="onMenuEnter" @leave="onMenuLeave">
-          <div v-if="hasMenuOpen" class="header__nav-wrap">
-            <v-nav class="header__nav" />
-          </div>
-        </transition>
+        <v-menu class="header__nav-wrap" />
 
         <button
           class="header__burger burger"
+          :class="{ 'burger--active': hasMenuOpen }"
           type="button"
           aria-label="Toggle menu"
           @click="onBurgerClick"
@@ -33,12 +30,6 @@ export default {
     onBurgerClick() {
       this.$store.commit('menu/toggle')
     },
-    onMenuEnter(el, done) {
-      done()
-    },
-    onMenuLeave(el, done) {
-      done()
-    },
   },
 }
 </script>
@@ -53,6 +44,8 @@ export default {
   }
 
   &__burger {
+    position: relative;
+    z-index: $z-index-modal + 1;
     margin-left: auto;
   }
 }
@@ -77,10 +70,23 @@ export default {
     height: 5px;
 
     background-color: currentColor;
+
+    @include tr(transform 0.5s, width 0.5s);
   }
 
   &::after {
     width: 70%;
+  }
+
+  &--active {
+    &::after {
+      width: 100%;
+      transform: rotate(45deg) translate(-8px, -7px);
+    }
+
+    &::before {
+      transform: rotate(-45deg) translate(-10px, 9px);
+    }
   }
 }
 </style>

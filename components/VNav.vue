@@ -1,7 +1,7 @@
 <template>
   <nav class="nav">
     <ul class="nav__list">
-      <li v-for="(item, i) in list" :key="i" class="nav__item">
+      <li v-for="(item, i) in navList" :key="i" class="nav__item">
         <nuxt-link
           :to="item.to || '/'"
           class="nav__link"
@@ -22,15 +22,23 @@ export default {
       type: Array,
       default: () => [
         {
+          title: 'home',
+        },
+        {
           title: 'about',
         },
         {
-          title: 'portfolio',
+          title: 'works',
         },
         {
           title: 'contact',
         },
       ],
+    },
+  },
+  computed: {
+    navList() {
+      return this.$route.name.includes('index') ? this.list.slice(1) : this.list
     },
   },
 }
@@ -39,16 +47,19 @@ export default {
 <style lang="scss">
 .nav {
   text-transform: uppercase;
+  font-size: 71px;
+  text-align: center;
 
-  &__list {
-    @extend %row;
+  // &__list {
+  //   // @extend %row;
 
-    justify-content: center;
-  }
+  //   // justify-content: center;
+  // }
 
   &__item {
-    margin-left: 10px;
-    margin-right: 10px;
+    // margin-left: 10px;
+    // margin-right: 10px;
+    opacity: 0;
   }
 
   &__link {

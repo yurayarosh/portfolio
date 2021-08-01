@@ -7,7 +7,7 @@
           <h1 class="hero__title">Frontend developer.</h1>
 
           <p class="hero__text">
-            Hi, nice to see you here!
+            Hi, nice to see you here! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perspiciatis, quia.
           </p>
         </div>
 

@@ -60,6 +60,7 @@ export default {
 
   &__header {
     position: fixed;
+    z-index: $z-index-controls;
     top: 0;
     left: 0;
     right: 0;
@@ -68,6 +69,18 @@ export default {
   &__main {
     padding-top: $header-height + px;
     flex-grow: 1;
+  }
+
+  &__main,
+  &__footer {
+    @include tr(opacity 0.5s);
+  }
+
+  &--has-menu-open {
+    #{$this}__main,
+    #{$this}__footer {
+      opacity: 0;
+    }
   }
 }
 </style>
