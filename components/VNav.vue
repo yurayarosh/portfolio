@@ -23,15 +23,19 @@ export default {
       default: () => [
         {
           title: 'home',
+          to: '/',
         },
         {
           title: 'about',
+          to: '/about',
         },
         {
           title: 'works',
+          to: '/works',
         },
         {
           title: 'contact',
+          to: '/contact',
         },
       ],
     },
