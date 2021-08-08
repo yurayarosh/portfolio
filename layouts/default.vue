@@ -1,5 +1,5 @@
 <template>
-  <div class="layout" :class="{ 'layout--has-menu-open': hasMenuOpen }">
+  <div class="layout">
     <v-header class="layout__header" />
     <main class="main layout__main">
       <Nuxt />

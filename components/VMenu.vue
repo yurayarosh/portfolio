@@ -22,8 +22,11 @@ export default {
       setTimeout(() => {
         const targets = el.querySelectorAll('.nav__item')
 
+        const layout = document.querySelector('.layout')
+        layout.classList.add('layout--has-menu-open')
+
         const tl = anime.timeline({
-          easing: 'easeOutExpo',
+          easing: 'easeInSine',
         })
 
         tl.add({
@@ -31,7 +34,7 @@ export default {
           opacity: [0, 1],
           translateX: ['-5em', '0em'],
           duration: 750,
-          delay: anime.stagger(300),
+          delay: anime.stagger(100),
         })
 
         tl.finished.then(done)
@@ -41,7 +44,7 @@ export default {
       const targets = el.querySelectorAll('.nav__item')
 
       const tl = anime.timeline({
-        easing: 'easeInExpo',
+        easing: 'easeOutSine',
       })
 
       tl.add(
@@ -50,12 +53,16 @@ export default {
           opacity: 0,
           translateX: '-3.5em',
           duration: 300,
-          delay: anime.stagger(100),
+          delay: anime.stagger(50),
         },
         0
       )
 
-      tl.finished.then(done)
+      tl.finished.then(() => {
+        const layout = document.querySelector('.layout')
+        layout.classList.remove('layout--has-menu-open')
+        done()
+      })
     },
   },
 }
