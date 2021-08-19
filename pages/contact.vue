@@ -4,7 +4,7 @@
       <div class="s-contacts__inner">
         <h1 class="section__title title title--h1">Contact me.</h1>
 
-        <form @submit.prevent="onSubmit">
+        <form class="s-contacts__form form" @submit.prevent="onSubmit">
           <div class="form__field">
             <v-input v-model="name" placeholder="Your name" />
           </div>
@@ -42,3 +42,24 @@ export default {
   },
 }
 </script>
+
+<style lang="scss">
+.s-contacts {
+
+  &__form {
+    max-width: 500px;
+  }
+}
+
+.form {
+  &__field {
+    @include notlast {
+      margin-bottom: 15px;
+    }
+
+    &:last-child {
+      margin-top: 30px;
+    }
+  }
+}
+</style>

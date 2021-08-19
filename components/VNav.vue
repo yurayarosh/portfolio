@@ -73,40 +73,62 @@ export default {
     display: inline-block;
     overflow: hidden;
 
-    @include hover {
-      &::before {
-        @include tr(transform #{$transition-duration + ms} $easeInSine);
-
-        transform: translate(0, 0);
-      }
-
-      &::after {
-        transition-delay: $transition-duration + ms;
-        transform: translate(0, 0);
-      }
-    }
-
-    &::before,
-    &::after {
+    &::before {
       content: '';
+
       position: absolute;
-      z-index: 0;
       bottom: 0;
       left: 0;
-      height: 3px;
-      width: 100%;
-      background-color: $accent;
-    }
+      right: 0;
 
-    &::before {
+      height: 3px;
+      background-color: $accent;
+
+      transition: transform 0.4s $easeInSine;
+
       transform: translate(-101%, 0);
     }
 
-    &::after {
-      @include tr(transform 0.4s $easeInSine);
-
-      transform: translate(101%, 0);
+    @include hover {
+      &::before {
+        transform: translate(0, 0);
+      }
     }
+
+    // @include hover {
+    //   &::before {
+    //     @include tr(transform #{$transition-duration + ms} $easeInSine);
+
+    //     transform: translate(0, 0);
+    //   }
+
+    //   &::after {
+    //     transition-delay: $transition-duration + ms;
+    //     transform: translate(0, 0);
+    //   }
+    // }
+
+    // &::before,
+    // &::after {
+    //   content: '';
+    //   position: absolute;
+    //   z-index: 0;
+    //   bottom: 0;
+    //   left: 0;
+    //   height: 3px;
+    //   width: 100%;
+    //   background-color: $accent;
+    // }
+
+    // &::before {
+    //   transform: translate(-101%, 0);
+    // }
+
+    // &::after {
+    //   @include tr(transform 0.4s $easeInSine);
+
+    //   transform: translate(101%, 0);
+    // }
   }
 }
 </style>

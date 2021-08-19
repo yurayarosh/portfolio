@@ -81,12 +81,13 @@ export default {
     height: 49px;
     background-color: transparent;
     border: 1px solid transparent;
+    border-bottom-color: rgba($c-text, 0.6);
     padding: 0.5em 0;
 
     @include tr(border-color 0.4s, color 0.4s);
 
     @include placeholder {
-      color: rgba($c-text, 0.7);
+      color: rgba($c-text, 0.6);
     }
 
     @include xs {
