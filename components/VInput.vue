@@ -13,6 +13,11 @@
       @blur="onBlur"
       >{{ type === 'textarea' ? value : '' }}</component
     >
+    <transition name="input__errors" duration="1000">
+      <div v-show="errorMessage && showErrors" class="input__errors">
+        {{ errorMessage }}
+      </div>
+    </transition>
   </div>
 </template>
 <script>
@@ -34,12 +39,19 @@ export default {
       type: String,
       default: '',
     },
+    errorMessage: {
+      type: String,
+      default: '',
+    },
+    showErrors: {
+      type: Boolean,
+      default: false,
+    },
   },
 
   data() {
     return {
       isFocus: false,
-      showErrors: false,
     }
   },
   computed: {
@@ -63,7 +75,6 @@ export default {
     onBlur(e) {
       this.$emit('blur', e)
       this.isFocus = false
-      this.showErrors = true
     },
   },
 }
@@ -71,9 +82,24 @@ export default {
 
 <style lang="scss">
 .input {
+  $this: &;
+
+  position: relative;
+
   &__label {
     display: block;
-    margin-bottom: 5px;
+
+    position: absolute;
+    pointer-events: none;
+
+    top: 14px;
+    left: 0;
+
+    transition: transform 0.35s $easeInSine, font-size 0.35s $easeInSine;
+  }
+
+  &__errors {
+    margin-top: 0.5em;
   }
 
   #{$text-inputs} {
@@ -102,6 +128,14 @@ export default {
 
   textarea {
     min-height: 100px;
+  }
+
+  &--focus,
+  &--has-text {
+    #{$this}__label {
+      transform: translate(0, -21px);
+      font-size: 0.8em;
+    }
   }
 
   &--error {
