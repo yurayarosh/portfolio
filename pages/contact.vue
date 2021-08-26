@@ -55,7 +55,7 @@ export default {
           const { required, minLength, maxLength, format, $error } = self.$v.name
           if (!required)
             return "You haven' t provided a name. Isn' t there some way you'd like me to address you?"
-          if (!minLength) return 'There are less than two characters.'
+          if (!minLength) return 'It should be more then two characters.'
           if (!maxLength) return 'I won’t remember such a long name.'
           if (!format) return 'Only letters, numbers, spaces and dashes are allowed.'
           if ($error) return 'The name contains errors.'
@@ -65,7 +65,7 @@ export default {
           const { required, minLength, $error } = self.$v.message
           if (!required)
             return "You haven' t provided any message or contact. I won' t be able to answer you."
-          if (!minLength) return 'There are less than two characters.'
+          if (!minLength) return 'It should be more then two characters.'
           if ($error) return 'The message contains errors.'
           return ''
         },
