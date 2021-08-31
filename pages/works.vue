@@ -35,7 +35,7 @@ export default {
         {
           productiontUrl: '#',
           image: {
-            src: '/img/works/works-1.jpg',
+            src: 'https://source.unsplash.com/Y7GUOQ83OMg/600x400',
             alt: '',
             title: '',
           },
@@ -47,3 +47,29 @@ export default {
   },
 }
 </script>
+
+<style lang="scss">
+.work-card {
+  color: $black;
+  position: relative;
+
+  &__img {
+    position: relative;
+    z-index: 0;
+    padding-top: 50%;
+    background-color: $light;
+
+    img {
+      @extend %coverdiv;
+      @extend %coverimage;
+    }
+  }
+
+  &__content {
+    position: absolute;
+    z-index: 1;
+    bottom: 0;
+    left: 0;
+  }
+}
+</style>
