@@ -1,4 +1,4 @@
-$base-fz: 15;
+$base-fz: 20;
 
 // $base-fz-xl:     14
 // $base-fz-sm:     14
@@ -23,10 +23,10 @@ $check-inputs: "[type='checkbox']", "[type='radio']";
 
 $black: #0f1012;
 $white: #fff;
-$accent: var(--accent, #ce1212);
-$danger: red;
+$accent: var(--accent, #f17f04);
+$danger: #ce1212;
 $light: #e9eee7;
-$c-text: $light;
+$c-text: $black;
 $c-link: blue;
 
 $z-index-controls: 10;

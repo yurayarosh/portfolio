@@ -49,7 +49,7 @@ export default {
   align-items: center;
   justify-content: center;
 
-  min-width: 220px;
+  min-width: 320px;
 
   padding: 0.95em 0.1em;
 
@@ -96,7 +96,7 @@ export default {
     width: 100%;
     height: 100%;
     fill: none;
-    stroke-width: 3;
+    stroke-width: 5;
 
     &--accent {
       stroke: $accent;

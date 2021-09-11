@@ -7,7 +7,21 @@ html {
   font-size: $base-fz + px;
   line-height: 1.4;
   color: $c-text;
+  background-color: $light;
   font-family: sans-serif;
+
+  &::before {
+    content: '';
+
+    @extend %coverdiv;
+    z-index: 0;
+
+    background-image: url('/img/texture-2-xl-tiny-png.png');
+    background-position: 50% 50%;
+    background-size: cover;    
+
+    opacity: 0.2;
+  }
 
   &.font_opensans {
     @include reg;
@@ -24,7 +38,7 @@ html {
 }
 
 body {
-  background-color: $white;
+  // background-color: $white;
   min-width: 320px;
 }
 

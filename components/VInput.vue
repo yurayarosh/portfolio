@@ -85,6 +85,7 @@ export default {
   $this: &;
 
   position: relative;
+  margin-bottom: 2.3em;
 
   &__label {
     display: block;
@@ -99,21 +100,39 @@ export default {
   }
 
   &__errors {
+    position: absolute;
+    left: 0;
+    top: 100%;
+
     margin-top: 0.5em;
+
+    color: $danger;
+    font-size: 0.7em;
+
+    transition: opacity 0.5s;
+
+    &-enter-active,
+    &-leave-active {
+      transition: opacity 0.5s;
+    }
+
+    &-enter,
+    &-leave-to {
+      opacity: 0;
+    }
   }
 
   #{$text-inputs} {
     width: 100%;
     height: 49px;
     background-color: transparent;
-    border: 1px solid transparent;
-    border-bottom-color: rgba($c-text, 0.6);
+    border-bottom: 3px solid lighten($c-text, 30%);
     padding: 0.5em 0;
 
     @include tr(border-color 0.4s, color 0.4s);
 
     @include placeholder {
-      color: rgba($c-text, 0.6);
+      color: lighten($c-text, 30%);
     }
 
     @include xs {
@@ -133,25 +152,8 @@ export default {
   &--focus,
   &--has-text {
     #{$this}__label {
-      transform: translate(0, -21px);
+      transform: translate(0, -30px);
       font-size: 0.8em;
-    }
-  }
-
-  &--error {
-    color: $danger;
-
-    #{$text-inputs} {
-      border-bottom-color: $danger;
-      color: $danger;
-
-      @include placeholder {
-        color: $danger;
-      }
-
-      &:focus {
-        color: $danger;
-      }
     }
   }
 }

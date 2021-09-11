@@ -50,9 +50,12 @@ export default {
 
 <style lang="scss">
 .nav {
-  text-transform: uppercase;
-  font-size: 71px;
+  @include f-title;
+  font-size: 120px;
+  font-weight: 700;
+
   text-align: center;
+  text-transform: uppercase;
 
   // &__list {
   //   // @extend %row;
@@ -61,17 +64,22 @@ export default {
   // }
 
   &__item {
-    // margin-left: 10px;
-    // margin-right: 10px;
-    opacity: 0;
+    @extend %flex-center;
+
+    overflow: hidden;
   }
 
   &__link {
     $transition-duration: 400;
 
+    display: block;
+    width: 100%;
+
     position: relative;
     display: inline-block;
     overflow: hidden;
+
+    transform: translate(-100%, 0);
 
     &::before {
       content: '';
@@ -81,7 +89,7 @@ export default {
       left: 0;
       right: 0;
 
-      height: 3px;
+      height: 0.1em;
       background-color: $accent;
 
       transition: transform 0.4s $easeInSine;

@@ -20,28 +20,27 @@ export default {
   methods: {
     onEnter(el, done) {
       setTimeout(() => {
-        const targets = el.querySelectorAll('.nav__item')
+        const targets = el.querySelectorAll('.nav__link')
 
         const layout = document.querySelector('.layout')
         layout.classList.add('layout--has-menu-open')
 
         const tl = anime.timeline({
-          easing: 'easeInSine',
+          easing: 'easeOutQuad',
         })
 
         tl.add({
           targets,
-          opacity: [0, 1],
-          translateX: ['-5em', '0em'],
+          translateY: ['100%', '0%'],
           duration: 750,
-          delay: anime.stagger(100),
+          delay: anime.stagger(150),
         })
 
         tl.finished.then(done)
       }, 66)
     },
     onLeave(el, done) {
-      const targets = el.querySelectorAll('.nav__item')
+      const targets = el.querySelectorAll('.nav__link')
 
       const tl = anime.timeline({
         easing: 'easeOutSine',
@@ -50,8 +49,7 @@ export default {
       tl.add(
         {
           targets,
-          opacity: 0,
-          translateX: '-3.5em',
+          translateY: '100%',
           duration: 300,
           delay: anime.stagger(50),
         },

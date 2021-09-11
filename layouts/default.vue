@@ -53,10 +53,15 @@ export default {
 
   min-height: 100%;
 
-  background-image: url('/img/dark-stone-texture.jpg');
-  background-position: 50% 50%;
-  background-size: cover;
-  background-color: $black;
+  position: relative;
+  z-index: 1;
+
+  // &__header,
+  // &__main,
+  // &__footer {
+  //   position: relative;
+  //   z-index: 1;
+  // }
 
   &__header {
     position: fixed;

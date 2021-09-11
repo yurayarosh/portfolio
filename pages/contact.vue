@@ -128,7 +128,7 @@ export default {
 .form {
   &__field {
     @include notlast {
-      margin-bottom: 15px;
+      margin-bottom: 60px;
     }
 
     &:last-child {
