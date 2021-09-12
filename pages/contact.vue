@@ -88,7 +88,7 @@ export default {
         setTimeout(() => {
           this.submitStatus = 'OK'
 
-          console.log('success', this.formData)
+          // console.log('success', this.formData)
         }, 500)
       }
     },
