@@ -19,5 +19,9 @@ h6 {
 
   &--h1 {
     font-size: 140px;
+
+    @include xxxl {
+      font-size: vw(140);
+    }
   }
 }

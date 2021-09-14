@@ -10,7 +10,7 @@
   >
     <span class="btn__title"><slot /></span>
     <svg class="btn__border">
-      <rect class="btn__border-rect btn__border-rect--text" />
+      <!-- <rect class="btn__border-rect btn__border-rect--text" /> -->
       <rect class="btn__border-rect btn__border-rect--accent" />
     </svg>
   </component>
@@ -54,31 +54,37 @@ export default {
   padding: 0.95em 0.1em;
 
   text-transform: uppercase;
+  color: $white;
 
   overflow: hidden;
   position: relative;
+
+  transition: color .75s;
 
   &::before {
     content: '';
 
     @extend %coverdiv;
     z-index: 0;
-    background-color: $accent;
+    background-color: $c-text;
 
-    transform: translate(-101%, 0);
-    transition: transform 0.35s $easeInSine;
+    // transform: translate(-101%, 0);
+    transition: transform 0.75s cubic-bezier(1,-0.39,.34,.91);
   }
 
   &:not(#{$this}--no-hover) {
     @include hover {
+      color: $c-text;
+
       #{$this}__border-rect--accent {
         stroke-dashoffset: 0;
-        transition-delay: 0s;
+        
+        transition-delay: 0.35s;
       }
 
       &::before {
-        transform: translate(0, 0);
-        transition-delay: 0.35s;
+        transform: translate(101%, 0);
+        transition-delay: 0s;
       }
     }
   }
@@ -99,12 +105,12 @@ export default {
     stroke-width: 5;
 
     &--accent {
-      stroke: $accent;
+      stroke: $c-text;
       stroke-dasharray: 800;
       stroke-dashoffset: 800;
 
       transition: stroke-dashoffset 0.5s $easeInSine;
-      transition-delay: 0.35s;
+      // transition-delay: 0.35s;
     }
 
     &--text {

@@ -68,35 +68,35 @@ export function toggleScroll(condition) {
   condition ? preventScroll() : allowScroll()
 }
 
-// export const sortList = (list, type = 'date', options = {}) => {
-//   if (type === 'date') {
-//     return list.sort((a, b) => new Date(b.published_at) - new Date(a.published_at))
-//   }
+export const sortList = (list, type = 'date', options = {}) => {
+  if (type === 'date') {
+    return list.sort((a, b) => new Date(b.published_at) - new Date(a.published_at))
+  }
 
-//   if (type === 'title') {
-//     const { title } = options
+  if (type === 'title') {
+    const { title } = options
 
-//     return list.sort((a, b) => {
-//       if (a[title] < b[title]) {
-//         return -1
-//       }
-//       if (a[title] > b[title]) {
-//         return 1
-//       }
-//       return 0
-//     })
-//   }
+    return list.sort((a, b) => {
+      if (a[title] < b[title]) {
+        return -1
+      }
+      if (a[title] > b[title]) {
+        return 1
+      }
+      return 0
+    })
+  }
 
-//   if (type === 'number') {
-//     const { title } = options
-//     return list.sort((a, b) => a[title] - b[title])
-//   }
+  if (type === 'number') {
+    const { title } = options
+    return list.sort((a, b) => a[title] - b[title])
+  }
 
-//   return list
-// }
+  return list
+}
 
-// export const chunkArray = (arr, size) =>
-//   arr.length > size ? [arr.slice(0, size), ...chunkArray(arr.slice(size), size)] : [arr]
+export const chunkArray = (arr, size) =>
+  arr.length > size ? [arr.slice(0, size), ...chunkArray(arr.slice(size), size)] : [arr]
 
 // export const getFormInputs = form => {
 //   if (!form) return {}

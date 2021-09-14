@@ -38,7 +38,6 @@ html {
 }
 
 body {
-  // background-color: $white;
   min-width: 320px;
 }
 
@@ -55,11 +54,17 @@ body {
 
 .container {
   width: 100%;
-  max-width: $base-container + $gap-container * 2 + px;
+  max-width: 90%;
+
   margin-left: auto;
   margin-right: auto;
+
   padding-left: $gap-container + px;
   padding-right: $gap-container + px;
+
+  @include xxxl {
+    max-width: $base-container + $gap-container * 2 + px;
+  }
 
   &--md {
     max-width: $base-container--md + $gap-container * 2 + px;

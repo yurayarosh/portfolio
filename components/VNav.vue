@@ -150,6 +150,10 @@ export default {
       width: 100%;
     }
 
+    // .char {
+    //   transform: translate(0, 101%);
+    // }
+
     &--hover {
       position: relative;
       color: transparent;
@@ -162,8 +166,6 @@ export default {
   }
 
   &__link {
-    $transition-duration: 400;
-
     display: block;
     overflow: hidden;
 

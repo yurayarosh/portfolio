@@ -43,6 +43,10 @@ export default {
     font-size: 40px;
 
     padding-right: 15px;
+
+    @include xxxl {
+      font-size: vw(40);
+    }
   }
 
   &__img {
@@ -52,6 +56,10 @@ export default {
   &__title {
     font-size: 56px;
     margin-bottom: 40px;
+
+    @include xxxl {
+      font-size: vw(56);
+    }
   }
 
   &__subttl {
