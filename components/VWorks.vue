@@ -36,6 +36,7 @@ export default {
     return {
       lastScroll: 0,
       TRANSLATE_INDEX: 0,
+      hasReachEnd: false,
     }
   },
   mounted() {
@@ -51,26 +52,37 @@ export default {
   methods: {
     transformCards() {
       this.cards.forEach((card, i) => {
-        // const index = this.TRANSLATE_INDEX + (i * 10)
-        const delay = (i * 400)
+        const index = i % 2 === 0 ? -1 : 1
+        const delay = i * 400
         const translate = this.lastScroll * 50 - delay
+        let translateX = translate * index
+        const translateY = translate * index
+        const translateZ = translate
 
-        const opacity = Math.abs(translate) < 1000 ? this.lastScroll / 2 / (i + 1) : 0
+        if (i % 3 === 0) translateX = -translateX
 
-        console.log({ translate, opacity })
+        const opacity = Math.abs(translate) < 1000 ? 1 : 0
 
-        card.style.transform = `translate3d(0, ${translate}px, ${translate}px)`
+        card.style.transform = `translate3d(${translateX}px, ${translateY}px, ${translateZ}px)`
         card.style.opacity = opacity
+
+        if (i === this.cards.length - 1 && translateZ > 100) {
+          this.hasReachEnd = true
+        } else {
+          this.hasReachEnd = false
+        }
       })
     },
     onWheel(e) {
       const { deltaY } = e
       const direction = deltaY > 0 ? 1 : -1
 
-      // if (this.lastScroll >= this.TRANSLATE_INDEX / 100) {
-      //   // this.lastScroll = 0
-      //   return
-      // }
+      if (this.lastScroll < 0) {
+        this.lastScroll = 0
+        return
+      }
+
+      if (direction > 0 && this.hasReachEnd) return
 
       this.lastScroll += direction
 
@@ -82,11 +94,7 @@ export default {
 
 <style lang="scss">
 .works-list {
-  // @extend %row;
-  // justify-content: space-between;
-
   position: relative;
-  // overflow: hidden;
   width: 100%;
   flex-grow: 1;
 
@@ -98,13 +106,16 @@ export default {
     margin-bottom: 100px;
 
     position: absolute;
-    top: 10%;
-    left: 10%;
+    top: 30%;
+    left: 30%;
 
-    // transform: translate3d(0, 0, -2000px);
-    transition: transform 0.4s linear, opacity .4s linear;
+    transition: transform 0.4s linear, opacity 0.4s linear;
 
-    // @extend %hidden;
+    @for $i from 1 through 6 {
+      &--#{$i} {
+        z-index: #{6 - $i};
+      }
+    }
 
     // &--1 {
     //   max-width: 50%;
