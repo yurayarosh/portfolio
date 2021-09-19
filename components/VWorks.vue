@@ -35,6 +35,8 @@ export default {
   data() {
     return {
       lastScroll: 0,
+      touchstart: 0,
+      touchend: 0,
       TRANSLATE_INDEX: 0,
       hasReachEnd: false,
     }
@@ -43,11 +45,16 @@ export default {
     this.cards = [...this.$el.querySelectorAll('.works-list__item')]
 
     this.$el.addEventListener('wheel', this.onWheel)
+    this.$el.addEventListener('touchstart', this.onTouchStart)
+    this.$el.addEventListener('touchend', this.onTouchEnd)
+    this.$el.addEventListener('touchmove', this.onTouchMove)
 
     this.transformCards()
   },
   beforeDestroy() {
     this.$el.removeEventListener('wheel', this.onWheel)
+    this.$el.removeEventListener('touchstart', this.onTouchStart)
+    this.$el.removeEventListener('touchend', this.onTouchEnd)
   },
   methods: {
     transformCards() {
@@ -72,6 +79,26 @@ export default {
           this.hasReachEnd = false
         }
       })
+    },
+    onTouchMove(e) {
+      // console.log('move', e)
+      this.touchend = e.changedTouches[0].clientY
+      if (this.touchstart > this.touchend + 5) {
+        console.log('scroll down')
+      } else if (this.touchstart < this.touchend - 5) {
+        console.log('scroll up')
+      }
+    },
+    onTouchStart(e) {
+      this.touchstart = e.touches[0].clientY
+    },
+    onTouchEnd(e) {
+      // this.touchend = e.changedTouches[0].clientY
+      // if (this.touchstart > this.touchend + 5) {
+      //   console.log('scroll down')
+      // } else if (this.touchstart < this.touchend - 5) {
+      //   console.log('scroll up')
+      // }
     },
     onWheel(e) {
       const { deltaY } = e
