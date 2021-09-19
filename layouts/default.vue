@@ -56,6 +56,8 @@ export default {
   position: relative;
   z-index: 1;
 
+  overflow: hidden;
+
   // &__header,
   // &__main,
   // &__footer {
@@ -74,6 +76,11 @@ export default {
   &__main {
     padding-top: $header-height + px;
     flex-grow: 1;
+  }
+
+  &__footer {
+    position: relative;
+    z-index: $z-index-controls;
   }
 
   &__main,
