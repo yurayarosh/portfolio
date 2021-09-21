@@ -106,11 +106,6 @@ export default {
     },
 
     onMoveUp() {
-      if (this.lastScroll < 0) {
-        this.lastScroll = 0
-        return
-      }
-
       if (this.hasReachEnd) return
 
       this.lastScroll += 1
