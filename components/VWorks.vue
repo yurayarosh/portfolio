@@ -24,6 +24,9 @@
 </template>
 
 <script>
+import Swipe from 'swipelistener-js/build'
+import { isTouch } from '@/assets/scripts/helpers'
+
 export default {
   name: 'VWorks',
   props: {
@@ -44,24 +47,34 @@ export default {
   mounted() {
     this.cards = [...this.$el.querySelectorAll('.works-list__item')]
 
-    this.$el.addEventListener('wheel', this.onWheel)
-    this.$el.addEventListener('touchstart', this.onTouchStart)
-    this.$el.addEventListener('touchend', this.onTouchEnd)
-    this.$el.addEventListener('touchmove', this.onTouchMove)
+    if (isTouch) {
+      this.swipe = new Swipe(this.$el, {
+        moveCallbacks: true,
+      })
+      this.swipe.init()
+
+      this.swipe.on('movedown', this.onMoveDown).on('moveup', this.onMoveUp)
+    } else {
+      this.$el.addEventListener('wheel', this.onWheel)
+    }
 
     this.transformCards()
   },
   beforeDestroy() {
-    this.$el.removeEventListener('wheel', this.onWheel)
-    this.$el.removeEventListener('touchstart', this.onTouchStart)
-    this.$el.removeEventListener('touchend', this.onTouchEnd)
+    if (isTouch) {
+      this.swipe.destroy()
+    } else {
+      this.$el.removeEventListener('wheel', this.onWheel)
+    }
   },
   methods: {
     transformCards() {
+      const SPEED_INDEX = isTouch ? 10 : 50
+
       this.cards.forEach((card, i) => {
         const index = i % 2 === 0 ? -1 : 1
         const delay = i * 400
-        const translate = this.lastScroll * 50 - delay
+        const translate = this.lastScroll * SPEED_INDEX - delay
         let translateX = translate * index
         const translateY = translate * index
         const translateZ = translate
@@ -80,26 +93,31 @@ export default {
         }
       })
     },
-    onTouchMove(e) {
-      // console.log('move', e)
-      this.touchend = e.changedTouches[0].clientY
-      if (this.touchstart > this.touchend + 5) {
-        console.log('scroll down')
-      } else if (this.touchstart < this.touchend - 5) {
-        console.log('scroll up')
+
+    onMoveDown() {
+      if (this.lastScroll < 0) {
+        this.lastScroll = 0
+        return
       }
+
+      this.lastScroll -= 1
+
+      this.transformCards()
     },
-    onTouchStart(e) {
-      this.touchstart = e.touches[0].clientY
+
+    onMoveUp() {
+      if (this.lastScroll < 0) {
+        this.lastScroll = 0
+        return
+      }
+
+      if (this.hasReachEnd) return
+
+      this.lastScroll += 1
+
+      this.transformCards()
     },
-    onTouchEnd(e) {
-      // this.touchend = e.changedTouches[0].clientY
-      // if (this.touchstart > this.touchend + 5) {
-      //   console.log('scroll down')
-      // } else if (this.touchstart < this.touchend - 5) {
-      //   console.log('scroll up')
-      // }
-    },
+
     onWheel(e) {
       const { deltaY } = e
       const direction = deltaY > 0 ? 1 : -1
@@ -136,44 +154,17 @@ export default {
     top: 30%;
     left: 30%;
 
-    transition: transform 0.4s linear, opacity 0.4s linear;
+    transition: opacity 0.4s $easeInSine;
+
+    .no-touch & {
+      transition: transform 0.4s linear, opacity 0.4s $easeInSine;
+    }
 
     @for $i from 1 through 6 {
       &--#{$i} {
         z-index: #{6 - $i};
       }
     }
-
-    // &--1 {
-    //   max-width: 50%;
-
-    //   @extend %visible;
-    // }
-
-    // &--2 {
-    //   // margin-top: 50px;
-    // }
-
-    // &--3 {
-    //   // margin-left: 5%;
-    // }
-
-    // &--4 {
-    //   max-width: 45%;
-    //   // margin-top: -100px;
-    //   // margin-right: 3%;
-    // }
-
-    // &--5 {
-    //   // margin-top: 100px;
-    //   // margin-left: 2%;
-    //   max-width: 43%;
-    // }
-
-    // &--6 {
-    //   // margin-right: 1%;
-    //   max-width: 50%;
-    // }
   }
 }
 

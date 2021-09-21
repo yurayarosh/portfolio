@@ -71,7 +71,7 @@ export default {
 
     background-color: currentColor;
 
-    @include tr(transform 0.5s, width 0.5s);
+    transition: transform 0.5s, width 0.5s;
   }
 
   &::after {

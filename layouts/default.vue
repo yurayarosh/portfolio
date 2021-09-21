@@ -85,7 +85,7 @@ export default {
 
   &__main,
   &__footer {
-    @include tr(opacity 0.5s);
+    transition: opacity 0.5s;
   }
 
   &--has-menu-open {

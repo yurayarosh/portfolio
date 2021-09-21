@@ -129,7 +129,7 @@ export default {
     border-bottom: 3px solid lighten($c-text, 30%);
     padding: 0.5em 0;
 
-    @include tr(border-color 0.4s, color 0.4s);
+    transition: border-color 0.4s, color 0.4s;
 
     @include placeholder {
       color: lighten($c-text, 30%);

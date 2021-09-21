@@ -2,7 +2,7 @@
   <section class="s-works">
     <div class="container">
       <div class="s-works__inner">
-        <h1 class="section__title title title--h1">Works</h1>
+        <h1 class="s-works__title section__title title title--h1">Works</h1>
 
         <v-works :list="worksList" />
       </div>
@@ -190,6 +190,11 @@ export default {
 
 <style lang="scss">
 .s-works {
+  &__title {
+    position: relative;
+    z-index: 1;
+  }
+
   &__inner {
     display: flex;
     flex-direction: column;

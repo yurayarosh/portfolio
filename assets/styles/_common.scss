@@ -77,7 +77,7 @@ body {
 
 .close {
   @include icon-close(2em, 0.1em, currentColor);
-  @include tr(color 0.4s);
+  transition: color 0.4s;
 
   outline: 0;
 

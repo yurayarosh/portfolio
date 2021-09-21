@@ -1,49 +1,26 @@
-@mixin has-open-subnav {
-  .has-open-subnav & {
-    @content;
-  }
-}
-
-@mixin letter-spacing {
-  letter-spacing: 0.1em;
-}
-
 // width
 @mixin r($width) {
-  @media (max-width: $width + "px") {
+  @media (max-width: $width + 'px') {
     @content;
   }
 }
 
 @mixin rmin($width) {
-  @media (min-width: $width + "px") {
+  @media (min-width: $width + 'px') {
     @content;
   }
 }
 
 // height
 @mixin rh($height) {
-  @media (max-height: $height + "px") {
+  @media (max-height: $height + 'px') {
     @content;
   }
 }
 
 @mixin rhmin($height) {
-  @media (min-height: $height + "px") {
+  @media (min-height: $height + 'px') {
     @content;
-  }
-}
-
-@mixin css-lock($min-size: 1, $max-size: 1.4, $min-width: 20, $max-width: 100, $property: font-size, $unit: px) {
-  #{$property}: #{$max-size}#{$unit};
-  #{$property}: calc(#{$min-size}#{$unit} + (#{$max-size} - #{$min-size}) * ((100vw - #{$min-width}#{$unit}) / (#{$max-width} - #{$min-width})));
-
-  @media (max-width: #{$min-width}#{$unit}) {
-    #{$property}: #{$min-size}#{$unit};
-  }
-
-  @media (min-width: #{$max-width}#{$unit}) {
-    #{$property}: #{$max-size}#{$unit};
   }
 }
 
@@ -130,7 +107,8 @@
 @mixin font($alias, $name, $font-weight: 400, $font-style: normal) {
   @font-face {
     font-family: $alias;
-    src: url("../fonts/" + $name + ".woff2") format("woff2"), url("../fonts/" + $name + ".woff") format("woff");
+    src: url('../fonts/'+$name+'.woff2') format('woff2'),
+      url('../fonts/'+$name+'.woff') format('woff');
     font-weight: $font-weight;
     font-style: $font-style;
     font-display: swap;
@@ -151,7 +129,7 @@
   font-size: 0;
 
   &:before {
-    content: "";
+    content: '';
     display: inline-block;
     vertical-align: middle;
     width: 0;
@@ -161,7 +139,7 @@
 
 @mixin clr {
   &:after {
-    content: " ";
+    content: ' ';
     display: table;
     clear: both;
   }
@@ -228,18 +206,6 @@
 // +arr(500,50, #000, l)
 // +arr(500,50, #000, bl)
 
-@mixin rotate($var) {
-  transform: rotate($var + deg);
-}
-
-@mixin scale($var) {
-  transform: scale($var);
-}
-
-@mixin tr($what...) {
-  transition: $what;
-}
-
 //icon close
 @mixin icon-close($size, $line-width, $color) {
   position: relative;
@@ -250,7 +216,7 @@
   &::before,
   &::after {
     position: absolute;
-    content: "";
+    content: '';
     width: $line-width;
     height: 100%;
     background-color: $color;
@@ -282,26 +248,6 @@
 // example
 // +icon-arrow(20, 20, 2, #000, 45)
 
-@mixin image($image) {
-  background-image: url("../img/#{$image}");
-}
-
-@mixin before {
-  &::before {
-    content: "";
-
-    @content;
-  }
-}
-
-@mixin after {
-  &::after {
-    content: "";
-
-    @content;
-  }
-}
-
 @mixin notlast {
   &:not(:last-child) {
     @content;
@@ -326,7 +272,7 @@
 
 @mixin list-bullet {
   &::before {
-    content: "•";
+    content: '•';
     display: inline-block;
   }
 }
@@ -345,8 +291,4 @@
 @mixin windowHeight($offset: 0px) {
   height: calc(100vh - #{$offset});
   height: calc((var(--vh, 1vh) * 100) - #{$offset});
-}
-
-@function vw($size, $context: $base-desktop) {
-  @return $size / $context * 100vw;
 }
