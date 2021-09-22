@@ -40,6 +40,7 @@ export default {
       lastScroll: 0,
       touchstart: 0,
       touchend: 0,
+      direction: 0,
       TRANSLATE_INDEX: 0,
       hasReachEnd: false,
     }
@@ -69,6 +70,15 @@ export default {
   },
   methods: {
     transformCards() {
+      if (this.lastScroll < 0) {
+        this.lastScroll = 0
+        return
+      }
+
+      if (this.direction > 0 && this.hasReachEnd) return
+
+      this.lastScroll += this.direction
+
       const SPEED_INDEX = isTouch ? 10 : 50
 
       this.cards.forEach((card, i) => {
@@ -95,36 +105,28 @@ export default {
     },
 
     onMoveDown() {
-      if (this.lastScroll < 0) {
-        this.lastScroll = 0
-        return
-      }
+      const { touchMove: e } = this.swipe.swipeEvent
+      e.preventDefault()
 
-      this.lastScroll -= 1
+      this.direction = -1
 
       this.transformCards()
     },
 
     onMoveUp() {
-      if (this.hasReachEnd) return
+      const { touchMove: e } = this.swipe.swipeEvent
+      e.preventDefault()
 
-      this.lastScroll += 1
+      this.direction = 1
 
       this.transformCards()
     },
 
     onWheel(e) {
+      e.preventDefault()
+
       const { deltaY } = e
-      const direction = deltaY > 0 ? 1 : -1
-
-      if (this.lastScroll < 0) {
-        this.lastScroll = 0
-        return
-      }
-
-      if (direction > 0 && this.hasReachEnd) return
-
-      this.lastScroll += direction
+      this.direction = deltaY > 0 ? 1 : -1
 
       this.transformCards()
     },
