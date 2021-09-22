@@ -6,7 +6,7 @@
     :href="href"
     :disabled="disabled"
     v-bind="$attrs"
-    @click="onCLick"
+    @click="onClick"
   >
     <span class="btn__title"><slot /></span>
     <svg class="btn__border">
@@ -34,7 +34,7 @@ export default {
     },
   },
   methods: {
-    onCLick(e) {
+    onClick(e) {
       this.$emit('click', e)
     },
   },
