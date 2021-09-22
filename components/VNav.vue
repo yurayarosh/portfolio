@@ -150,10 +150,6 @@ export default {
       width: 100%;
     }
 
-    // .char {
-    //   transform: translate(0, 101%);
-    // }
-
     &--hover {
       position: relative;
       color: transparent;
@@ -166,16 +162,14 @@ export default {
   }
 
   &__link {
-    display: block;
+    display: inline-block;
+    position: relative;
     overflow: hidden;
 
-    position: relative;
-    display: inline-block;
-    overflow: hidden;
+    padding-left: 0.05em;
+    padding-right: 0.05em;
 
     transform: translate(0, 100%);
-
-    position: relative;
   }
 }
 </style>

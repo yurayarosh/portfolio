@@ -10,6 +10,8 @@ html {
   background-color: $light;
   font-family: sans-serif;
 
+  @include reg;
+
   &::before {
     content: '';
 
@@ -23,9 +25,9 @@ html {
     opacity: 0.2;
   }
 
-  &.font_opensans {
-    @include reg;
-  }
+  // &.font_opensans {
+  //   @include reg;
+  // }
 
   &.has-custom-cursor {
     cursor: none;
@@ -42,7 +44,7 @@ body {
 }
 
 * {
-  outline-color: $accent;
+  outline-color: $black;
 }
 
 .icon,
