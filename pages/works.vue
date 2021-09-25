@@ -190,6 +190,8 @@ export default {
 
 <style lang="scss">
 .s-works {
+  // overflow: hidden;
+
   &__title {
     position: relative;
     z-index: 1;

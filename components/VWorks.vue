@@ -1,6 +1,6 @@
 <template>
-  <ul class="works-list">
-    <li
+  <div class="works-list">
+    <div
       v-for="(item, i) in list"
       :key="i"
       :class="`works-list__item works-list__item--${item.index}`"
@@ -19,11 +19,13 @@
           <span class="work-card__title">{{ item.title }}</span>
         </span>
       </a>
-    </li>
-  </ul>
+    </div>
+  </div>
 </template>
 
 <script>
+import Scrollbar from 'smooth-scrollbar'
+
 export default {
   name: 'VWorks',
   props: {
@@ -33,11 +35,38 @@ export default {
     },
   },
   data() {
-    return {}
+    return {
+      scrollTarget: 0,
+      SCROLL_DURATION: 1000,
+    }
   },
-  mounted() {},
-  beforeDestroy() {},
-  methods: {},
+  mounted() {
+    this.scrollbar = Scrollbar.init(this.$el)
+
+    window.addEventListener('wheel', this.onWheel, { passive: false })
+  },
+  beforeDestroy() {
+    this.scrollbar.destroy()
+    window.removeEventListener('wheel', this.onWheel, { passive: false })
+  },
+  methods: {
+    onWheel(e) {
+      e.preventDefault()
+      const { deltaY } = e
+      const dir = deltaY > 0 ? 1 : -1
+      const width = this.scrollbar.contentEl.scrollWidth - this.$el.offsetWidth
+
+      this.scrollTarget += dir * (e.clientY / 10) * 4
+
+      if (this.scrollTarget < 0) {
+        this.scrollTarget = 0
+      } else if (this.scrollTarget > width) {
+        this.scrollTarget = width
+      }
+
+      this.scrollbar.scrollTo(this.scrollTarget, 0, this.SCROLL_DURATION)
+    },
+  },
 }
 </script>
 
@@ -47,9 +76,13 @@ export default {
 
   flex-grow: 1;
 
-  overflow: auto;
-  white-space: nowrap;
-  font-size: 0;
+  // overflow: auto;
+
+  .scroll-content {
+    white-space: nowrap;
+    height: 100%;
+    font-size: 0;
+  }
 
   &__item {
     display: inline-block;
@@ -59,8 +92,12 @@ export default {
     height: 50%;
     width: 35vw;
 
-    &:not(:first-child) {
-      margin-left: -4%;
+    // &:not(:first-child) {
+    //   margin-left: -4%;
+    // }
+
+    &:not(:last-child) {
+      margin-right: 4%;
     }
 
     &:nth-child(6n + 2),
