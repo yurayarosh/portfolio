@@ -24,9 +24,6 @@
 </template>
 
 <script>
-import Swipe from 'swipelistener-js/build'
-import { isTouch } from '@/assets/scripts/helpers'
-
 export default {
   name: 'VWorks',
   props: {
@@ -36,131 +33,51 @@ export default {
     },
   },
   data() {
-    return {
-      lastScroll: 0,
-      touchstart: 0,
-      touchend: 0,
-      direction: 0,
-      TRANSLATE_INDEX: 0,
-      hasReachEnd: false,
-    }
+    return {}
   },
-  mounted() {
-    this.cards = [...this.$el.querySelectorAll('.works-list__item')]
-
-    if (isTouch) {
-      this.swipe = new Swipe(this.$el, {
-        moveCallbacks: true,
-      })
-      this.swipe.init()
-
-      this.swipe.on('movedown', this.onMoveDown).on('moveup', this.onMoveUp)
-    } else {
-      this.$el.addEventListener('wheel', this.onWheel)
-    }
-
-    this.transformCards()
-  },
-  beforeDestroy() {
-    if (isTouch) {
-      this.swipe.destroy()
-    } else {
-      this.$el.removeEventListener('wheel', this.onWheel)
-    }
-  },
-  methods: {
-    transformCards() {
-      if (this.lastScroll < 0) {
-        this.lastScroll = 0
-        return
-      }
-
-      if (this.direction > 0 && this.hasReachEnd) return
-
-      this.lastScroll += this.direction
-
-      const SPEED_INDEX = isTouch ? 10 : 50
-
-      this.cards.forEach((card, i) => {
-        const index = i % 2 === 0 ? -1 : 1
-        const delay = i * 400
-        const translate = this.lastScroll * SPEED_INDEX - delay
-        let translateX = translate * index
-        const translateY = translate * index
-        const translateZ = translate
-
-        if (i % 3 === 0) translateX = -translateX
-
-        const opacity = Math.abs(translate) < 1000 ? 1 : 0
-
-        card.style.transform = `translate3d(${translateX}px, ${translateY}px, ${translateZ}px)`
-        card.style.opacity = opacity
-
-        if (i === this.cards.length - 1 && translateZ > 100) {
-          this.hasReachEnd = true
-        } else {
-          this.hasReachEnd = false
-        }
-      })
-    },
-
-    onMoveDown() {
-      const { touchMove: e } = this.swipe.swipeEvent
-      e.preventDefault()
-
-      this.direction = -1
-
-      this.transformCards()
-    },
-
-    onMoveUp() {
-      const { touchMove: e } = this.swipe.swipeEvent
-      e.preventDefault()
-
-      this.direction = 1
-
-      this.transformCards()
-    },
-
-    onWheel(e) {
-      e.preventDefault()
-
-      const { deltaY } = e
-      this.direction = deltaY > 0 ? 1 : -1
-
-      this.transformCards()
-    },
-  },
+  mounted() {},
+  beforeDestroy() {},
+  methods: {},
 }
 </script>
 
 <style lang="scss">
 .works-list {
   position: relative;
-  width: 100%;
+
   flex-grow: 1;
 
-  perspective: 1000px;
+  overflow: auto;
+  white-space: nowrap;
+  font-size: 0;
 
   &__item {
-    width: 100%;
-    max-width: 30%;
-    margin-bottom: 100px;
+    display: inline-block;
+    vertical-align: top;
+    font-size: 1rem;
 
-    position: absolute;
-    top: 30%;
-    left: 30%;
+    height: 50%;
+    width: 35vw;
 
-    transition: opacity 0.4s $easeInSine;
-
-    .no-touch & {
-      transition: transform 0.4s linear, opacity 0.4s $easeInSine;
+    &:not(:first-child) {
+      margin-left: -4%;
     }
 
-    @for $i from 1 through 6 {
-      &--#{$i} {
-        z-index: #{6 - $i};
-      }
+    &:nth-child(6n + 2),
+    &:nth-child(6n + 6) {
+      margin-top: 20%;
+    }
+
+    &:nth-child(6n + 3) {
+      margin-top: 10%;
+    }
+
+    &:nth-child(6n + 4) {
+      margin-top: 17%;
+    }
+
+    &:nth-child(6n + 5) {
+      margin-top: 4%;
     }
   }
 }
@@ -174,11 +91,17 @@ export default {
 
   text-align: center;
 
+  height: 100%;
+  width: 100%;
+
   &__img {
     position: relative;
     z-index: 0;
-    padding-top: 100%;
+    // padding-top: 66%;
     background-color: $light;
+
+    width: 100%;
+    height: 100%;
 
     img {
       @extend %coverdiv;
