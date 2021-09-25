@@ -13,6 +13,10 @@ export const {
   HAS_FOCUS,
   HAS_TEXT,
   HAS_LABEL,
+  DOWN,
+  UP,
+  LEFT,
+  RIGHT,
   DELAYS,
   SUBMIT_STATUSES,
 } = {
@@ -30,6 +34,10 @@ export const {
   HAS_FOCUS: 'focus',
   HAS_TEXT: 'has-text',
   HAS_LABEL: 'has-label',
+  DOWN: 'down',
+  UP: 'up',
+  LEFT: 'left',
+  RIGHT: 'right',
   DELAYS: {
     min: 66,
     short: 100,

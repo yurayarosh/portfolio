@@ -1,9 +1,11 @@
 <template>
   <section class="s-works">
-    <div class="container">
-      <div class="s-works__inner">
+    <div class="s-works__inner">
+      <div class="container">
         <h1 class="s-works__title section__title title title--h1">Works</h1>
+      </div>
 
+      <div class="s-works__body">
         <v-works :list="worksList" />
       </div>
     </div>
@@ -195,6 +197,12 @@ export default {
   &__title {
     position: relative;
     z-index: 1;
+
+    margin-bottom: 100px;
+
+    @include xxxl {
+      margin-bottom: vw(100);
+    }
   }
 
   &__inner {
@@ -202,6 +210,16 @@ export default {
     flex-direction: column;
 
     height: calc(100vh - #{$header-height + $footer-height + px});
+  }
+
+  &__body {
+    padding-left: var(--container-offset);
+
+    flex-grow: 1;
+
+    .works-list {
+      height: 100%;
+    }
   }
 }
 </style>

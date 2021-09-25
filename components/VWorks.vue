@@ -25,6 +25,7 @@
 
 <script>
 import Scrollbar from 'smooth-scrollbar'
+import { LEFT, RIGHT } from '@/assets/scripts/constants'
 
 export default {
   name: 'VWorks',
@@ -36,6 +37,9 @@ export default {
   },
   data() {
     return {
+      lastScroll: 0,
+      isScrolling: false,
+      direction: '',
       scrollTarget: 0,
       SCROLL_DURATION: 1000,
     }
@@ -52,11 +56,22 @@ export default {
   methods: {
     onWheel(e) {
       e.preventDefault()
+
+      clearTimeout(this.timeout)
+
+      this.timeout = setTimeout(() => {
+        // do something
+        this.lastScroll += 1
+        this.$el.setAttribute('data-scroll-direction', '')
+      }, 500)
+
       const { deltaY } = e
-      const dir = deltaY > 0 ? 1 : -1
+      this.direction = deltaY > 0 ? RIGHT : LEFT
       const width = this.scrollbar.contentEl.scrollWidth - this.$el.offsetWidth
 
-      this.scrollTarget += dir * (e.clientY / 10) * 4
+      const index = this.direction === RIGHT ? 1 : -1
+
+      this.scrollTarget += index * (e.clientY / 10) * 4
 
       if (this.scrollTarget < 0) {
         this.scrollTarget = 0
@@ -65,6 +80,8 @@ export default {
       }
 
       this.scrollbar.scrollTo(this.scrollTarget, 0, this.SCROLL_DURATION)
+
+      this.$el.setAttribute('data-scroll-direction', this.direction)
     },
   },
 }
@@ -74,14 +91,15 @@ export default {
 .works-list {
   position: relative;
 
-  flex-grow: 1;
-
-  // overflow: auto;
-
   .scroll-content {
+    display: block;
     white-space: nowrap;
     height: 100%;
     font-size: 0;
+  }
+
+  .scrollbar-track {
+    display: none !important;
   }
 
   &__item {
@@ -92,12 +110,12 @@ export default {
     height: 50%;
     width: 35vw;
 
-    // &:not(:first-child) {
-    //   margin-left: -4%;
-    // }
-
     &:not(:last-child) {
       margin-right: 4%;
+    }
+
+    &:last-child {
+      margin-right: $gap-container + px;
     }
 
     &:nth-child(6n + 2),

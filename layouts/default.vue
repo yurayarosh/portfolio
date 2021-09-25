@@ -9,9 +9,12 @@
 </template>
 
 <script>
+import { debounce } from 'throttle-debounce'
 import { mapGetters } from 'vuex'
 import setHTMLClassNames from '~/assets/scripts/setHTMLClassNames'
+import setSideOffsets from '~/assets/scripts/setSideOffsets'
 import { preventScroll, allowScroll } from '~/assets/scripts/helpers'
+import { DELAYS } from '~/assets/scripts/constants'
 
 export default {
   computed: {
@@ -29,8 +32,17 @@ export default {
   },
   mounted() {
     setHTMLClassNames()
+    setSideOffsets()
+
+    window.addEventListener('resize', this.onResize)
+  },
+  beforeDestroy() {
+    window.removeEventListener('resize', this.onResize)
   },
   methods: {
+    onResize() {
+      debounce(DELAYS.long, setSideOffsets())
+    },
     closeModals() {
       this.$store.commit('menu/close')
       allowScroll()
@@ -57,13 +69,6 @@ export default {
   z-index: 1;
 
   overflow: hidden;
-
-  // &__header,
-  // &__main,
-  // &__footer {
-  //   position: relative;
-  //   z-index: 1;
-  // }
 
   &__header {
     position: fixed;
