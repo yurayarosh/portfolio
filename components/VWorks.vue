@@ -26,6 +26,7 @@
 <script>
 import Scrollbar from 'smooth-scrollbar'
 import { LEFT, RIGHT } from '@/assets/scripts/constants'
+import { isTouch } from '@/assets/scripts/helpers'
 
 export default {
   name: 'VWorks',
@@ -38,6 +39,7 @@ export default {
   data() {
     return {
       lastScroll: 0,
+      lastScrollDirection: 0,
       isScrolling: false,
       direction: '',
       scrollTarget: 0,
@@ -45,25 +47,52 @@ export default {
     }
   },
   mounted() {
-    this.scrollbar = Scrollbar.init(this.$el)
-
-    window.addEventListener('wheel', this.onWheel, { passive: false })
+    if (!isTouch) {
+      this.scrollbar = Scrollbar.init(this.$el)
+      this.$el.addEventListener('wheel', this.onWheel, { passive: false })
+    } else {
+      this.$el.addEventListener('scroll', this.onScroll)
+    }
   },
   beforeDestroy() {
-    this.scrollbar.destroy()
-    window.removeEventListener('wheel', this.onWheel, { passive: false })
+    if (!isTouch) {
+      this.scrollbar.destroy()
+      this.$el.removeEventListener('wheel', this.onWheel, { passive: false })
+    } else {
+      this.$el.removeEventListener('scroll', this.onScroll)
+    }
   },
   methods: {
-    onWheel(e) {
-      e.preventDefault()
-
+    getScrollDirection() {
+      const sl = this.$el.scrollLeft
+      if (sl > this.lastScrollDirection) {
+        this.direction = RIGHT
+      } else {
+        this.direction = LEFT
+      }
+      this.lastScrollDirection = sl <= 0 ? 0 : sl
+    },
+    triggerScrollStop() {
+      const STOP_TIMEOUT = isTouch ? 250 : 500
       clearTimeout(this.timeout)
 
       this.timeout = setTimeout(() => {
-        // do something
+        // scroll is stopped
         this.lastScroll += 1
         this.$el.setAttribute('data-scroll-direction', '')
-      }, 500)
+      }, STOP_TIMEOUT)
+    },
+    onScroll(e) {
+      this.triggerScrollStop()
+
+      this.getScrollDirection()
+
+      this.$el.setAttribute('data-scroll-direction', this.direction)
+    },
+    onWheel(e) {
+      e.preventDefault()
+
+      this.triggerScrollStop()
 
       const { deltaY } = e
       this.direction = deltaY > 0 ? RIGHT : LEFT
@@ -100,6 +129,13 @@ export default {
 
   .scrollbar-track {
     display: none !important;
+  }
+
+  html:not(.no-touch) & {
+    display: block;
+    white-space: nowrap;
+    font-size: 0;
+    overflow: auto;
   }
 
   &__item {
