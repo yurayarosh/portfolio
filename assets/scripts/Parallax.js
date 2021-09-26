@@ -1,4 +1,3 @@
-// import classNames from '../../classNames'
 // import { breakpoints } from '../../helpers'
 
 const defaultConfig = {

@@ -27,6 +27,10 @@ export default {
     justify-content: center;
 
     height: $footer-height + px;
+
+    @include md {
+      height: $footer-height-md + px;
+    }
   }
 }
 </style>

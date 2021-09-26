@@ -15,6 +15,7 @@ import setHTMLClassNames from '~/assets/scripts/setHTMLClassNames'
 import setSideOffsets from '~/assets/scripts/setSideOffsets'
 import { preventScroll, allowScroll } from '~/assets/scripts/helpers'
 import { DELAYS } from '~/assets/scripts/constants'
+import Pointer from '~/assets/scripts/Pointer'
 
 export default {
   computed: {
@@ -34,14 +35,29 @@ export default {
     setHTMLClassNames()
     setSideOffsets()
 
+    this.pointer = new Pointer(this.$el)
+    this.pointerSm = new Pointer(this.$el, {
+      className: 'layout__cursor layout__cursor--sm',
+      isInteractive: false,
+    })
+
+    this.pointer.init()
+    this.pointerSm.init()
+
     window.addEventListener('resize', this.onResize)
+    document.addEventListener('mousemove', this.onMouseMove)
   },
   beforeDestroy() {
     window.removeEventListener('resize', this.onResize)
+    document.removeEventListener('mousemove', this.onMouseMove)
   },
   methods: {
     onResize() {
       debounce(DELAYS.long, setSideOffsets())
+    },
+    onMouseMove(e) {
+      this.pointer.onMouseMove(e)
+      this.pointerSm.onMouseMove(e)
     },
     closeModals() {
       this.$store.commit('menu/close')
@@ -91,6 +107,37 @@ export default {
   &__main,
   &__footer {
     transition: opacity 0.5s;
+  }
+
+  &__cursor {
+    display: block;
+    pointer-events: none;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: $z-index-pointer;
+
+    width: 50px;
+    height: 50px;
+
+    border: 1px solid $c-text;
+    border-radius: 50%;
+
+    transition: transform 0.2s $easeOutSine, background-color 0.4s, border-color 0.4s, opacity 0.4s;
+
+    // &[data-state='active'] {
+    //   // background-color: rgba($white, 0.5);
+    // }
+
+    &--sm {
+      width: 10px;
+      height: 10px;
+      opacity: 1;
+      background-color: $c-text;
+
+      transition: none;
+    }
   }
 
   &--has-menu-open {

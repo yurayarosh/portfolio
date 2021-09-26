@@ -31,6 +31,7 @@ $c-link: blue;
 
 $z-index-controls: 10;
 $z-index-modal: 15;
+$z-index-pointer: 20;
 
 // $radius: 2px
 
@@ -38,6 +39,7 @@ $header-height: 105;
 $header-height-md: 71;
 
 $footer-height: 105;
+$footer-height-md: 71;
 
 @mixin reg {
   font-family: 'univa-pro', sans-serif;

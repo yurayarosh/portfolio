@@ -41,6 +41,10 @@ export default {
     align-items: center;
 
     height: $header-height + px;
+
+    @include md {
+      height: $header-height-md + px;
+    }
   }
 
   &__burger {
