@@ -176,7 +176,7 @@ export default {
   computed: {
     worksList() {
       const NUMBER_OF_DIFFERENT_STYLED_ITEMS = 6
-      // sortList(this.works, 'date') // Sort posts by date.
+      // sortList(this.works, 'date') // Sort by date.
 
       const chunkedList = chunkArray(this.works, NUMBER_OF_DIFFERENT_STYLED_ITEMS) // Output: [[{}, ...], [{}, ...], ...]
 
@@ -213,12 +213,37 @@ export default {
   }
 
   &__body {
-    padding-left: var(--container-offset);
-
     flex-grow: 1;
+
+    @media (min-width: 100vh) {
+      padding-left: var(--container-offset);
+    }
+
+    @media (max-width: 100vh) {
+      width: 100%;
+      max-width: $base-container + px;
+      padding-left: $gap-container + px;
+      padding-right: $gap-container + px;
+    }
 
     .works-list {
       height: 100%;
+    }
+
+    html:not(.no-touch) & {
+      overflow: hidden;
+
+      .works-list {
+        @media (min-width: 100vh) {
+          margin-bottom: -17px;
+          height: calc(100% + 17px);
+        }
+
+        @media (max-width: 100vh) {
+          margin-right: -17px;
+          width: calc(100% + 17px);
+        }
+      }
     }
   }
 }

@@ -2,8 +2,10 @@
   <div class="works-list">
     <div
       v-for="(item, i) in list"
+      :ref="`work-item${i}`"
       :key="i"
       :class="`works-list__item works-list__item--${item.index}`"
+      :data-speed="i % 2 === 0 ? 1 : -3"
     >
       <a
         :href="item.productionUrl"
@@ -25,6 +27,7 @@
 
 <script>
 import Scrollbar from 'smooth-scrollbar'
+import Parallax from '@/assets/scripts/Parallax'
 import { LEFT, RIGHT } from '@/assets/scripts/constants'
 import { isTouch } from '@/assets/scripts/helpers'
 
@@ -43,16 +46,28 @@ export default {
       isScrolling: false,
       direction: '',
       scrollTarget: 0,
-      SCROLL_DURATION: 1000,
+      SCROLL_DURATION: 1500,
     }
   },
   mounted() {
     if (!isTouch) {
-      this.scrollbar = Scrollbar.init(this.$el)
+      this.scrollbar = Scrollbar.init(this.$el, {
+        damping: 0.05,
+      })
       this.$el.addEventListener('wheel', this.onWheel, { passive: false })
     } else {
       this.$el.addEventListener('scroll', this.onScroll)
     }
+
+    const itemCardsKeys = Object.keys(this.$refs).filter(key => key.includes('work-item'))
+
+    const itemCardsTitles = itemCardsKeys.map(key => this.$refs[key][0] || this.$refs[key])
+
+    this.parallax = new Parallax(itemCardsTitles, {
+      direction: 'horizontal',
+      observe: false,
+    })
+    this.parallax.init()
   },
   beforeDestroy() {
     if (!isTouch) {
@@ -82,12 +97,13 @@ export default {
         this.$el.setAttribute('data-scroll-direction', '')
       }, STOP_TIMEOUT)
     },
-    onScroll(e) {
+    onScroll() {
       this.triggerScrollStop()
-
       this.getScrollDirection()
 
       this.$el.setAttribute('data-scroll-direction', this.direction)
+
+      this.parallax.onScroll()
     },
     onWheel(e) {
       e.preventDefault()
@@ -111,6 +127,8 @@ export default {
       this.scrollbar.scrollTo(this.scrollTarget, 0, this.SCROLL_DURATION)
 
       this.$el.setAttribute('data-scroll-direction', this.direction)
+
+      this.parallax.onScroll()
     },
   },
 }
@@ -122,9 +140,13 @@ export default {
 
   .scroll-content {
     display: block;
-    white-space: nowrap;
+
     height: 100%;
-    font-size: 0;
+
+    @media (min-width: 100vh) {
+      font-size: 0;
+      white-space: nowrap;
+    }
   }
 
   .scrollbar-track {
@@ -133,42 +155,104 @@ export default {
 
   html:not(.no-touch) & {
     display: block;
-    white-space: nowrap;
-    font-size: 0;
+
     overflow: auto;
+
+    @media (min-width: 100vh) {
+      font-size: 0;
+      white-space: nowrap;
+    }
   }
 
   &__item {
     display: inline-block;
     vertical-align: top;
     font-size: 1rem;
+    transition: transform 0.75s $easeOutSine;
 
-    height: 50%;
-    width: 35vw;
+    @media (min-width: 100vh) {
+      height: 50%;
+      width: 35vw;
+    }
+
+    @media (max-width: 100vh) {
+      height: 35vh;
+      width: 70%;
+    }
 
     &:not(:last-child) {
-      margin-right: 4%;
+      @media (min-width: 100vh) {
+        margin-right: 4%;
+      }
+
+      @media (max-width: 100vh) {
+        margin-bottom: 4%;
+      }
     }
 
     &:last-child {
-      margin-right: $gap-container + px;
+      @media (min-width: 100vh) {
+        margin-right: $gap-container + px;
+      }
+    }
+
+    &:first-child {
+      @media (min-width: 100vh) {
+        margin-left: $gap-container + px;
+      }
     }
 
     &:nth-child(6n + 2),
     &:nth-child(6n + 6) {
-      margin-top: 20%;
+      @media (min-width: 100vh) {
+        margin-top: 18%;
+      }
+
+      @media (max-width: 100vh) {
+        margin-left: 20%;
+      }
     }
 
     &:nth-child(6n + 3) {
-      margin-top: 10%;
+      @media (min-width: 100vh) {
+        margin-top: 7%;
+        height: 70%;
+        width: 50vw;
+      }
+
+      @media (max-width: 100vh) {
+        margin-left: 10%;
+        width: 80%;
+        height: 50vh;
+      }
     }
 
     &:nth-child(6n + 4) {
-      margin-top: 17%;
+      @media (min-width: 100vh) {
+        margin-top: 15%;
+        height: 60%;
+        width: 40vw;
+      }
+
+      @media (max-width: 100vh) {
+        margin-left: 17%;
+        width: 70%;
+        height: 40vh;
+      }
     }
 
     &:nth-child(6n + 5) {
-      margin-top: 4%;
+      @media (min-width: 100vh) {
+        margin-top: 4%;
+        height: 65%;
+        width: 45vw;
+      }
+
+      @media (max-width: 100vh) {
+        margin-left: 4%;
+        width: 75%;
+        height: 45vh;
+      }
     }
   }
 }
@@ -184,6 +268,16 @@ export default {
 
   height: 100%;
   width: 100%;
+
+  transition: transform 0.5s $easeInSine;
+
+  [data-scroll-direction='left'] & {
+    transform: skew(5deg);
+  }
+
+  [data-scroll-direction='right'] & {
+    transform: skew(-5deg);
+  }
 
   &__img {
     position: relative;
@@ -202,6 +296,8 @@ export default {
 
   &__title {
     display: block;
+
+    transition: transform 0.75s linear;
 
     @include f-title;
     line-height: 1;

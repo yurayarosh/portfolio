@@ -18,10 +18,10 @@ h6 {
   line-height: 1;
 
   &--h1 {
-    font-size: 140px;
+    font-size: 160px;
 
     @include xxxl {
-      font-size: vw(140);
+      font-size: vw(160);
     }
   }
 }
