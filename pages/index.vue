@@ -7,11 +7,12 @@
           <h1 class="hero__title">Frontend developer.</h1>
 
           <p class="hero__text">
-            Hi, nice to see you here! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perspiciatis, quia.
+            Hi, nice to see you here! Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+            Perspiciatis, quia.
           </p>
         </div>
 
-        <div class="hero__img" />
+        <!-- <div class="hero__img" /> -->
       </div>
     </div>
   </section>
@@ -32,11 +33,16 @@ export default {
     align-items: center;
 
     height: calc(100vh - #{$header-height + $footer-height + px});
+
+    @include md {
+      height: calc(100vh - #{$header-height-md + $footer-height-md + px});
+    }
   }
 
-  &__text,
-  &__img {
-    width: 50%;
+  &__text {
+    @include xsmin {
+      width: 50%;
+    }
   }
 
   &__text {
@@ -46,6 +52,14 @@ export default {
 
     @include xxxl {
       font-size: vw(40);
+    }
+
+    @include xl {
+      font-size: vw(50);
+    }
+
+    @include xs {
+      font-size: 1rem;
     }
   }
 
@@ -59,6 +73,14 @@ export default {
 
     @include xxxl {
       font-size: vw(56);
+    }
+
+    @include xl {
+      font-size: vw(70);
+    }
+
+    @include xs {
+      font-size: 1.1rem;
     }
   }
 

@@ -26,7 +26,7 @@ export default class Pointer {
     // this.lastMousePosition.x = lerp(this.lastMousePosition.x, clientX, 0.1)
     // this.lastMousePosition.y = lerp(this.lastMousePosition.y, clientY, 0.1)
 
-    requestAnimationFrame(this.update({ target }))
+    this.raf = requestAnimationFrame(this.update({ target }))
   }
 
   renderCursor() {
@@ -42,11 +42,16 @@ export default class Pointer {
   }
 
   removeCursor() {
-    if (this.cursor) this.cursor.parentNode.removeChild(this.cursor)
+    if (this.cursor) this.wrap.removeChild(this.cursor)
   }
 
   init() {
     this.renderCursor()
+  }
+
+  destroy() {
+    window.cancelAnimationFrame(this.raf)
+    this.removeCursor()
   }
 
   update = ({ target } = {}) => () => {

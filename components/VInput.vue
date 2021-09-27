@@ -97,6 +97,10 @@ export default {
     left: 0;
 
     transition: transform 0.35s $easeInSine, font-size 0.35s $easeInSine;
+
+    @include xs {
+      top: 7px;
+    }
   }
 
   &__errors {
@@ -136,7 +140,7 @@ export default {
     }
 
     @include xs {
-      font-size: 16px;
+      height: 40px;
     }
 
     &:focus {
@@ -154,6 +158,10 @@ export default {
     #{$this}__label {
       transform: translate(0, -30px);
       font-size: 0.8em;
+
+      @include xs {
+        transform: translate(0, -24px);
+      }
     }
   }
 }

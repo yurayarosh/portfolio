@@ -23,5 +23,9 @@ h6 {
     @include xxxl {
       font-size: vw(160);
     }
+
+    @include xs {
+      font-size: vw(42, $base-mobile);
+    }
   }
 }

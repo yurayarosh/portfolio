@@ -21,6 +21,7 @@
 <script>
 import Splitting from 'splitting'
 import anime from 'animejs'
+import { isTouch } from '~/assets/scripts/helpers'
 
 export default {
   name: 'VNav',
@@ -75,6 +76,8 @@ export default {
       }
     },
     onLinkMouseEnter({ currentTarget }) {
+      if (isTouch) return
+
       const { hoverTitle, defaultTitle } = this.getLinkChars(currentTarget)
 
       const tl = anime.timeline({ easing: 'easeInOutSine' })
@@ -95,6 +98,8 @@ export default {
       )
     },
     onLinkMouseLeave({ currentTarget }) {
+      if (isTouch) return
+      
       const { hoverTitle, defaultTitle } = this.getLinkChars(currentTarget)
 
       const tl = anime.timeline({ easing: 'easeInOutSine' })
@@ -121,12 +126,16 @@ export default {
 <style lang="scss">
 .nav {
   @include f-title;
-  font-size: 120px;
+  font-size: 240px;
   font-weight: 700;
   line-height: 1;
 
   text-align: center;
   text-transform: uppercase;
+
+  @include xxxl {
+    font-size: vw(240);
+  }
 
   &__item {
     @extend %flex-center;

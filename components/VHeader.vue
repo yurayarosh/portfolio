@@ -71,7 +71,7 @@ export default {
     display: block;
 
     width: 100%;
-    height: 5px;
+    height: em(5);
 
     background-color: currentColor;
 

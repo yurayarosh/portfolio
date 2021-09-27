@@ -13,9 +13,8 @@ import { debounce } from 'throttle-debounce'
 import { mapGetters } from 'vuex'
 import setHTMLClassNames from '~/assets/scripts/setHTMLClassNames'
 import setSideOffsets from '~/assets/scripts/setSideOffsets'
-import { preventScroll, allowScroll } from '~/assets/scripts/helpers'
+import { preventScroll, allowScroll, isTouch } from '~/assets/scripts/helpers'
 import { DELAYS } from '~/assets/scripts/constants'
-import Pointer from '~/assets/scripts/Pointer'
 
 export default {
   computed: {
@@ -31,18 +30,11 @@ export default {
       isOpen ? preventScroll() : allowScroll()
     },
   },
-  mounted() {
+  async mounted() {
     setHTMLClassNames()
     setSideOffsets()
 
-    this.pointer = new Pointer(this.$el)
-    this.pointerSm = new Pointer(this.$el, {
-      className: 'layout__cursor layout__cursor--sm',
-      isInteractive: false,
-    })
-
-    this.pointer.init()
-    this.pointerSm.init()
+    if (!isTouch) await this.initPointer()
 
     window.addEventListener('resize', this.onResize)
     document.addEventListener('mousemove', this.onMouseMove)
@@ -50,14 +42,31 @@ export default {
   beforeDestroy() {
     window.removeEventListener('resize', this.onResize)
     document.removeEventListener('mousemove', this.onMouseMove)
+
+    if (!isTouch) {
+      this.pointer.destroy()
+      this.pointerSm.destroy()
+    }
   },
   methods: {
+    async initPointer() {
+      const { default: Pointer } = await import('@/assets/scripts/Pointer')
+
+      this.pointer = new Pointer(this.$el)
+      this.pointerSm = new Pointer(this.$el, {
+        className: 'layout__cursor layout__cursor--sm',
+        isInteractive: false,
+      })
+
+      this.pointer.init()
+      this.pointerSm.init()
+    },
     onResize() {
       debounce(DELAYS.long, setSideOffsets())
     },
     onMouseMove(e) {
-      this.pointer.onMouseMove(e)
-      this.pointerSm.onMouseMove(e)
+      this.pointer?.onMouseMove(e)
+      this.pointerSm?.onMouseMove(e)
     },
     closeModals() {
       this.$store.commit('menu/close')
@@ -97,6 +106,10 @@ export default {
   &__main {
     padding-top: $header-height + px;
     flex-grow: 1;
+
+    @include md {
+      padding-top: $header-height-md + px;
+    }
   }
 
   &__footer {
@@ -126,9 +139,9 @@ export default {
 
     transition: transform 0.2s $easeOutSine, background-color 0.4s, border-color 0.4s, opacity 0.4s;
 
-    // &[data-state='active'] {
-    //   // background-color: rgba($white, 0.5);
-    // }
+    &[data-state='active'] {
+      background-color: rgba($white, 0.25);
+    }
 
     &--sm {
       width: 10px;

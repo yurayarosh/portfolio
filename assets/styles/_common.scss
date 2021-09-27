@@ -5,11 +5,11 @@ body {
 
 html {
   font-size: $base-fz + px;
+  // font-family: sans-serif;
   line-height: 1.4;
   color: $c-text;
-  background-color: $light;
-  font-family: sans-serif;
 
+  background-color: $light;
   cursor: none;
 
   @include reg;

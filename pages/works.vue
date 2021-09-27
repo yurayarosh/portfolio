@@ -192,8 +192,6 @@ export default {
 
 <style lang="scss">
 .s-works {
-  // overflow: hidden;
-
   &__title {
     position: relative;
     z-index: 1;
@@ -210,6 +208,14 @@ export default {
     flex-direction: column;
 
     height: calc(100vh - #{$header-height + $footer-height + px});
+
+    @include md {
+      height: calc(100vh - #{$header-height-md + $footer-height-md + px});
+    }
+
+    @include xs {
+      height: auto;
+    }
   }
 
   &__body {
@@ -242,6 +248,11 @@ export default {
         @media (max-width: 100vh) {
           margin-right: -17px;
           width: calc(100% + 17px);
+        }
+
+        @include xs {
+          margin-right: 0;
+          width: 100%;
         }
       }
     }

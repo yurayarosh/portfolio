@@ -162,6 +162,10 @@ export default {
       font-size: 0;
       white-space: nowrap;
     }
+
+    @include xs {
+      overflow: visible;
+    }
   }
 
   &__item {
@@ -178,6 +182,14 @@ export default {
     @media (max-width: 100vh) {
       height: 35vh;
       width: 70%;
+    }
+
+    @include xs {
+      width: 100% !important;
+      height: auto !important;
+      margin-right: 0 !important;
+      margin-left: 0 !important;
+      margin-bottom: 30px !important;
     }
 
     &:not(:last-child) {
@@ -271,6 +283,11 @@ export default {
 
   transition: transform 0.5s $easeInSine;
 
+  @include xs {
+    height: auto;
+    padding-top: 65%;
+  }
+
   [data-scroll-direction='left'] & {
     transform: skew(5deg);
   }
@@ -280,13 +297,20 @@ export default {
   }
 
   &__img {
+    display: block;
+
     position: relative;
     z-index: 0;
-    // padding-top: 66%;
     background-color: $light;
 
     width: 100%;
     height: 100%;
+
+    @include xs {
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
 
     img {
       @extend %coverdiv;
@@ -306,6 +330,14 @@ export default {
 
     @include xxxl {
       font-size: vw(56);
+    }
+
+    @include xxl {
+      font-size: vw(65);
+    }
+
+    @include xs {
+      font-size: 1.3em;
     }
   }
 
