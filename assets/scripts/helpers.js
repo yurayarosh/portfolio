@@ -98,32 +98,15 @@ export const sortList = (list, type = 'date', options = {}) => {
 export const chunkArray = (arr, size) =>
   arr.length > size ? [arr.slice(0, size), ...chunkArray(arr.slice(size), size)] : [arr]
 
-// export const getFormInputs = form => {
-//   if (!form) return {}
-
-//   const inputs = {}
-//   const validations = {}
-
-//   form.inputs?.forEach(({ name, validation: v }) => {
-//     inputs[name] = ''
-
-//     if (!v) return
-//     validations[name] = {
-//       required,
-//       email: v === 'email' ? email : false,
-//     }
-//   })
-
-//   return {
-//     inputs,
-//     validations,
-//   }
-// }
-
-// export const setCurrentLanguage = (meta, store) => {
-//   const LANGUAGE = meta?.language || meta[0]?.language || ''
-//   if (!LANGUAGE) return ''
-
-//   store.commit('setLanguage', LANGUAGE)
-//   return LANGUAGE
-// }
+export const breakpoints = {
+  xxxxl: typeof window !== 'undefined' ? window.matchMedia('(min-width: 2100px)') : null,
+  xxxl: typeof window !== 'undefined' ? window.matchMedia('(min-width: 1921px)') : null,
+  xxl: typeof window !== 'undefined' ? window.matchMedia('(min-width: 1500px)') : null,
+  xl: typeof window !== 'undefined' ? window.matchMedia('(min-width: 1400px)') : null,
+  lg: typeof window !== 'undefined' ? window.matchMedia('(min-width: 1200px)') : null,
+  md: typeof window !== 'undefined' ? window.matchMedia('(min-width: 992px)') : null,
+  sm: typeof window !== 'undefined' ? window.matchMedia('(min-width: 768px)') : null,
+  xs: typeof window !== 'undefined' ? window.matchMedia('(min-width: 576px)') : null,
+  xxs: typeof window !== 'undefined' ? window.matchMedia('(min-width: 480px)') : null,
+  xxxs: typeof window !== 'undefined' ? window.matchMedia('(min-width: 375px)') : null,
+}

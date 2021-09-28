@@ -112,7 +112,7 @@ export default class Parallax {
       this.animateParallaxEls()
 
       this.inited = true
-    }, 0)
+    })
   }
 
   destroy() {

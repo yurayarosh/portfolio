@@ -29,7 +29,7 @@
 import Scrollbar from 'smooth-scrollbar'
 import Parallax from '~/assets/scripts/Parallax'
 import { LEFT, RIGHT } from '~/assets/scripts/constants'
-import { isTouch } from '~/assets/scripts/helpers'
+import { breakpoints, isTouch } from '~/assets/scripts/helpers'
 
 export default {
   name: 'VWorks',
@@ -59,15 +59,9 @@ export default {
       this.$el.addEventListener('scroll', this.onScroll)
     }
 
-    const itemCardsKeys = Object.keys(this.$refs).filter(key => key.includes('work-item'))
+    breakpoints.xs.addEventListener('change', this.onXSBreakpointChange)
 
-    const itemCardsTitles = itemCardsKeys.map(key => this.$refs[key][0] || this.$refs[key])
-
-    this.parallax = new Parallax(itemCardsTitles, {
-      direction: 'horizontal',
-      observe: false,
-    })
-    this.parallax.init()
+    if (breakpoints.xs.matches) this.initParallax()
   },
   beforeDestroy() {
     if (!isTouch) {
@@ -76,8 +70,23 @@ export default {
     } else {
       this.$el.removeEventListener('scroll', this.onScroll)
     }
+
+    this.destroyParallax()
   },
   methods: {
+    initParallax() {
+      const itemCardsKeys = Object.keys(this.$refs).filter(key => key.includes('work-item'))
+      const itemCards = itemCardsKeys.map(key => this.$refs[key][0] || this.$refs[key])
+
+      this.parallax = new Parallax(itemCards, {
+        direction: 'horizontal',
+        observe: false,
+      })
+      this.parallax.init()
+    },
+    destroyParallax() {
+      this.parallax?.destroy()
+    },
     getScrollDirection() {
       const sl = this.$el.scrollLeft
       if (sl > this.lastScrollDirection) {
@@ -97,13 +106,20 @@ export default {
         this.$el.setAttribute('data-scroll-direction', '')
       }, STOP_TIMEOUT)
     },
+    onXSBreakpointChange() {
+      if (breakpoints.xs.matches) {
+        this.initParallax()
+      } else {
+        this.destroyParallax()
+      }
+    },
     onScroll() {
       this.triggerScrollStop()
       this.getScrollDirection()
 
       this.$el.setAttribute('data-scroll-direction', this.direction)
 
-      this.parallax.onScroll()
+      this.parallax?.onScroll()
     },
     onWheel(e) {
       e.preventDefault()

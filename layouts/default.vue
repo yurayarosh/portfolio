@@ -144,8 +144,8 @@ export default {
     }
 
     &--sm {
-      width: 10px;
-      height: 10px;
+      width: 8px;
+      height: 8px;
       opacity: 1;
       background-color: $c-text;
 

@@ -46,33 +46,72 @@ export default {
 
   // nuxt speedkit for fonts loading (https://nuxt-speedkit.grabarzundpartner.dev/)
   speedkit: {
+    detection: {
+      performance: true,
+      browserSupport: true,
+    },
+    performanceMetrics: {
+      device: {
+        hardwareConcurrency: { min: 2, max: 48 },
+        deviceMemory: { min: 2 },
+      },
+      timing: {
+        fcp: 800,
+        dcl: 1200,
+      },
+      lighthouseDetectionByUserAgent: false,
+    },
+    componentAutoImport: false,
+    componentPrefix: undefined,
+
+    /**
+     * IntersectionObserver rootMargin for Compoennts and Assets
+     */
+    lazyOffset: {
+      component: '0%',
+      asset: '0%',
+    },
     fonts: [
       {
-        fileExtensions: ['woff2', 'woff'],
-        fontFamily: 'univa-pro',
-        fontFaces: [
+        family: 'univa-pro',
+        fallback: ['sans-serif'],
+        variances: [
           {
-            preload: true,
-            src: '@/assets/fonts/UniviaPro-Regular',
-            fontStyle: 'normal',
+            sources: [
+              { src: '@/assets/fonts/UniviaPro-Regular.woff', type: 'woff' },
+              { src: '@/assets/fonts/UniviaPro-Regular.woff2', type: 'woff2' },
+            ],
+            style: 'normal',
+            weight: 400,
           },
           {
-            src: '@/assets/fonts/UniviaPro-Light',
-            fontWeight: 300,
+            sources: [
+              { src: '@/assets/fonts/UniviaPro-Light.woff', type: 'woff' },
+              { src: '@/assets/fonts/UniviaPro-Light.woff2', type: 'woff2' },
+            ],
+            style: 'normal',
+            weight: 300,
           },
         ],
       },
       {
-        fileExtensions: ['woff2', 'woff'],
-        fontFamily: 'monument',
-        fontFaces: [
+        family: 'monument',
+        fallback: ['sans-serif'],
+        variances: [
           {
-            preload: true,
-            src: '@/assets/fonts/monumentextended-regular-webfont',
-            fontStyle: 'normal',
+            sources: [
+              { src: '@/assets/fonts/monumentextended-regular-webfont.woff', type: 'woff' },
+              { src: '@/assets/fonts/monumentextended-regular-webfont.woff2', type: 'woff2' },
+            ],
+            style: 'normal',
+            weight: 400,
           },
           {
-            src: '@/assets/fonts/monumentextended-ultrabold-webfont',
+            sources: [
+              { src: '@/assets/fonts/monumentextended-ultrabold-webfont.woff', type: 'woff' },
+              { src: '@/assets/fonts/monumentextended-ultrabold-webfont.woff2', type: 'woff2' },
+            ],
+            style: 'normal',
             fontWeight: 700,
           },
         ],
