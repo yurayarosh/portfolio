@@ -27,9 +27,9 @@
 
 <script>
 import Scrollbar from 'smooth-scrollbar'
-import Parallax from '@/assets/scripts/Parallax'
-import { LEFT, RIGHT } from '@/assets/scripts/constants'
-import { isTouch } from '@/assets/scripts/helpers'
+import Parallax from '~/assets/scripts/Parallax'
+import { LEFT, RIGHT } from '~/assets/scripts/constants'
+import { isTouch } from '~/assets/scripts/helpers'
 
 export default {
   name: 'VWorks',

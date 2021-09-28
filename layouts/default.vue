@@ -50,7 +50,7 @@ export default {
   },
   methods: {
     async initPointer() {
-      const { default: Pointer } = await import('@/assets/scripts/Pointer')
+      const { default: Pointer } = await import('~/assets/scripts/Pointer')
 
       this.pointer = new Pointer(this.$el)
       this.pointerSm = new Pointer(this.$el, {

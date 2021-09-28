@@ -14,6 +14,7 @@
     </svg>
   </component>
 </template>
+
 <script>
 export default {
   name: 'VBtn',

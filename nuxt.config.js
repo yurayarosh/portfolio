@@ -41,88 +41,44 @@ export default {
     // https://go.nuxtjs.dev/pwa
     '@nuxtjs/pwa',
     '@nuxtjs/style-resources',
-    [
-      'nuxt-font-loader-strategy',
+    'nuxt-speedkit',
+  ],
+
+  // nuxt speedkit for fonts loading (https://nuxt-speedkit.grabarzundpartner.dev/)
+  speedkit: {
+    fonts: [
       {
-        fonts: [
+        fileExtensions: ['woff2', 'woff'],
+        fontFamily: 'univa-pro',
+        fontFaces: [
           {
-            fileExtensions: ['woff2', 'woff'],
-            fontFamily: 'univa-pro',
-            fontFaces: [
-              {
-                preload: true,
-                src: '@/assets/fonts/UniviaPro-Regular',
-                fontStyle: 'normal',
-              },
-              {
-                src: '@/assets/fonts/UniviaPro-Light',
-                fontWeight: 300,
-              },
-            ],
+            preload: true,
+            src: '@/assets/fonts/UniviaPro-Regular',
+            fontStyle: 'normal',
           },
           {
-            fileExtensions: ['woff2', 'woff'],
-            fontFamily: 'monument',
-            fontFaces: [
-              {
-                preload: true,
-                src: '@/assets/fonts/monumentextended-regular-webfont',
-                fontStyle: 'normal',
-              },
-              {
-                src: '@/assets/fonts/monumentextended-ultrabold-webfont',
-                fontWeight: 700,
-              },
-            ],
+            src: '@/assets/fonts/UniviaPro-Light',
+            fontWeight: 300,
           },
-          // Font
-          // {
-          //   fileExtensions: ['woff2', 'woff'],
-          //   fontFamily: 'opensans',
-          //   fontFaces: [
-          //     // Font-Face
-          //     {
-          //       preload: true,
-          //       // localSrc: ['opensans', 'opensans-regular'],
-          //       src: '@/assets/fonts/opensans-regular-webfont',
-          //       fontStyle: 'normal',
-          //     },
-          //     // Font-Face
-          //     {
-          //       // localSrc: ['opensans', 'opensans-bold'],
-          //       src: '@/assets/fonts/opensans-bold-webfont',
-          //       fontWeight: 700,
-          //     },
-          //     // Font-Face
-          //     {
-          //       // localSrc: ['opensans', 'opensans-italic'],
-          //       src: '@/assets/fonts/opensans-italic-webfont',
-          //       fontStyle: 'italic',
-          //     },
-          //   ],
-          // },
-          // // Font
-          // {
-          //   fileExtensions: ['woff2', 'woff'],
-          //   fontFamily: 'oswald',
-          //   fontFaces: [
-          //     // Font-Face
-          //     {
-          //       preload: true,
-          //       src: '@/assets/fonts/oswald-semibold-webfont',
-          //       fontWeight: 600,
-          //     },
-          //     // Font-Face
-          //     // {
-          //     //   src: '@/assets/fonts/oswald-bold-webfont',
-          //     //   fontWeight: 700,
-          //     // },
-          //   ],
-          // },
+        ],
+      },
+      {
+        fileExtensions: ['woff2', 'woff'],
+        fontFamily: 'monument',
+        fontFaces: [
+          {
+            preload: true,
+            src: '@/assets/fonts/monumentextended-regular-webfont',
+            fontStyle: 'normal',
+          },
+          {
+            src: '@/assets/fonts/monumentextended-ultrabold-webfont',
+            fontWeight: 700,
+          },
         ],
       },
     ],
-  ],
+  },
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {},

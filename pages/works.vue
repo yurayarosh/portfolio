@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import { chunkArray } from '@/assets/scripts/helpers'
+import { chunkArray } from '~/assets/scripts/helpers'
 
 export default {
   name: 'PageWorks',
