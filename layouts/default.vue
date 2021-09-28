@@ -4,6 +4,7 @@
     <main class="main layout__main">
       <Nuxt />
     </main>
+
     <v-footer class="layout__footer" />
   </div>
 </template>
@@ -11,12 +12,17 @@
 <script>
 import { debounce } from 'throttle-debounce'
 import { mapGetters } from 'vuex'
+
+import transitionMixin from '~/mixins/transition'
+
 import setHTMLClassNames from '~/assets/scripts/setHTMLClassNames'
 import setSideOffsets from '~/assets/scripts/setSideOffsets'
+
 import { preventScroll, allowScroll, isTouch } from '~/assets/scripts/helpers'
 import { DELAYS } from '~/assets/scripts/constants'
 
 export default {
+  mixins: [transitionMixin],
   computed: {
     ...mapGetters({
       hasMenuOpen: 'menu/isOpen',

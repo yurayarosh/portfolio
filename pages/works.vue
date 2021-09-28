@@ -2,10 +2,12 @@
   <section class="s-works">
     <div class="s-works__inner">
       <div class="container">
-        <h1 class="s-works__title section__title title title--h1">Works</h1>
+        <div class="s-works__title-wrap">
+          <h1 ref="title" class="s-works__title title title--h1">Works</h1>
+        </div>
       </div>
 
-      <div class="s-works__body">
+      <div ref="body" class="s-works__body">
         <v-works :list="worksList" />
       </div>
     </div>
@@ -13,10 +15,13 @@
 </template>
 
 <script>
+import anime from 'animejs'
+import transitionMixin from '~/mixins/transition'
 import { chunkArray } from '~/assets/scripts/helpers'
 
 export default {
   name: 'PageWorks',
+  mixins: [transitionMixin],
   data() {
     return {
       works: [
@@ -187,20 +192,46 @@ export default {
       return listWithIndexes.flat()
     },
   },
+  mounted() {
+    this.animateEntrance()
+  },
+  methods: {
+    animateEntrance() {
+      const { title, body } = this.$refs
+      const tl = anime.timeline({ easing: 'easeInOutSine' })
+
+      tl.add({
+        targets: title,
+        translateY: ['102%', '0%'],
+        duration: 750,
+      }).add(
+        {
+          targets: body,
+          opacity: [0, 1],
+          duration: 750,
+        },
+        '-=500'
+      )
+    },
+  },
 }
 </script>
 
 <style lang="scss">
 .s-works {
-  &__title {
-    position: relative;
-    z-index: 1;
-
+  &__title-wrap {
+    overflow: hidden;
     margin-bottom: 100px;
 
     @include xxxl {
       margin-bottom: vw(100);
     }
+  }
+
+  &__title {
+    position: relative;
+    z-index: 1;
+    transform: translate(0, 102%);
   }
 
   &__inner {
@@ -220,6 +251,7 @@ export default {
 
   &__body {
     flex-grow: 1;
+    opacity: 0;
 
     @media (min-width: 100vh) {
       padding-left: var(--container-offset);

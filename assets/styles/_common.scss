@@ -27,10 +27,6 @@ html {
     opacity: 0.2;
   }
 
-  // &.font_opensans {
-  //   @include reg;
-  // }
-
   &.has-custom-cursor {
     cursor: none;
 
@@ -94,4 +90,8 @@ body {
   @include hover-focus {
     color: $accent;
   }
+}
+
+.overflow-hidden {
+  overflow: hidden;
 }

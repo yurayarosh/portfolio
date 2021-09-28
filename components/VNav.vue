@@ -34,10 +34,6 @@ export default {
           to: '/',
         },
         {
-          title: 'about',
-          to: '/about',
-        },
-        {
           title: 'works',
           to: '/works',
         },

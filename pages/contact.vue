@@ -2,9 +2,11 @@
   <section class="section s-contacts">
     <div class="container">
       <div class="s-contacts__inner">
-        <h1 class="section__title title title--h1">Contact me</h1>
+        <div class="s-contacts__title-wrap">
+          <h1 ref="title" class="s-contacts__title title title--h1">Contact me</h1>
+        </div>
 
-        <form class="s-contacts__form form" @submit.prevent="onSubmit">
+        <form ref="form" class="s-contacts__form form" @submit.prevent="onSubmit">
           <div class="form__field">
             <v-input
               v-model="$v.name.$model"
@@ -34,12 +36,14 @@
 </template>
 
 <script>
+import anime from 'animejs'
 import { validationMixin } from 'vuelidate'
 import { required, minLength, maxLength } from 'vuelidate/lib/validators'
+import transitionMixin from '~/mixins/transition'
 
 export default {
   name: 'PageContact',
-  mixins: [validationMixin],
+  mixins: [validationMixin, transitionMixin],
   data() {
     return {
       name: '',
@@ -72,7 +76,28 @@ export default {
       }
     },
   },
+  mounted() {
+    this.animateEntrance()
+  },
   methods: {
+    animateEntrance() {
+      const { title, form } = this.$refs
+      const tl = anime.timeline({ easing: 'easeInOutSine' })
+
+      tl.add({
+        targets: title,
+        translateY: ['102%', '0%'],
+        duration: 750,
+      })
+        .add(
+          {
+            targets: form,
+            opacity: [0, 1],
+            duration: 750,
+          },
+          '-=500'
+        )
+    },
     onSubmit() {
       this.$v.$touch()
 
@@ -112,16 +137,26 @@ export default {
 
 <style lang="scss">
 .s-contacts {
+  &__title-wrap {
+    overflow: hidden;
+    margin-bottom: 50px;
+  }
+
+  &__title {
+    transform: translate(0, 102%);
+  }
+
   &__inner {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    
+
     height: calc(100vh - #{$header-height + $footer-height + px});
   }
 
   &__form {
     max-width: 500px;
+    opacity: 0;
   }
 }
 

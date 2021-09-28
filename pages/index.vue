@@ -3,24 +3,61 @@
     <div class="container">
       <div class="hero__inner">
         <div class="hero__content">
-          <p class="hero__subttl title title--h1">Yurii Yaroshenko</p>
-          <h1 class="hero__title">Frontend developer.</h1>
+          <div class="hero__title-wrap">
+            <p ref="title" class="hero__title title title--h1">Yurii Yaroshenko</p>
+          </div>
+          <div class="hero__subttl-wrap">
+            <h1 ref="subtitle" class="hero__subttl">Frontend developer.</h1>
+          </div>
 
-          <p class="hero__text">
+          <p ref="text" class="hero__text">
             Hi, nice to see you here! Lorem ipsum dolor sit amet, consectetur adipisicing elit.
             Perspiciatis, quia.
           </p>
         </div>
-
-        <!-- <div class="hero__img" /> -->
       </div>
     </div>
   </section>
 </template>
 
 <script>
+import anime from 'animejs'
+import transitionMixin from '~/mixins/transition'
+
 export default {
   name: 'PageHome',
+  mixins: [transitionMixin],
+  mounted() {
+    this.animateEntrance()
+  },
+  methods: {
+    animateEntrance() {
+      const { title, subtitle, text } = this.$refs
+      const tl = anime.timeline({ easing: 'easeInOutSine' })
+
+      tl.add({
+        targets: title,
+        translateY: ['102%', '0%'],
+        duration: 750,
+      })
+        .add(
+          {
+            targets: subtitle,
+            translateY: ['102%', '0%'],
+            duration: 750,
+          },
+          '-=500'
+        )
+        .add(
+          {
+            targets: text,
+            opacity: [0, 1],
+            duration: 750,
+          },
+          '-=500'
+        )
+    },
+  },
 }
 </script>
 
@@ -47,6 +84,7 @@ export default {
 
   &__text {
     font-size: 40px;
+    opacity: 0;
 
     padding-right: 15px;
 
@@ -67,9 +105,14 @@ export default {
     padding-left: 15px;
   }
 
-  &__title {
-    font-size: 56px;
+  &__subttl-wrap {
+    overflow: hidden;
     margin-bottom: 40px;
+  }
+
+  &__subttl {
+    font-size: 56px;
+    transform: translate(0, 102%);
 
     @include xxxl {
       font-size: vw(56);
@@ -84,10 +127,13 @@ export default {
     }
   }
 
-  &__subttl {
-    @include notlast {
-      margin-bottom: 30px;
-    }
+  &__title-wrap {
+    overflow: hidden;
+    margin-bottom: 30px;
+  }
+
+  &__title {
+    transform: translate(0, 102%);
   }
 }
 </style>
