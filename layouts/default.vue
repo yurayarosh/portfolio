@@ -1,5 +1,7 @@
 <template>
   <div class="layout">
+    <v-preloader />
+
     <v-header class="layout__header" />
     <main class="main layout__main">
       <Nuxt />
@@ -11,7 +13,7 @@
 
 <script>
 import { debounce } from 'throttle-debounce'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapMutations } from 'vuex'
 
 import transitionMixin from '~/mixins/transition'
 
@@ -24,8 +26,12 @@ import { DELAYS } from '~/assets/scripts/constants'
 export default {
   mixins: [transitionMixin],
   computed: {
+    // ...mapMutations({
+    //   loadPreloader: ()
+    // }),
     ...mapGetters({
       hasMenuOpen: 'menu/isOpen',
+      // isLoading: 'layout/isLoading',
     }),
   },
   watch: {
@@ -36,7 +42,15 @@ export default {
       isOpen ? preventScroll() : allowScroll()
     },
   },
+  // beforeCreate() {
+  //   this.$store.commit('layout/load')
+  // },
   async mounted() {
+    this.$nextTick(() => {
+      console.log('tick')
+      this.$store.commit('layout/load')
+    })
+
     setHTMLClassNames()
     setSideOffsets()
 

@@ -34,6 +34,7 @@ export default {
   buildModules: [
     // https://go.nuxtjs.dev/eslint
     '@nuxtjs/eslint-module',
+    // '@nuxt/image',
   ],
 
   // Modules (https://go.nuxtjs.dev/config-modules)
@@ -42,35 +43,36 @@ export default {
     '@nuxtjs/pwa',
     '@nuxtjs/style-resources',
     'nuxt-speedkit',
+    '@nuxt/image',
   ],
 
   // nuxt speedkit for fonts loading (https://nuxt-speedkit.grabarzundpartner.dev/)
   speedkit: {
-    detection: {
-      performance: true,
-      browserSupport: true,
-    },
-    performanceMetrics: {
-      device: {
-        hardwareConcurrency: { min: 2, max: 48 },
-        deviceMemory: { min: 2 },
-      },
-      timing: {
-        fcp: 800,
-        dcl: 1200,
-      },
-      lighthouseDetectionByUserAgent: false,
-    },
-    componentAutoImport: false,
-    componentPrefix: undefined,
+    // detection: {
+    //   performance: true,
+    //   browserSupport: true,
+    // },
+    // performanceMetrics: {
+    //   device: {
+    //     hardwareConcurrency: { min: 2, max: 48 },
+    //     deviceMemory: { min: 2 },
+    //   },
+    //   timing: {
+    //     fcp: 800,
+    //     dcl: 1200,
+    //   },
+    //   lighthouseDetectionByUserAgent: false,
+    // },
+    // componentAutoImport: false,
+    // componentPrefix: undefined,
 
     /**
      * IntersectionObserver rootMargin for Compoennts and Assets
      */
-    lazyOffset: {
-      component: '0%',
-      asset: '0%',
-    },
+    // lazyOffset: {
+    //   component: '0%',
+    //   asset: '0%',
+    // },
     fonts: [
       {
         family: 'univa-pro',
