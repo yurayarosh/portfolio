@@ -1,10 +1,10 @@
 // import { loadCSS } from 'fg-loadcss'
-import lazyLoad from './lazyLoad'
 import { IS_LOADED, HAS_ERROR } from '../constants'
 import {
   // supportsWoff2,
   canUseWebp,
 } from '../helpers'
+import lazyLoad from './lazyLoad'
 
 const defaultConfig = {
   className: 'lazy',
