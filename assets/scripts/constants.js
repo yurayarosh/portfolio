@@ -45,7 +45,8 @@ export const {
     short: 100,
     medium: 200,
     long: 300,
-    preloader: 1400,
+    preloader: 2400,
+    routing: 800,
   },
   SUBMIT_STATUSES: {
     ok: 'OK',

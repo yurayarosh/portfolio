@@ -9,6 +9,7 @@
         <form ref="form" class="s-contacts__form form" @submit.prevent="onSubmit">
           <div class="form__field">
             <v-input
+              ref="input-name"
               v-model="$v.name.$model"
               :class="{ 'input--error': $v.name.$error }"
               :error-message="errorMessages.name"
@@ -18,6 +19,7 @@
           </div>
           <div class="form__field">
             <v-input
+              ref="input-message"
               v-model="$v.message.$model"
               :class="{ 'input--error': $v.message.$error }"
               :error-message="errorMessages.message"
@@ -27,7 +29,7 @@
           </div>
 
           <div class="form__field">
-            <v-btn>send</v-btn>
+            <v-btn ref="button">send</v-btn>
           </div>
         </form>
       </div>
@@ -39,8 +41,8 @@
 import anime from 'animejs'
 import { validationMixin } from 'vuelidate'
 import { required, minLength, maxLength } from 'vuelidate/lib/validators'
+
 import transitionMixin from '~/mixins/transition'
-import { DELAYS } from '~/assets/scripts/constants'
 
 export default {
   name: 'PageContact',
@@ -77,30 +79,28 @@ export default {
       }
     },
   },
-  mounted() {
-    setTimeout(() => {
-      this.$store.commit('preloader/finish')
-      this.animateEntrance()
-    }, DELAYS.preloader)
-  },
   methods: {
     animateEntrance() {
       const { title, form } = this.$refs
+      const inputs = [
+        this.$refs['input-name'].$el,
+        this.$refs['input-message'].$el,
+        this.$refs.button.$el,
+      ]
       const tl = anime.timeline({ easing: 'easeInOutSine' })
 
       tl.add({
         targets: title,
         translateY: ['102%', '0%'],
         duration: 750,
-      })
-        .add(
-          {
-            targets: form,
-            opacity: [0, 1],
-            duration: 750,
-          },
-          '-=500'
-        )
+      }).add(
+        {
+          targets: inputs,
+          translateY: ['150%', '0%'],
+          duration: 750,
+        },
+        '-=500'
+      )
     },
     onSubmit() {
       this.$v.$touch()
@@ -160,12 +160,18 @@ export default {
 
   &__form {
     max-width: 500px;
-    opacity: 0;
   }
 }
 
 .form {
   &__field {
+    overflow: hidden;
+
+    .input,
+    .btn {
+      transform: translate(0, calc(102% + 2.3em));
+    }
+
     @include notlast {
       margin-bottom: 60px;
     }

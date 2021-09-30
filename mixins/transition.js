@@ -1,3 +1,4 @@
+import { mapGetters } from 'vuex'
 import { DELAYS } from '~/assets/scripts/constants'
 
 export default {
@@ -6,14 +7,28 @@ export default {
     beforeLeave(el) {
       this.$store.commit('preloader/start')
     },
-    // afterLeave(el) {
-    //   console.log('after leave', el)
-    //   // this.$store.commit('preloader/finish')
-    // },
     afterEnter(el) {
       setTimeout(() => {
         this.$store.commit('preloader/finish')
+      }, DELAYS.routing)
+    },
+  },
+  computed: {
+    ...mapGetters(['isLoaded']),
+  },
+  mounted() {
+    if (!this.isLoaded) {
+      setTimeout(() => {
+        this.$store.commit('preloader/finish')
+        this.animateEntrance()
       }, DELAYS.preloader)
+    } else {
+      setTimeout(() => {
+        this.animateEntrance()
+      }, DELAYS.routing)
     }
+  },
+  methods: {
+    animateEntrance() {},
   },
 }

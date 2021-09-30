@@ -3,8 +3,8 @@
     <client-only>
       <div v-if="isLoading" class="preloader">
         <div class="preloader__inner">
-          <div class="preloader__ball" />
-          <p class="preloader__text">loading...</p>
+          <div v-if="!isLoaded" class="preloader__ball" />
+          <p v-if="!isLoaded" class="preloader__text">loading...</p>
         </div>
       </div>
     </client-only>
@@ -20,6 +20,7 @@ export default {
   computed: {
     ...mapGetters({
       isLoading: 'preloader/isLoading',
+      isLoaded: 'isLoaded'
     }),
   },
   methods: {
@@ -36,16 +37,16 @@ export default {
       })
         .add({
           targets: header,
-          opacity: [1, 0],
-          duration: 750,
-        })
+          opacity: 0,
+          duration: 400,
+        }, '-=400')
         .add(
           {
             targets: footer,
-            opacity: [1, 0],
-            duration: 750,
+            opacity: 0,
+            duration: 400,
           },
-          '-=750'
+          '-=400'
         )
 
       tl.finished.then(done)
@@ -63,18 +64,21 @@ export default {
         .add({
           targets: header,
           opacity: [0, 1],
-          duration: 750,
+          duration: 400,
         })
         .add(
           {
             targets: footer,
             opacity: [0, 1],
-            duration: 750,
+            duration: 400,
           },
-          '-=750'
+          '-=400'
         )
 
-      tl.finished.then(done)
+      tl.finished.then(() => {
+        this.$store.commit('init')
+        done()
+      })
     },
   },
 }

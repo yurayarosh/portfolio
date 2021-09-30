@@ -39,7 +39,6 @@ export default {
     },
   },
   async mounted() {
-    // this.$nextTick(async () => {
     this.startPreloader()
 
     setHTMLClassNames()
@@ -49,7 +48,6 @@ export default {
 
     window.addEventListener('resize', this.onResize)
     document.addEventListener('mousemove', this.onMouseMove)
-    // })
   },
   beforeDestroy() {
     window.removeEventListener('resize', this.onResize)
