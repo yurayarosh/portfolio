@@ -19,7 +19,6 @@
 </template>
 
 <script>
-import Splitting from 'splitting'
 import anime from 'animejs'
 import { isTouch } from '~/assets/scripts/helpers'
 
@@ -49,7 +48,9 @@ export default {
       return this.$route.name.includes('index') ? this.list.slice(1) : this.list
     },
   },
-  mounted() {
+  async mounted() {
+    const { default: Splitting } = await import('splitting')
+
     const links = Object.values(this.$refs).map(comp => comp.$el || comp[0].$el)
 
     links.forEach(link => {

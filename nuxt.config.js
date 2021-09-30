@@ -48,31 +48,6 @@ export default {
 
   // nuxt speedkit for fonts loading (https://nuxt-speedkit.grabarzundpartner.dev/)
   speedkit: {
-    // detection: {
-    //   performance: true,
-    //   browserSupport: true,
-    // },
-    // performanceMetrics: {
-    //   device: {
-    //     hardwareConcurrency: { min: 2, max: 48 },
-    //     deviceMemory: { min: 2 },
-    //   },
-    //   timing: {
-    //     fcp: 800,
-    //     dcl: 1200,
-    //   },
-    //   lighthouseDetectionByUserAgent: false,
-    // },
-    // componentAutoImport: false,
-    // componentPrefix: undefined,
-
-    /**
-     * IntersectionObserver rootMargin for Compoennts and Assets
-     */
-    // lazyOffset: {
-    //   component: '0%',
-    //   asset: '0%',
-    // },
     fonts: [
       {
         family: 'univa-pro',
@@ -123,4 +98,10 @@ export default {
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {},
+
+  // Generate static files (https://nuxtjs.org/docs/configuration-glossary/configuration-generate)
+  generate: {
+    fallback: '404.html',
+    subFolders: false,
+  }
 }
