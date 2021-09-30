@@ -30,7 +30,7 @@ export default {
   mixins: [transitionMixin],
   mounted() {
     setTimeout(() => {
-      // this.$store.commit('preloader/finish')
+      this.$store.commit('preloader/finish')
       this.animateEntrance()
     }, DELAYS.preloader)
   },

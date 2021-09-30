@@ -116,6 +116,8 @@ export default {
     top: 0;
     left: 0;
     right: 0;
+
+    opacity: 0;
   }
 
   &__main {
@@ -130,6 +132,8 @@ export default {
   &__footer {
     position: relative;
     z-index: $z-index-controls;
+
+    opacity: 0;
   }
 
   &__main,

@@ -36,15 +36,30 @@ export default {
       })
     },
     onLeave(el, done) {
-      anime({
+      const tl = anime.timeline({ easing: 'easeOutQuad' })
+      const header = document.querySelector('.layout__header')
+      const footer = document.querySelector('.layout__footer')
+
+      tl.add({
         targets: el,
         translateY: ['0%', '100%'],
         duration: 750,
-        easing: 'easeOutQuad',
-        complete() {
-          done()
-        },
       })
+        .add({
+          targets: header,
+          opacity: [0, 1],
+          duration: 750,
+        })
+        .add(
+          {
+            targets: footer,
+            opacity: [0, 1],
+            duration: 750,
+          },
+          '-=750'
+        )
+
+      tl.finished.then(done)
     },
   },
 }
