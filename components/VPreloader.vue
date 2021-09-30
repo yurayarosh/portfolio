@@ -24,16 +24,31 @@ export default {
   },
   methods: {
     onEnter(el, done) {
+      const tl = anime.timeline({ easing: 'easeOutQuad' })
+      const header = document.querySelector('.layout__header')
+      const footer = document.querySelector('.layout__footer')
       const inner = el.querySelector('.preloader__inner')
-      anime({
+
+      tl.add({
         targets: inner,
         translateY: ['-100%', '0%'],
         duration: 750,
-        easing: 'easeOutQuad',
-        complete() {
-          done()
-        },
       })
+        .add({
+          targets: header,
+          opacity: [1, 0],
+          duration: 750,
+        })
+        .add(
+          {
+            targets: footer,
+            opacity: [1, 0],
+            duration: 750,
+          },
+          '-=750'
+        )
+
+      tl.finished.then(done)
     },
     onLeave(el, done) {
       const tl = anime.timeline({ easing: 'easeOutQuad' })
@@ -66,6 +81,7 @@ export default {
 </script>
 
 <style lang="scss">
+// Bouncing ball animation idea from https://codepen.io/wabeshew/pen/XdbBdM?editors=0110
 $bounce-height: em(60);
 $width: em(30);
 $height: em(30);
