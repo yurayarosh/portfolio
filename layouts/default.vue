@@ -26,12 +26,8 @@ import { DELAYS } from '~/assets/scripts/constants'
 export default {
   mixins: [transitionMixin],
   computed: {
-    // ...mapMutations({
-    //   loadPreloader: ()
-    // }),
     ...mapGetters({
       hasMenuOpen: 'menu/isOpen',
-      // isLoading: 'layout/isLoading',
     }),
   },
   watch: {
@@ -42,14 +38,9 @@ export default {
       isOpen ? preventScroll() : allowScroll()
     },
   },
-  // beforeCreate() {
-  //   this.$store.commit('layout/load')
-  // },
   async mounted() {
-    this.$nextTick(() => {
-      console.log('tick')
-      this.$store.commit('layout/load')
-    })
+    // this.$nextTick(async () => {
+    this.startPreloader()
 
     setHTMLClassNames()
     setSideOffsets()
@@ -58,6 +49,7 @@ export default {
 
     window.addEventListener('resize', this.onResize)
     document.addEventListener('mousemove', this.onMouseMove)
+    // })
   },
   beforeDestroy() {
     window.removeEventListener('resize', this.onResize)
@@ -69,6 +61,9 @@ export default {
     }
   },
   methods: {
+    ...mapMutations({
+      startPreloader: 'preloader/start',
+    }),
     async initPointer() {
       const { default: Pointer } = await import('~/assets/scripts/Pointer')
 

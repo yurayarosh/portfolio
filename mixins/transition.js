@@ -1,12 +1,19 @@
+import { DELAYS } from '~/assets/scripts/constants'
+
 export default {
   transition: {
     // name: 'layout',
     beforeLeave(el) {
-      const layout = document.querySelector('.layout')
-      console.log(layout)
+      this.$store.commit('preloader/start')
     },
-    afterLeave(el) {
-      console.log('after leave', el)
-    },
+    // afterLeave(el) {
+    //   console.log('after leave', el)
+    //   // this.$store.commit('preloader/finish')
+    // },
+    afterEnter(el) {
+      setTimeout(() => {
+        this.$store.commit('preloader/finish')
+      }, DELAYS.preloader)
+    }
   },
 }

@@ -23,12 +23,16 @@
 <script>
 import anime from 'animejs'
 import transitionMixin from '~/mixins/transition'
+import { DELAYS } from '~/assets/scripts/constants'
 
 export default {
   name: 'PageHome',
   mixins: [transitionMixin],
   mounted() {
-    this.animateEntrance()
+    setTimeout(() => {
+      this.$store.commit('preloader/finish')
+      this.animateEntrance()
+    }, DELAYS.preloader)
   },
   methods: {
     animateEntrance() {

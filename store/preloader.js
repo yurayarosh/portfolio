@@ -3,10 +3,10 @@ export const state = () => ({
 })
 
 export const mutations = {
-  load(state) {
+  start(state) {
     state.isLoading = true
   },
-  loaded(state) {
+  finish(state) {
     state.isLoading = false
   },
   // open(state) {

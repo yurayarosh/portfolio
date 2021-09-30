@@ -18,6 +18,7 @@
 import anime from 'animejs'
 import transitionMixin from '~/mixins/transition'
 import { chunkArray } from '~/assets/scripts/helpers'
+import { DELAYS } from '~/assets/scripts/constants'
 
 export default {
   name: 'PageWorks',
@@ -193,7 +194,10 @@ export default {
     },
   },
   mounted() {
-    this.animateEntrance()
+    setTimeout(() => {
+      this.$store.commit('preloader/finish')
+      this.animateEntrance()
+    }, DELAYS.preloader)
   },
   methods: {
     animateEntrance() {
@@ -219,6 +223,8 @@ export default {
 
 <style lang="scss">
 .s-works {
+  @include hidden;
+
   &__title-wrap {
     overflow: hidden;
     margin-bottom: 100px;

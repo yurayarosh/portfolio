@@ -1,8 +1,12 @@
 <template>
-  <transition name="preloader" :css="false" @enter="onEnter">
-    <div v-if="isLoading" class="preloader">
-      <div class="spinner" />
-    </div>
+  <transition name="preloader" :css="false" @enter="onEnter" @leave="onLeave">
+    <client-only>
+      <div v-if="isLoading" class="preloader">
+        <div class="preloader__inner">
+          <div class="spinner" />
+        </div>
+      </div>
+    </client-only>
   </transition>
 </template>
 
@@ -14,43 +18,78 @@ export default {
   name: 'VPreloader',
   computed: {
     ...mapGetters({
-      isLoading: 'layout/isLoading',
+      isLoading: 'preloader/isLoading',
     }),
   },
+  methods: {
+    onEnter(el, done) {
+      const inner = el.querySelector('.preloader__inner')
+      anime({
+        targets: inner,
+        translateY: ['-100%', '0%'],
+        duration: 750,
+        easing: 'easeOutQuad',
+        complete() {
+          done()
+        },
+      })
+    },
+    onLeave(el, done) {
+      anime({
+        targets: el,
+        translateY: ['0%', '100%'],
+        duration: 750,
+        easing: 'easeOutQuad',
+        complete() {
+          done()
+        },
+      })
+    },
+  },
+
   // mounted() {
   //   console.log('preloader', this.isLoading)
   // },
-  methods: {
-    onEnter(el, done) {
-      // setTimeout(done, 1000)
-      // const tl = anime.timeline({ easing: 'easeInOutSine' })
+  // methods: {
+  //   onEnter(el, done) {
+  //     // setTimeout(done, 1000)
+  //     // const tl = anime.timeline({ easing: 'easeInOutSine' })
 
-      // tl.add({
-      //   targets
-      // })
-      console.log({ el })
-      anime({
-        targets: el,
-        translateY: ['-100%', '0%'],
-        duration: 750,
-        easing: 'easeOutQuad'
-      })
-      done()
-    },
-  },
+  //     // tl.add({
+  //     //   targets
+  //     // })
+  //     console.log({ el })
+  //     anime({
+  //       targets: el,
+  //       translateY: ['-100%', '0%'],
+  //       duration: 750,
+  //       easing: 'easeOutQuad'
+  //     })
+  //     done()
+  //   },
+  // },
 }
 </script>
 
 <style lang="scss">
 .preloader {
-  @extend %flex-center;
   @extend %overlay;
   z-index: $z-index-preloader;
 
-  background-color: $black;
-  color: $white;
+  // background-color: $light;
+  overflow: hidden;
 
-  transform: translate(0, -100%);
+  &__inner {
+    @extend %flex-center;
+
+    width: 100%;
+    height: 100%;
+
+    background-color: $black;
+    color: $white;
+
+    transform: translate(0, -100%);
+  }
 }
 
 .spinner {

@@ -40,6 +40,7 @@ import anime from 'animejs'
 import { validationMixin } from 'vuelidate'
 import { required, minLength, maxLength } from 'vuelidate/lib/validators'
 import transitionMixin from '~/mixins/transition'
+import { DELAYS } from '~/assets/scripts/constants'
 
 export default {
   name: 'PageContact',
@@ -77,7 +78,10 @@ export default {
     },
   },
   mounted() {
-    this.animateEntrance()
+    setTimeout(() => {
+      this.$store.commit('preloader/finish')
+      this.animateEntrance()
+    }, DELAYS.preloader)
   },
   methods: {
     animateEntrance() {

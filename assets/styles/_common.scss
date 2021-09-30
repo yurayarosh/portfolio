@@ -27,6 +27,12 @@ html {
     opacity: 0.2;
   }
 
+  &:not(.is-ready) {
+    * {
+      opacity: 0;
+    }
+  }
+
   &.has-custom-cursor {
     cursor: none;
 
