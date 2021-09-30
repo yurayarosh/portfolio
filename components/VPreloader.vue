@@ -3,7 +3,8 @@
     <client-only>
       <div v-if="isLoading" class="preloader">
         <div class="preloader__inner">
-          <div class="spinner" />
+          <div class="preloader__ball" />
+          <p class="preloader__text">loading...</p>
         </div>
       </div>
     </client-only>
@@ -46,38 +47,22 @@ export default {
       })
     },
   },
-
-  // mounted() {
-  //   console.log('preloader', this.isLoading)
-  // },
-  // methods: {
-  //   onEnter(el, done) {
-  //     // setTimeout(done, 1000)
-  //     // const tl = anime.timeline({ easing: 'easeInOutSine' })
-
-  //     // tl.add({
-  //     //   targets
-  //     // })
-  //     console.log({ el })
-  //     anime({
-  //       targets: el,
-  //       translateY: ['-100%', '0%'],
-  //       duration: 750,
-  //       easing: 'easeOutQuad'
-  //     })
-  //     done()
-  //   },
-  // },
 }
 </script>
 
 <style lang="scss">
+$bounce-height: em(60);
+$width: em(30);
+$height: em(30);
+
 .preloader {
   @extend %overlay;
   z-index: $z-index-preloader;
 
   // background-color: $light;
   overflow: hidden;
+
+  font-size: 1.5em;
 
   &__inner {
     @extend %flex-center;
@@ -90,24 +75,48 @@ export default {
 
     transform: translate(0, -100%);
   }
+
+  &__ball {
+    display: inline-block;
+    position: relative;
+    height: $bounce-height + ($height * 2);
+    width: $width;
+
+    &:before {
+      content: '';
+      display: block;
+
+      position: absolute;
+      top: 0;
+
+      width: $width;
+      height: $height;
+
+      border-radius: 50%;
+      background-color: currentColor;
+      animation: bounce 500ms alternate infinite $easeOutSine;
+    }
+  }
+
+  &__text {
+    display: inline-block;
+    text-transform: uppercase;
+    margin-left: 1em;
+  }
 }
 
-.spinner {
-  width: 80px;
-  height: 80px;
-  background-color: currentColor;
-
-  border-radius: 100%;
-  animation: sk-scaleout 1s infinite ease-in-out;
-}
-
-@keyframes sk-scaleout {
+@keyframes bounce {
   0% {
-    transform: scale(0);
+    height: em(20);
+    border-radius: em(200) em(200) em(100) em(100);
+    transform: translate(0, $bounce-height) scaleX(2);
+  }
+  35% {
+    border-radius: 50%;
+    transform: translate(0, $height) scaleX(1);
   }
   100% {
-    transform: scale(1);
-    opacity: 0;
+    transform: translate(0, 0);
   }
 }
 </style>
