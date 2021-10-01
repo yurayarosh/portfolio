@@ -44,6 +44,8 @@ export default {
     setHTMLClassNames()
     setSideOffsets()
 
+    this.$lazyLoader.init()
+
     if (!isTouch) await this.initPointer()
 
     window.addEventListener('resize', this.onResize)

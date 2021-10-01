@@ -85,7 +85,6 @@ export default {
   $this: &;
 
   position: relative;
-  margin-bottom: 2.3em;
 
   &__label {
     display: block;

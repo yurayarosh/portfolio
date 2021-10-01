@@ -14,7 +14,13 @@
         :class="`work-card work-card--${item.index}`"
       >
         <span class="work-card__img">
-          <img :src="item.image.src" :alt="item.image.alt" :title="item.image.title" />
+          <img
+            class="js-lazy"
+            src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="
+            :data-src="item.image.src"
+            :alt="item.image.alt"
+            :title="item.image.title"
+          />
         </span>
 
         <span class="work-card__content">

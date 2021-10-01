@@ -6,32 +6,61 @@
           <h1 ref="title" class="s-contacts__title title title--h1">Contact me</h1>
         </div>
 
-        <form ref="form" class="s-contacts__form form" @submit.prevent="onSubmit">
-          <div class="form__field">
-            <v-input
-              ref="input-name"
-              v-model="$v.name.$model"
-              :class="{ 'input--error': $v.name.$error }"
-              :error-message="errorMessages.name"
-              :show-errors="$v.name.$error"
-              label="Your name"
-            />
-          </div>
-          <div class="form__field">
-            <v-input
-              ref="input-message"
-              v-model="$v.message.$model"
-              :class="{ 'input--error': $v.message.$error }"
-              :error-message="errorMessages.message"
-              :show-errors="$v.message.$error"
-              label="Your phone, email or just say hello"
-            />
-          </div>
+        <div class="form__wrap s-contacts__form">
+          <transition name="form">
+            <div v-if="submitStatus === 'OK'" class="form__success">
+              <p class="form__success-message">Thank you. I' ll contact you shortly.</p>
+              <button
+                class="form__success-close"
+                type="button"
+                aria-label="close"
+                @click="onSuccessCloseClick"
+              >
+                Close
+              </button>
+            </div>
+          </transition>
 
-          <div class="form__field">
-            <v-btn ref="button">send</v-btn>
-          </div>
-        </form>
+          <form
+            class="form"
+            :class="{ 'form--hidden': submitStatus === 'OK' }"
+            @submit.prevent="onSubmit"
+          >
+            <div
+              class="form__field"
+              :class="{ 'form__field--overflow-hidden': !animationsComplete }"
+            >
+              <v-input
+                ref="input-name"
+                v-model="$v.name.$model"
+                :class="{ 'input--error': $v.name.$error }"
+                :error-message="errorMessages.name"
+                :show-errors="$v.name.$error"
+                label="Your name"
+              />
+            </div>
+            <div
+              class="form__field"
+              :class="{ 'form__field--overflow-hidden': !animationsComplete }"
+            >
+              <v-input
+                ref="input-message"
+                v-model="$v.message.$model"
+                :class="{ 'input--error': $v.message.$error }"
+                :error-message="errorMessages.message"
+                :show-errors="$v.message.$error"
+                label="Your phone, email or just say hello"
+              />
+            </div>
+
+            <div
+              class="form__field"
+              :class="{ 'form__field--overflow-hidden': !animationsComplete }"
+            >
+              <v-btn ref="button">send</v-btn>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   </section>
@@ -52,6 +81,7 @@ export default {
       name: '',
       message: '',
       submitStatus: null,
+      animationsComplete: false,
     }
   },
   computed: {
@@ -101,6 +131,21 @@ export default {
         },
         '-=500'
       )
+
+      tl.finished.then(() => {
+        this.animationsComplete = true
+      })
+    },
+    resetForm() {
+      ;['name', 'message'].forEach(key => {
+        const inputElement = this.$refs[`input-${key}`]?.$el.querySelector('input, textarea')
+
+        this[key] = ''
+        inputElement.value = ''
+      })
+
+      this.submitStatus = null
+      this.$v.$reset()
     },
     onSubmit() {
       this.$v.$touch()
@@ -120,6 +165,9 @@ export default {
           // console.log('success', this.formData)
         }, 500)
       }
+    },
+    onSuccessCloseClick() {
+      this.resetForm()
     },
   },
   validations: {
@@ -164,9 +212,36 @@ export default {
 }
 
 .form {
-  &__field {
-    overflow: hidden;
+  transition: opacity 0.5s, visibility 0.5s;
 
+  &__wrap {
+    position: relative;
+  }
+
+  &__success {
+    @extend %coverdiv;
+    @extend %flex-center;
+    text-align: center;
+    padding: 10px;
+
+    z-index: 1;
+
+    border: 2px solid $c-text;
+  }
+
+  &__success-message {
+    @include f-title;
+    font-size: 1.2em;
+  }
+
+  &__success-close {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translate(-50%, 0);
+  }
+
+  &__field {
     .input,
     .btn {
       transform: translate(0, calc(102% + 2.3em));
@@ -179,6 +254,24 @@ export default {
     &:last-child {
       margin-top: 30px;
     }
+
+    &--overflow-hidden {
+      overflow: hidden;
+    }
+  }
+
+  &--hidden {
+    @extend %hidden;
+  }
+
+  &-enter-active,
+  &-leave-active {
+    transition: opacity 0.5s;
+  }
+
+  &-enter,
+  &-leave-to {
+    opacity: 0;
   }
 }
 </style>
