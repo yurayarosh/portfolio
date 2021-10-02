@@ -10,6 +10,7 @@ export default {
     afterEnter(el) {
       setTimeout(() => {
         this.$store.commit('preloader/finish')
+        this.$lazyLoader.update()
       }, DELAYS.routing)
     },
   },

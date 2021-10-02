@@ -11,3 +11,7 @@
 @function vw($size, $context: $base-desktop) {
   @return math.div($size, $context) * 100vw;
 }
+
+@function vh($size, $context: $base-desktop-height) {
+  @return math.div($size, $context) * 100vh;
+}

@@ -27,5 +27,9 @@ h6 {
     @include xs {
       font-size: vw(42, $base-mobile);
     }
+
+    @media (max-height: 50vw) {
+      font-size: vh(160);
+    }
   }
 }

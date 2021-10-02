@@ -134,6 +134,10 @@ export default {
     font-size: vw(240);
   }
 
+  @media (max-height: 50vw) {
+    font-size: vh(240);
+  }
+
   &__item {
     @extend %flex-center;
 

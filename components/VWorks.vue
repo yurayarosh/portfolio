@@ -206,6 +206,10 @@ export default {
       width: 70%;
     }
 
+    @media (max-height: 62vw) {
+      height: 90%;
+    }
+
     @include xs {
       width: 100% !important;
       height: auto !important;
@@ -245,6 +249,10 @@ export default {
       @media (max-width: 100vh) {
         margin-left: 20%;
       }
+
+      @media (max-height: 62vw) {
+        margin-top: 3%;
+      }
     }
 
     &:nth-child(6n + 3) {
@@ -258,6 +266,12 @@ export default {
         margin-left: 10%;
         width: 80%;
         height: 50vh;
+      }
+
+      @media (max-height: 62vw) {
+        margin-top: 1%;
+        height: 90%;
+        width: 35vw;
       }
     }
 
@@ -273,6 +287,12 @@ export default {
         width: 70%;
         height: 40vh;
       }
+
+      @media (max-height: 62vw) {
+        margin-top: 2%;
+        height: 90%;
+        width: 30vw;
+      }
     }
 
     &:nth-child(6n + 5) {
@@ -286,6 +306,12 @@ export default {
         margin-left: 4%;
         width: 75%;
         height: 45vh;
+      }
+
+      @media (max-height: 62vw) {
+        margin-top: 0;
+        height: 90%;
+        width: 35vw;
       }
     }
   }
