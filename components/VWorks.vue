@@ -4,7 +4,10 @@
       v-for="(item, i) in list"
       :ref="`work-item${i}`"
       :key="i"
-      :class="`works-list__item works-list__item--${item.index}`"
+      :class="{
+        [`works-list__item works-list__item--${item.index}`]: true,
+        'works-list__item--overflow-hidden': !animationsComplete,
+      }"
       :data-speed="i % 2 === 0 ? 1 : -3"
     >
       <a
@@ -40,6 +43,10 @@ import { breakpoints, isTouch } from '~/assets/scripts/helpers'
 export default {
   name: 'VWorks',
   props: {
+    animationsComplete: {
+      type: Boolean,
+      default: false,
+    },
     list: {
       type: Array,
       required: true,
@@ -312,6 +319,14 @@ export default {
         margin-top: 0;
         height: 90%;
         width: 35vw;
+      }
+    }
+
+    &--overflow-hidden {
+      overflow: hidden;
+
+      .work-card {
+        transform: translate(0, 102%);
       }
     }
   }

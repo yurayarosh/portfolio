@@ -8,7 +8,7 @@
       </div>
 
       <div ref="body" class="s-works__body">
-        <v-works :list="worksList" />
+        <v-works :list="worksList" :animations-complete="animationsComplete" />
       </div>
     </div>
   </section>
@@ -24,6 +24,7 @@ export default {
   mixins: [transitionMixin],
   data() {
     return {
+      animationsComplete: false,
       works: [
         {
           productionUrl: '#',
@@ -192,29 +193,42 @@ export default {
       return listWithIndexes.flat()
     },
   },
-  // mounted() {
-  //   setTimeout(() => {
-  //     this.$store.commit('preloader/finish')
-  //     this.animateEntrance()
-  //   }, DELAYS.preloader)
-  // },
   methods: {
     animateEntrance() {
       const { title, body } = this.$refs
+      const cards = body.querySelectorAll('.work-card')
       const tl = anime.timeline({ easing: 'easeInOutSine' })
 
       tl.add({
         targets: title,
         translateY: ['102%', '0%'],
         duration: 750,
-      }).add(
-        {
-          targets: body,
-          opacity: [0, 1],
-          duration: 750,
-        },
-        '-=500'
-      )
+      })
+        .add(
+          {
+            targets: body,
+            opacity: [0, 1],
+            duration: 750,
+          },
+          '-=500'
+        )
+        .add(
+          {
+            targets: cards,
+            translateY: ['102%', '0%'],
+            duration: 750,
+            complete() {
+              cards.forEach(card => {
+                card.style.transform = ''
+              })
+            },
+          },
+          '-=500'
+        )
+
+      tl.finished.then(() => {
+        this.animationsComplete = true
+      })
     },
   },
 }
