@@ -327,12 +327,15 @@ export default {
 
       .work-card {
         transform: translate(0, 102%);
+        transition: none;
       }
     }
   }
 }
 
 .work-card {
+  $this: &;
+
   display: flex;
   flex-direction: column;
 
@@ -351,6 +354,12 @@ export default {
     padding-top: 65%;
   }
 
+  @include hover {
+    #{$this}__img {
+      transform: scale(1.05);
+    }
+  }
+
   [data-scroll-direction='left'] & {
     transform: skew(5deg);
   }
@@ -364,10 +373,12 @@ export default {
 
     position: relative;
     z-index: 0;
-    background-color: $light;
+    background-color: $black;
 
     width: 100%;
     height: 100%;
+
+    transition: transform 0.5s $easeInSine;
 
     @include xs {
       position: absolute;

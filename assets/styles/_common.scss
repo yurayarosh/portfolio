@@ -58,6 +58,14 @@ body {
   font-size: inherit;
 }
 
+.lazy {
+  $this: &;
+
+  &--loaded:not(#{$this}--no-fade-in) {
+    animation: fade-in 1s;
+  }
+}
+
 .container {
   width: 100%;
   max-width: 90%;

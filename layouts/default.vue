@@ -44,7 +44,7 @@ export default {
     setHTMLClassNames()
     setSideOffsets()
 
-    this.$lazyLoader.init()
+    // this.$lazyLoader.init()
 
     if (!isTouch) await this.initPointer()
 

@@ -203,31 +203,21 @@ export default {
         targets: title,
         translateY: ['102%', '0%'],
         duration: 750,
-      })
-        .add(
-          {
-            targets: body,
-            opacity: [0, 1],
-            duration: 750,
-          },
-          0
-        )
-        .add(
-          {
-            targets: cards,
-            translateY: ['102%', '0%'],
-            duration: 750,
-            complete() {
-              cards.forEach(card => {
-                card.style.transform = ''
-              })
-            },
-          },
-          0
-        )
+      }).add(
+        {
+          targets: cards,
+          translateY: ['102%', '0%'],
+          duration: 750,
+          // easing: 'easeInSine',
+        },
+        0
+      )
 
       tl.finished.then(() => {
         this.animationsComplete = true
+        cards.forEach(card => {
+          card.style.transform = ''
+        })
       })
     },
   },
@@ -268,7 +258,7 @@ export default {
 
   &__body {
     flex-grow: 1;
-    opacity: 0;
+    // opacity: 0;
 
     @media (min-width: 100vh) {
       padding-left: var(--container-offset);
