@@ -1,5 +1,3 @@
-// import { breakpoints } from '../../helpers'
-
 const defaultConfig = {
   direction: 'vertical',
   observe: true,
@@ -12,13 +10,12 @@ export default class Parallax {
     this.visibleParallaxEls = []
   }
 
-  makeParralaxElsArray(entries) {
-    entries.forEach(({ target, isIntersecting }) => {
-      if (isIntersecting) {
-        this.visibleParallaxEls = [...this.visibleParallaxEls, target]
-      } else {
-        this.visibleParallaxEls = this.visibleParallaxEls.filter(t => t !== target)
-      }
+  makeParralaxElsArray() {
+    this.visibleParallaxEls = this.parallaxEls.filter(el => {
+      const offset = 600
+      const { left } = el.getBoundingClientRect()
+      const isVisible = left <= this.options.VComponent.scrollTarget + window.innerWidth + offset
+      return isVisible
     })
   }
 
@@ -79,35 +76,22 @@ export default class Parallax {
   }
 
   handleScroll = () => {
+    this.makeParralaxElsArray()
     this.animateParallaxEls()
-  }
-
-  handleObserving = entries => {
-    this.makeParralaxElsArray(entries)
   }
 
   addListeners() {
     this.onScroll = this.handleScroll
-
-    if (this.options.observe) {
-      this.observer = new IntersectionObserver(this.handleObserving, { rootMargin: '200px' })
-      this.parallaxEls.forEach(el => this.observer.observe(el))
-    }
   }
 
   removeListeners() {
     this.onScroll = null
-
-    if (this.options.observe) {
-      this.parallaxEls.forEach(el => this.observer.unobserve(el))
-    }
   }
 
   init() {
-    // if (!breakpoints.xs.matches) return
-
     this.addListeners()
     setTimeout(() => {
+      this.makeParralaxElsArray()
       this.animateParallaxEls()
 
       this.inited = true
@@ -120,9 +104,4 @@ export default class Parallax {
 
     this.inited = false
   }
-
-  // onBreakpointChange = () => {
-  //   if (!this.inited) this.init()
-  //   else this.destroy()
-  // }
 }

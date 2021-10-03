@@ -92,8 +92,9 @@ export default {
       const itemCards = itemCardsKeys.map(key => this.$refs[key][0] || this.$refs[key])
 
       this.parallax = new Parallax(itemCards, {
+        VComponent: this,
         direction: 'horizontal',
-        observe: false,
+        // observe: false,
       })
       this.parallax.init()
     },
@@ -213,7 +214,7 @@ export default {
       width: 70%;
     }
 
-    @media (max-height: 62vw) {
+    @media (max-width: 1919px) and (max-height: 62vw) {
       height: 90%;
     }
 
@@ -257,7 +258,7 @@ export default {
         margin-left: 20%;
       }
 
-      @media (max-height: 62vw) {
+      @media (max-width: 1919px) and (max-height: 62vw) {
         margin-top: 3%;
       }
     }
@@ -275,7 +276,7 @@ export default {
         height: 50vh;
       }
 
-      @media (max-height: 62vw) {
+      @media (max-width: 1919px) and (max-height: 62vw) {
         margin-top: 1%;
         height: 90%;
         width: 35vw;
@@ -295,7 +296,7 @@ export default {
         height: 40vh;
       }
 
-      @media (max-height: 62vw) {
+      @media (max-width: 1919px) and (max-height: 62vw) {
         margin-top: 2%;
         height: 90%;
         width: 30vw;
@@ -315,7 +316,7 @@ export default {
         height: 45vh;
       }
 
-      @media (max-height: 62vw) {
+      @media (max-width: 1919px) and (max-height: 62vw) {
         margin-top: 0;
         height: 90%;
         width: 35vw;
