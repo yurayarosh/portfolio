@@ -122,5 +122,10 @@ export default {
     position: relative;
     z-index: 1;
   }
+
+  &--disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
 }
 </style>

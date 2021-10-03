@@ -210,7 +210,7 @@ export default {
             opacity: [0, 1],
             duration: 750,
           },
-          '-=500'
+          0
         )
         .add(
           {
@@ -223,7 +223,7 @@ export default {
               })
             },
           },
-          '-=500'
+          0
         )
 
       tl.finished.then(() => {

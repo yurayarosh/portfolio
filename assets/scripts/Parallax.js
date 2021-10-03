@@ -15,7 +15,6 @@ export default class Parallax {
   makeParralaxElsArray(entries) {
     entries.forEach(({ target, isIntersecting }) => {
       if (isIntersecting) {
-        console.log({ target })
         this.visibleParallaxEls = [...this.visibleParallaxEls, target]
       } else {
         this.visibleParallaxEls = this.visibleParallaxEls.filter(t => t !== target)

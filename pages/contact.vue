@@ -57,7 +57,7 @@
               class="form__field"
               :class="{ 'form__field--overflow-hidden': !animationsComplete }"
             >
-              <v-btn ref="button">send</v-btn>
+              <v-btn ref="button" :disabled="submitStatus === 'PENDING'">send</v-btn>
             </div>
           </form>
         </div>
@@ -111,7 +111,7 @@ export default {
   },
   methods: {
     animateEntrance() {
-      const { title, form } = this.$refs
+      const { title } = this.$refs
       const inputs = [
         this.$refs['input-name'].$el,
         this.$refs['input-message'].$el,
@@ -136,12 +136,65 @@ export default {
         this.animationsComplete = true
       })
     },
+    async handleFeedback() {
+      const date = new Date().toLocaleString()
+      let message = `Дата: ${date}`
+
+      if (this.formData.name) message += `\nИмя: ${this.formData.name}`
+      if (this.formData.message) message += `\nСообщение: ${this.formData.message}`
+
+      try {
+        // TODO: Use when back is ready.
+        // Save data to `feedbacks` mongodb collection.
+        // const dbResponse = await fetch(`${process.env.BASE_URL_BACK}/feedbacks`, {
+        //   method: 'post',
+        //   body: JSON.stringify(this.formData),
+        //   headers: {
+        //     'Content-Type': 'application/json',
+        //   },
+        // })
+
+        // Send data to telegram chat.
+        const telegramResponse = await fetch(
+          `${process.env.TELEGRAM_API_URL}/bot${process.env.TELEGRAM_BOT_TOKEN}/sendMessage`,
+          {
+            method: 'post',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              chat_id: process.env.TELEGRAM_CHAT_ID,
+              text: message,
+            }),
+          }
+        )
+
+        if (
+          // dbResponse.ok &&
+          telegramResponse.ok
+        ) {
+          this.submitStatus = 'OK'
+
+          // this.resetForm()
+        } else {
+          this.submitStatus = 'ERROR'
+
+          throw new Error('Feedback form responce error.', {
+            // dbResponse: dbResponse.statusText,
+            telegramResponse: telegramResponse.statusText,
+          })
+        }
+      } catch (error) {
+        this.submitStatus = 'ERROR'
+        throw new Error('Form submit error.', error)
+      }
+    },
     resetForm() {
       ;['name', 'message'].forEach(key => {
         const inputElement = this.$refs[`input-${key}`]?.$el.querySelector('input, textarea')
 
         this[key] = ''
-        inputElement.value = ''
+        if (inputElement) inputElement.value = ''
       })
 
       this.submitStatus = null
@@ -159,11 +212,8 @@ export default {
         this.submitStatus = 'ERROR'
       } else {
         this.submitStatus = 'PENDING'
-        setTimeout(() => {
-          this.submitStatus = 'OK'
 
-          // console.log('success', this.formData)
-        }, 500)
+        this.handleFeedback()
       }
     },
     onSuccessCloseClick() {

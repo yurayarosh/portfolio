@@ -1,4 +1,11 @@
 export default {
+  // Define environment variables that are required at build time: https://nuxtjs.org/docs/2.x/directory-structure/nuxt-config#env
+  env: {
+    TELEGRAM_API_URL: process.env.TELEGRAM_API_URL,
+    TELEGRAM_BOT_TOKEN: process.env.TELEGRAM_BOT_TOKEN,
+    TELEGRAM_CHAT_ID: process.env.TELEGRAM_CHAT_ID,
+  },
+
   // Disable the Progress Bar
   loading: false,
 
@@ -103,5 +110,5 @@ export default {
   generate: {
     fallback: '404.html',
     subFolders: false,
-  }
+  },
 }
