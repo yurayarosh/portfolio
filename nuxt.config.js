@@ -1,6 +1,7 @@
 export default {
   // Define environment variables that are required at build time: https://nuxtjs.org/docs/2.x/directory-structure/nuxt-config#env
   env: {
+    // BASE_URL_PROD: process.env.BASE_URL_PROD,
     TELEGRAM_API_URL: process.env.TELEGRAM_API_URL,
     TELEGRAM_BOT_TOKEN: process.env.TELEGRAM_BOT_TOKEN,
     TELEGRAM_CHAT_ID: process.env.TELEGRAM_CHAT_ID,
@@ -20,7 +21,9 @@ export default {
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { hid: 'description', name: 'description', content: '' },
     ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
+    link: [
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+    ],
   },
 
   // Global CSS (https://go.nuxtjs.dev/config-css)
@@ -49,59 +52,44 @@ export default {
     // https://go.nuxtjs.dev/pwa
     '@nuxtjs/pwa',
     '@nuxtjs/style-resources',
-    'nuxt-speedkit',
-    '@nuxt/image',
-  ],
-
-  // nuxt speedkit for fonts loading (https://nuxt-speedkit.grabarzundpartner.dev/)
-  speedkit: {
-    fonts: [
+    [
+      'nuxt-font-loader-strategy',
       {
-        family: 'univa-pro',
-        fallback: ['sans-serif'],
-        variances: [
+        fonts: [
           {
-            sources: [
-              { src: '@/assets/fonts/UniviaPro-Regular.woff', type: 'woff' },
-              { src: '@/assets/fonts/UniviaPro-Regular.woff2', type: 'woff2' },
+            fileExtensions: ['woff2', 'woff'],
+            fontFamily: 'univa-pro',
+            fontFaces: [
+              {
+                preload: true,
+                src: '@/assets/fonts/UniviaPro-Regular',
+                fontStyle: 'normal',
+              },
+              {
+                src: '@/assets/fonts/UniviaPro-Light',
+                fontWeight: 300,
+              },
             ],
-            style: 'normal',
-            weight: 400,
           },
           {
-            sources: [
-              { src: '@/assets/fonts/UniviaPro-Light.woff', type: 'woff' },
-              { src: '@/assets/fonts/UniviaPro-Light.woff2', type: 'woff2' },
+            fileExtensions: ['woff2', 'woff'],
+            fontFamily: 'monument',
+            fontFaces: [
+              {
+                preload: true,
+                src: '@/assets/fonts/monumentextended-regular-webfont',
+                fontStyle: 'normal',
+              },
+              {
+                src: '@/assets/fonts/monumentextended-ultrabold-webfont',
+                fontWeight: 700,
+              },
             ],
-            style: 'normal',
-            weight: 300,
-          },
-        ],
-      },
-      {
-        family: 'monument',
-        fallback: ['sans-serif'],
-        variances: [
-          {
-            sources: [
-              { src: '@/assets/fonts/monumentextended-regular-webfont.woff', type: 'woff' },
-              { src: '@/assets/fonts/monumentextended-regular-webfont.woff2', type: 'woff2' },
-            ],
-            style: 'normal',
-            weight: 400,
-          },
-          {
-            sources: [
-              { src: '@/assets/fonts/monumentextended-ultrabold-webfont.woff', type: 'woff' },
-              { src: '@/assets/fonts/monumentextended-ultrabold-webfont.woff2', type: 'woff2' },
-            ],
-            style: 'normal',
-            fontWeight: 700,
           },
         ],
       },
     ],
-  },
+  ],
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {},
