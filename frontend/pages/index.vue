@@ -4,16 +4,13 @@
       <div class="hero__inner">
         <div class="hero__content">
           <div class="hero__title-wrap">
-            <p ref="title" class="hero__title title title--h1">Yurii Yaroshenko</p>
+            <p ref="title" class="hero__title title title--h1">{{ pageData.title }}</p>
           </div>
           <div class="hero__subttl-wrap">
-            <h1 ref="subtitle" class="hero__subttl">Frontend developer.</h1>
+            <h1 ref="subtitle" class="hero__subttl">{{ pageData.metatags.h1 }}</h1>
           </div>
 
-          <p ref="text" class="hero__text">
-            Hi, nice to see you here! Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-            Perspiciatis, quia.
-          </p>
+          <p ref="text" class="hero__text" v-html="pageData.text" />
         </div>
       </div>
     </div>
@@ -27,6 +24,14 @@ import transitionMixin from '~/mixins/transition'
 export default {
   name: 'PageHome',
   mixins: [transitionMixin],
+  async asyncData({ store }) {
+    const pageData =
+      (await store.dispatch('fetchCollection', {
+        collection: 'home',
+      })) || {}
+
+    return { pageData }
+  },
   // mounted() {
   //   setTimeout(() => {
   //     this.$store.commit('preloader/finish')

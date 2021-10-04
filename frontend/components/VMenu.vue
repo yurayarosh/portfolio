@@ -1,18 +1,19 @@
 <template>
   <transition :css="false" @enter="onEnter" @leave="onLeave">
     <div v-if="hasMenuOpen" class="menu">
-      <v-nav class="header__nav" />
+      <v-nav class="header__nav" :list="navigation" />
     </div>
   </transition>
 </template>
 
 <script>
 import anime from 'animejs'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
 
 export default {
   name: 'VMenu',
   computed: {
+    ...mapState(['navigation']),
     ...mapGetters({
       hasMenuOpen: 'menu/isOpen',
     }),

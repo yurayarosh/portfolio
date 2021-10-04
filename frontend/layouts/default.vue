@@ -25,6 +25,17 @@ import { DELAYS } from '~/assets/scripts/constants'
 
 export default {
   mixins: [transitionMixin],
+  async fetch() {
+    const hasStateValues = name => Object.values(this.$store.state[name]).length > 0
+
+    if (!hasStateValues('navigation')) {
+      const { navigation } = await this.$store.dispatch('fetchCollection', {
+        collection: 'menu',
+      })
+
+      this.$store.commit('setNavigation', navigation)
+    }
+  },
   computed: {
     ...mapGetters({
       hasMenuOpen: 'menu/isOpen',
@@ -43,8 +54,6 @@ export default {
 
     setHTMLClassNames()
     setSideOffsets()
-
-    // this.$lazyLoader.init()
 
     if (!isTouch) await this.initPointer()
 

@@ -2,6 +2,7 @@ export default {
   // Define environment variables that are required at build time: https://nuxtjs.org/docs/2.x/directory-structure/nuxt-config#env
   env: {
     // BASE_URL_PROD: process.env.BASE_URL_PROD,
+    BASE_URL_BACK: process.env.BASE_URL_BACK,
     TELEGRAM_API_URL: process.env.TELEGRAM_API_URL,
     TELEGRAM_BOT_TOKEN: process.env.TELEGRAM_BOT_TOKEN,
     TELEGRAM_CHAT_ID: process.env.TELEGRAM_CHAT_ID,
@@ -21,9 +22,7 @@ export default {
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { hid: 'description', name: 'description', content: '' },
     ],
-    link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-    ],
+    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
   },
 
   // Global CSS (https://go.nuxtjs.dev/config-css)
@@ -35,7 +34,7 @@ export default {
   },
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
-  plugins: [{ src: '~/plugins/lazyLoad', ssr: false }],
+  plugins: [{ src: '~/plugins/lazyLoad', ssr: false }, '~/plugins/getUrl'],
 
   // Auto import components (https://go.nuxtjs.dev/config-components)
   components: true,

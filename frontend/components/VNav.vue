@@ -1,7 +1,7 @@
 <template>
   <nav class="nav">
     <ul class="nav__list">
-      <li v-for="(item, i) in navList" :key="i" class="nav__item">
+      <li v-for="(item, i) in navList" :key="item.id" class="nav__item">
         <nuxt-link
           :ref="`link-${i}`"
           :to="item.to || '/'"
@@ -27,25 +27,17 @@ export default {
   props: {
     list: {
       type: Array,
-      default: () => [
-        {
-          title: 'home',
-          to: '/',
-        },
-        {
-          title: 'works',
-          to: '/works',
-        },
-        {
-          title: 'contact',
-          to: '/contact',
-        },
-      ],
+      required: true,
     },
   },
   computed: {
     navList() {
-      return this.$route.name.includes('index') ? this.list.slice(1) : this.list
+      const list = this.$route.name.includes('index') ? this.list.slice(1) : this.list
+      return list.map(item => ({
+        id: item.id,
+        title: item.title,
+        to: this.$URL(item.url)
+      }))
     },
   },
   async mounted() {
@@ -96,7 +88,7 @@ export default {
     },
     onLinkMouseLeave({ currentTarget }) {
       if (isTouch) return
-      
+
       const { hoverTitle, defaultTitle } = this.getLinkChars(currentTarget)
 
       const tl = anime.timeline({ easing: 'easeInOutSine' })
