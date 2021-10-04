@@ -1,0 +1,28 @@
+{
+  "kind": "singleType",
+  "collectionName": "works",
+  "info": {
+    "name": "works"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "alias": {
+      "type": "string"
+    },
+    "breadcrumbs": {
+      "type": "component",
+      "repeatable": true,
+      "component": "general.breadcrumb"
+    },
+    "metatags": {
+      "type": "component",
+      "repeatable": false,
+      "component": "general.metatags"
+    }
+  }
+}

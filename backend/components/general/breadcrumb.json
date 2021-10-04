@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_general_breadcrumbs",
+  "info": {
+    "name": "breadcrumb",
+    "icon": "ad"
+  },
+  "options": {},
+  "attributes": {
+    "url": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    }
+  }
+}

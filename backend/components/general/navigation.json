@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_general_navigations",
+  "info": {
+    "name": "navigation",
+    "icon": "address-card"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "url": {
+      "type": "string"
+    }
+  }
+}

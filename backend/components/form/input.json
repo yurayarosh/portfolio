@@ -1,0 +1,30 @@
+{
+  "collectionName": "components_form_inputs",
+  "info": {
+    "name": "input",
+    "icon": "adjust"
+  },
+  "options": {},
+  "attributes": {
+    "type": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "placeholder": {
+      "type": "string"
+    },
+    "label": {
+      "type": "string"
+    },
+    "value": {
+      "type": "string"
+    },
+    "validation": {
+      "type": "component",
+      "repeatable": false,
+      "component": "form.validation"
+    }
+  }
+}
