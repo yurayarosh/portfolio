@@ -76,7 +76,7 @@ export default {
         )
 
       tl.finished.then(() => {
-        this.$store.commit('init')
+        if (!this.isLoaded) this.$store.commit('init')
         done()
       })
     },
