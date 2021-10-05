@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_general_images",
+  "info": {
+    "name": "image",
+    "icon": "align-center"
+  },
+  "options": {},
+  "attributes": {
+    "src": {
+      "type": "string"
+    },
+    "alt": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    }
+  }
+}

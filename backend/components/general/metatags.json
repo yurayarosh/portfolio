@@ -15,6 +15,11 @@
     },
     "description": {
       "type": "richtext"
+    },
+    "og_image": {
+      "type": "component",
+      "repeatable": false,
+      "component": "general.image"
     }
   }
 }
