@@ -1,6 +1,7 @@
 export const state = () => ({
   isLoaded: false,
   navigation: [],
+  feedbackForm: {}
 })
 
 export const mutations = {
@@ -9,6 +10,9 @@ export const mutations = {
   },
   setNavigation(state, data) {
     state.navigation = data
+  },
+  setFeedbackForm(state, form) {
+    state.feedbackForm = form
   },
 }
 

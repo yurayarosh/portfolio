@@ -35,6 +35,15 @@ export default {
 
       this.$store.commit('setNavigation', navigation)
     }
+
+    if (!hasStateValues('feedbackForm')) {
+      const [feedbackForm] = await this.$store.dispatch('fetchCollection', {
+        collection: 'forms',
+        filter: { type: 'feedback' },
+      })
+
+      this.$store.commit('setFeedbackForm', feedbackForm)
+    }
   },
   computed: {
     ...mapGetters({

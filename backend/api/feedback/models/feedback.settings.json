@@ -1,9 +1,8 @@
 {
   "kind": "collectionType",
-  "collectionName": "forms",
+  "collectionName": "feedbacks",
   "info": {
-    "name": "form",
-    "description": ""
+    "name": "feedback"
   },
   "options": {
     "increments": true,
@@ -12,16 +11,11 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "type": {
+    "name": {
       "type": "string"
     },
-    "button": {
+    "message": {
       "type": "string"
-    },
-    "inputs": {
-      "type": "component",
-      "repeatable": true,
-      "component": "form.input"
     }
   }
 }

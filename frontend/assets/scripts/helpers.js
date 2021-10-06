@@ -112,7 +112,7 @@ export const getFormInputs = form => {
       ...(v.formatString
         ? {
             format(value) {
-              return v.formatString.test(value)
+              return v.format_string.test(value)
             },
           }
         : {}),

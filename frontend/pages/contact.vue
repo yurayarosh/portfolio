@@ -26,33 +26,6 @@
             :class="{ 'form--hidden': submitStatus === 'OK' }"
             @submit.prevent="onSubmit"
           >
-            <!-- <div
-              class="form__field"
-              :class="{ 'form__field--overflow-hidden': !animationsComplete }"
-            >
-              <v-input
-                ref="input-name"
-                v-model="$v.name.$model"
-                :class="{ 'input--error': $v.name.$error }"
-                :error-message="errorMessages.name"
-                :show-errors="$v.name.$error"
-                label="Your name"
-              />
-            </div>
-            <div
-              class="form__field"
-              :class="{ 'form__field--overflow-hidden': !animationsComplete }"
-            >
-              <v-input
-                ref="input-message"
-                v-model="$v.message.$model"
-                :class="{ 'input--error': $v.message.$error }"
-                :error-message="errorMessages.message"
-                :show-errors="$v.message.$error"
-                label="Your phone, email or just say hello"
-              />
-            </div> -->
-
             <div
               v-for="input in form.inputs"
               :key="input.id"
@@ -67,22 +40,11 @@
                 :name="input.name"
                 :label="input.label"
                 :placeholder="input.placeholder"
+                :error-message="errorMessages[input.name]"
+                :show-errors="$v[input.name].$error"
                 :class="{
                   'input--error': input.validation ? $v.$dirty && $v[input.name].$error : false,
-                  'input--disabled': submitStatus === OK,
                 }"
-                :disabled="submitStatus === OK"
-              />
-              <v-input
-                v-else-if="input.name === 'message'"
-                :ref="`VInput-${input.name}`"
-                v-model.trim="message"
-                :type="input.type"
-                :name="input.name"
-                :label="input.label"
-                :placeholder="input.placeholder"
-                :class="{ 'input--disabled': submitStatus === OK }"
-                :disabled="submitStatus === OK"
               />
             </div>
 
@@ -101,9 +63,11 @@
 
 <script>
 import anime from 'animejs'
+import { mapState } from 'vuex'
 import { validationMixin } from 'vuelidate'
 
 import transitionMixin from '~/mixins/transition'
+import { getFormInputs } from '~/assets/scripts/helpers'
 
 export default {
   name: 'PageContact',
@@ -113,13 +77,15 @@ export default {
 
     return {
       ...inputs,
-      // name: '',
-      // message: '',
+      formName: 'feedback',
       submitStatus: null,
       animationsComplete: false,
     }
   },
   computed: {
+    ...mapState({
+      form: ({ feedbackForm }) => feedbackForm,
+    }),
     errorMessages() {
       const self = this
       return {
@@ -143,15 +109,27 @@ export default {
         },
       }
     },
+    formData() {
+      const { inputs } = getFormInputs(this.form)
+      const data = {
+        type: this.formName,
+      }
+
+      Object.keys(inputs).forEach(key => {
+        data[key] = this[key]
+      })
+
+      return data
+    },
   },
   methods: {
     animateEntrance() {
       const { title } = this.$refs
-      const inputs = [
-        this.$refs['input-name'].$el,
-        this.$refs['input-message'].$el,
-        this.$refs.button.$el,
-      ]
+      const inputs = Object.values(this.$refs)
+        .filter((ref, i) => Object.keys(this.$refs)[i].includes('VInput'))
+        .map(ref => ref[0]?.$el || ref.$el)
+
+      const fields = [...inputs, this.$refs.button.$el]
       const tl = anime.timeline({ easing: 'easeInOutSine' })
 
       tl.add({
@@ -160,7 +138,7 @@ export default {
         duration: 750,
       }).add(
         {
-          targets: inputs,
+          targets: fields,
           translateY: ['150%', '0%'],
           duration: 750,
         },
@@ -179,15 +157,14 @@ export default {
       if (this.formData.message) message += `\nСообщение: ${this.formData.message}`
 
       try {
-        // TODO: Use when back is ready.
         // Save data to `feedbacks` mongodb collection.
-        // const dbResponse = await fetch(`${process.env.BASE_URL_BACK}/feedbacks`, {
-        //   method: 'post',
-        //   body: JSON.stringify(this.formData),
-        //   headers: {
-        //     'Content-Type': 'application/json',
-        //   },
-        // })
+        const dbResponse = await fetch(`${process.env.BASE_URL_BACK}/feedbacks`, {
+          method: 'post',
+          body: JSON.stringify(this.formData),
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        })
 
         // Send data to telegram chat.
         const telegramResponse = await fetch(
@@ -204,18 +181,13 @@ export default {
           }
         )
 
-        if (
-          // dbResponse.ok &&
-          telegramResponse.ok
-        ) {
+        if (dbResponse.ok && telegramResponse.ok) {
           this.submitStatus = 'OK'
-
-          // this.resetForm()
         } else {
           this.submitStatus = 'ERROR'
 
           throw new Error('Feedback form responce error.', {
-            // dbResponse: dbResponse.statusText,
+            dbResponse: dbResponse.statusText,
             telegramResponse: telegramResponse.statusText,
           })
         }
@@ -225,11 +197,13 @@ export default {
       }
     },
     resetForm() {
-      ;['name', 'message'].forEach(key => {
-        const inputElement = this.$refs[`input-${key}`]?.$el.querySelector('input, textarea')
+      const { inputs } = getFormInputs(this.form)
+
+      Object.keys(inputs).forEach(key => {
+        const inputElement = this.$refs[`VInput-${key}`][0]?.$el.querySelector('input, textarea')
 
         this[key] = ''
-        if (inputElement) inputElement.value = ''
+        inputElement.value = ''
       })
 
       this.submitStatus = null
@@ -237,11 +211,6 @@ export default {
     },
     onSubmit() {
       this.$v.$touch()
-
-      this.formData = {
-        name: this.name,
-        message: this.message,
-      }
 
       if (this.$v.$invalid) {
         this.submitStatus = 'ERROR'
@@ -262,20 +231,6 @@ export default {
       ...validations,
     }
   },
-  // validations: {
-  //   name: {
-  //     required,
-  //     format(value) {
-  //       return /^[A-Za-zА-Яа-я0-9 -]*?$/.test(value) // only letters(latin, cyr), numbers, spaces, minus sign
-  //     },
-  //     minLength: minLength(2),
-  //     maxLength: maxLength(20),
-  //   },
-  //   message: {
-  //     required,
-  //     minLength: minLength(2),
-  //   },
-  // },
 }
 </script>
 
