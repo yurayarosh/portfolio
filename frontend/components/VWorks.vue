@@ -3,9 +3,10 @@
     <div
       v-for="(item, i) in list"
       :ref="`work-item${i}`"
-      :key="i"
+      :key="item.id"
+      class="works-list__item"
       :class="{
-        [`works-list__item works-list__item--${item.index}`]: true,
+        [`works-list__item--${item.index}`]: item.index,
         'works-list__item--overflow-hidden': !animationsComplete,
       }"
       :data-speed="i % 2 === 0 ? 1 : -3"

@@ -3,7 +3,7 @@
     <div class="container">
       <div class="s-contacts__inner">
         <div class="s-contacts__title-wrap">
-          <h1 ref="title" class="s-contacts__title title title--h1">Contact me</h1>
+          <h1 ref="title" class="s-contacts__title title title--h1">{{ metatags.h1 }}</h1>
         </div>
 
         <div class="form__wrap s-contacts__form">
@@ -52,7 +52,7 @@
               class="form__field"
               :class="{ 'form__field--overflow-hidden': !animationsComplete }"
             >
-              <v-btn ref="button" :disabled="submitStatus === 'PENDING'">send</v-btn>
+              <v-btn ref="button" :disabled="submitStatus === 'PENDING'">{{ form.button }}</v-btn>
             </div>
           </form>
         </div>
@@ -72,6 +72,16 @@ import { getFormInputs } from '~/assets/scripts/helpers'
 export default {
   name: 'PageContact',
   mixins: [validationMixin, transitionMixin],
+  async asyncData({ store }) {
+    const { metatags } =
+      (await store.dispatch('fetchCollection', {
+        collection: 'contact',
+      })) || {}
+
+    return {
+      metatags,
+    }
+  },
   data() {
     const { inputs } = getFormInputs(this.$store.state.feedbackForm)
 

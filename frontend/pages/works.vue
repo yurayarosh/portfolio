@@ -3,12 +3,12 @@
     <div class="s-works__inner">
       <div class="container">
         <div class="s-works__title-wrap">
-          <h1 ref="title" class="s-works__title title title--h1">Works</h1>
+          <h1 ref="title" class="s-works__title title title--h1">{{ metatags.h1 }}</h1>
         </div>
       </div>
 
       <div ref="body" class="s-works__body">
-        <v-works :list="worksList" :animations-complete="animationsComplete" />
+        <v-works :list="works" :animations-complete="animationsComplete" />
       </div>
     </div>
   </section>
@@ -17,181 +17,45 @@
 <script>
 import anime from 'animejs'
 import transitionMixin from '~/mixins/transition'
-import { chunkArray } from '~/assets/scripts/helpers'
+// import { chunkArray } from '~/assets/scripts/helpers'
 
 export default {
   name: 'PageWorks',
   mixins: [transitionMixin],
+  async asyncData({ store }) {
+    const { metatags } =
+      (await store.dispatch('fetchCollection', {
+        collection: 'works',
+      })) || {}
+
+    const works =
+      (await store.dispatch('fetchCollection', {
+        collection: 'work-items',
+      })) || []
+
+    return {
+      metatags,
+      works,
+    }
+  },
   data() {
     return {
       animationsComplete: false,
-      works: [
-        {
-          productionUrl: '#',
-          image: {
-            src: 'https://source.unsplash.com/Y7GUOQ83OMg/600x400',
-            alt: '',
-            title: '',
-          },
-          title: 'Work title',
-          text: '<p>Description text</p>',
-        },
-        {
-          productionUrl: '#',
-          image: {
-            src: 'https://source.unsplash.com/Y7GUOQ83OMg/600x400',
-            alt: '',
-            title: '',
-          },
-          title: 'Work title',
-          text: '<p>Description text</p>',
-        },
-        {
-          productionUrl: '#',
-          image: {
-            src: 'https://source.unsplash.com/Y7GUOQ83OMg/600x400',
-            alt: '',
-            title: '',
-          },
-          title: 'Work title',
-          text: '<p>Description text</p>',
-        },
-        {
-          productionUrl: '#',
-          image: {
-            src: 'https://source.unsplash.com/Y7GUOQ83OMg/600x400',
-            alt: '',
-            title: '',
-          },
-          title: 'Work title',
-          text: '<p>Description text</p>',
-        },
-        {
-          productionUrl: '#',
-          image: {
-            src: 'https://source.unsplash.com/Y7GUOQ83OMg/600x400',
-            alt: '',
-            title: '',
-          },
-          title: 'Work title',
-          text: '<p>Description text</p>',
-        },
-        {
-          productionUrl: '#',
-          image: {
-            src: 'https://source.unsplash.com/Y7GUOQ83OMg/600x400',
-            alt: '',
-            title: '',
-          },
-          title: 'Work title',
-          text: '<p>Description text</p>',
-        },
-        {
-          productionUrl: '#',
-          image: {
-            src: 'https://source.unsplash.com/Y7GUOQ83OMg/600x400',
-            alt: '',
-            title: '',
-          },
-          title: 'Work title',
-          text: '<p>Description text</p>',
-        },
-        {
-          productionUrl: '#',
-          image: {
-            src: 'https://source.unsplash.com/Y7GUOQ83OMg/600x400',
-            alt: '',
-            title: '',
-          },
-          title: 'Work title',
-          text: '<p>Description text</p>',
-        },
-        {
-          productionUrl: '#',
-          image: {
-            src: 'https://source.unsplash.com/Y7GUOQ83OMg/600x400',
-            alt: '',
-            title: '',
-          },
-          title: 'Work title',
-          text: '<p>Description text</p>',
-        },
-        {
-          productionUrl: '#',
-          image: {
-            src: 'https://source.unsplash.com/Y7GUOQ83OMg/600x400',
-            alt: '',
-            title: '',
-          },
-          title: 'Work title',
-          text: '<p>Description text</p>',
-        },
-        {
-          productionUrl: '#',
-          image: {
-            src: 'https://source.unsplash.com/Y7GUOQ83OMg/600x400',
-            alt: '',
-            title: '',
-          },
-          title: 'Work title',
-          text: '<p>Description text</p>',
-        },
-        {
-          productionUrl: '#',
-          image: {
-            src: 'https://source.unsplash.com/Y7GUOQ83OMg/600x400',
-            alt: '',
-            title: '',
-          },
-          title: 'Work title',
-          text: '<p>Description text</p>',
-        },
-        {
-          productionUrl: '#',
-          image: {
-            src: 'https://source.unsplash.com/Y7GUOQ83OMg/600x400',
-            alt: '',
-            title: '',
-          },
-          title: 'Work title',
-          text: '<p>Description text</p>',
-        },
-        {
-          productionUrl: '#',
-          image: {
-            src: 'https://source.unsplash.com/Y7GUOQ83OMg/600x400',
-            alt: '',
-            title: '',
-          },
-          title: 'Work title',
-          text: '<p>Description text</p>',
-        },
-        {
-          productionUrl: '#',
-          image: {
-            src: 'https://source.unsplash.com/Y7GUOQ83OMg/600x400',
-            alt: '',
-            title: '',
-          },
-          title: 'Work title',
-          text: '<p>Description text</p>',
-        },
-      ],
     }
   },
   computed: {
-    worksList() {
-      const NUMBER_OF_DIFFERENT_STYLED_ITEMS = 6
-      // sortList(this.works, 'date') // Sort by date.
+    // worksList() {
+    //   const NUMBER_OF_DIFFERENT_STYLED_ITEMS = 6
+    //   // sortList(this.works, 'date') // Sort by date.
 
-      const chunkedList = chunkArray(this.works, NUMBER_OF_DIFFERENT_STYLED_ITEMS) // Output: [[{}, ...], [{}, ...], ...]
+    //   const chunkedList = chunkArray(this.works, NUMBER_OF_DIFFERENT_STYLED_ITEMS) // Output: [[{}, ...], [{}, ...], ...]
 
-      const listWithIndexes = chunkedList.map(arr =>
-        arr.map((item, i) => ({ ...item, index: i + 1 }))
-      )
+    //   const listWithIndexes = chunkedList.map(arr =>
+    //     arr.map((item, i) => ({ ...item, index: i + 1 }))
+    //   )
 
-      return listWithIndexes.flat()
-    },
+    //   return listWithIndexes.flat()
+    // },
   },
   methods: {
     animateEntrance() {

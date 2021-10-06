@@ -4,13 +4,13 @@
       <div class="hero__inner">
         <div class="hero__content">
           <div class="hero__title-wrap">
-            <p ref="title" class="hero__title title title--h1">{{ pageData.title }}</p>
+            <p ref="title" class="hero__title title title--h1">{{ title }}</p>
           </div>
           <div class="hero__subttl-wrap">
-            <h1 ref="subtitle" class="hero__subttl">{{ pageData.metatags.h1 }}</h1>
+            <h1 ref="subtitle" class="hero__subttl">{{ metatags.h1 }}</h1>
           </div>
 
-          <p ref="text" class="hero__text" v-html="pageData.text" />
+          <p ref="text" class="hero__text" v-html="text" />
         </div>
       </div>
     </div>
@@ -25,19 +25,17 @@ export default {
   name: 'PageHome',
   mixins: [transitionMixin],
   async asyncData({ store }) {
-    const pageData =
+    const { title, text, metatags } =
       (await store.dispatch('fetchCollection', {
         collection: 'home',
       })) || {}
 
-    return { pageData }
+    return {
+      title,
+      text,
+      metatags,
+    }
   },
-  // mounted() {
-  //   setTimeout(() => {
-  //     this.$store.commit('preloader/finish')
-  //     this.animateEntrance()
-  //   }, DELAYS.preloader)
-  // },
   methods: {
     animateEntrance() {
       const { title, subtitle, text } = this.$refs
