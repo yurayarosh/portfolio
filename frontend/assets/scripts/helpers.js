@@ -1,4 +1,4 @@
-// import { required, email } from 'vuelidate/lib/validators'
+import { required, minLength, maxLength } from 'vuelidate/lib/validators'
 
 // const detectBrowser = exp => {
 //   if (!window) return false
@@ -93,6 +93,36 @@ export const sortList = (list, type = 'date', options = {}) => {
   }
 
   return list
+}
+
+export const getFormInputs = form => {
+  if (!form) return {}
+
+  const inputs = {}
+  const validations = {}
+
+  form.inputs?.forEach(({ name, validation: v }) => {
+    inputs[name] = ''
+
+    if (!v) return
+    validations[name] = {
+      required,
+      ...(v.minLength ? { minlength: minLength(v.minLength) } : {}),
+      ...(v.minLength ? { maxLength: maxLength(v.maxLength) } : {}),
+      ...(v.formatString
+        ? {
+            format(value) {
+              return v.formatString.test(value)
+            },
+          }
+        : {}),
+    }
+  })
+
+  return {
+    inputs,
+    validations,
+  }
 }
 
 export const chunkArray = (arr, size) =>

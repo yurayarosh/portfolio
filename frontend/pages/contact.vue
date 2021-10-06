@@ -26,7 +26,7 @@
             :class="{ 'form--hidden': submitStatus === 'OK' }"
             @submit.prevent="onSubmit"
           >
-            <div
+            <!-- <div
               class="form__field"
               :class="{ 'form__field--overflow-hidden': !animationsComplete }"
             >
@@ -51,6 +51,39 @@
                 :show-errors="$v.message.$error"
                 label="Your phone, email or just say hello"
               />
+            </div> -->
+
+            <div
+              v-for="input in form.inputs"
+              :key="input.id"
+              class="form__field"
+              :class="{ 'form__field--overflow-hidden': !animationsComplete }"
+            >
+              <v-input
+                v-if="$v[input.name]"
+                :ref="`VInput-${input.name}`"
+                v-model.trim="$v[input.name].$model"
+                :type="input.type"
+                :name="input.name"
+                :label="input.label"
+                :placeholder="input.placeholder"
+                :class="{
+                  'input--error': input.validation ? $v.$dirty && $v[input.name].$error : false,
+                  'input--disabled': submitStatus === OK,
+                }"
+                :disabled="submitStatus === OK"
+              />
+              <v-input
+                v-else-if="input.name === 'message'"
+                :ref="`VInput-${input.name}`"
+                v-model.trim="message"
+                :type="input.type"
+                :name="input.name"
+                :label="input.label"
+                :placeholder="input.placeholder"
+                :class="{ 'input--disabled': submitStatus === OK }"
+                :disabled="submitStatus === OK"
+              />
             </div>
 
             <div
@@ -69,7 +102,6 @@
 <script>
 import anime from 'animejs'
 import { validationMixin } from 'vuelidate'
-import { required, minLength, maxLength } from 'vuelidate/lib/validators'
 
 import transitionMixin from '~/mixins/transition'
 
@@ -77,9 +109,12 @@ export default {
   name: 'PageContact',
   mixins: [validationMixin, transitionMixin],
   data() {
+    const { inputs } = getFormInputs(this.$store.state.feedbackForm)
+
     return {
-      name: '',
-      message: '',
+      ...inputs,
+      // name: '',
+      // message: '',
       submitStatus: null,
       animationsComplete: false,
     }
@@ -220,20 +255,27 @@ export default {
       this.resetForm()
     },
   },
-  validations: {
-    name: {
-      required,
-      format(value) {
-        return /^[A-Za-zА-Яа-я0-9 -]*?$/.test(value) // only letters(latin, cyr), numbers, spaces, minus sign
-      },
-      minLength: minLength(2),
-      maxLength: maxLength(20),
-    },
-    message: {
-      required,
-      minLength: minLength(2),
-    },
+  validations() {
+    const { validations } = getFormInputs(this.form)
+
+    return {
+      ...validations,
+    }
   },
+  // validations: {
+  //   name: {
+  //     required,
+  //     format(value) {
+  //       return /^[A-Za-zА-Яа-я0-9 -]*?$/.test(value) // only letters(latin, cyr), numbers, spaces, minus sign
+  //     },
+  //     minLength: minLength(2),
+  //     maxLength: maxLength(20),
+  //   },
+  //   message: {
+  //     required,
+  //     minLength: minLength(2),
+  //   },
+  // },
 }
 </script>
 
