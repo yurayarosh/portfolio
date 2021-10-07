@@ -10,6 +10,19 @@ export default {
     },
   },
   jsonld() {
+    // type person example
+    // {
+    //   "@context": "http://schema.org",
+    //   "@type": "Person",
+    //   "name": "Jane Doe",
+    //   "jobTitle": "Frontend developer",
+    //   "gender": "http://schema.org/Male",
+    //   "email": "info@example.com",
+    //   "telephone": "(123) 456-6789",
+    //   "url": "http://www.example.com",
+    //   "sameAs": ["https://www.linkedin.com/in/yurayarosh/"]
+    // }
+
     const baseOrganization = {
       '@type': 'Organization',
       name: this.organizationName,
