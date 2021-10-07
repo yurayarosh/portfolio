@@ -1,0 +1,36 @@
+{
+  "kind": "singleType",
+  "collectionName": "globals",
+  "info": {
+    "name": "global",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "default": "Yurii"
+    },
+    "surname": {
+      "type": "string",
+      "default": "Yaroshenko"
+    },
+    "email": {
+      "type": "email",
+      "default": "yura12323@gmail.com"
+    },
+    "phone": {
+      "type": "string",
+      "default": "+380987486978"
+    },
+    "job_title": {
+      "type": "string",
+      "default": "Frontend developer"
+    }
+  }
+}

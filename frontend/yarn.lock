@@ -5789,6 +5789,13 @@ nuxt-font-loader-strategy@^1.1.10:
     change-case "4.1.2"
     worker-loader "3.0.8"
 
+nuxt-jsonld@^1.5.2:
+  version "1.5.2"
+  resolved "https://registry.yarnpkg.com/nuxt-jsonld/-/nuxt-jsonld-1.5.2.tgz#0285386457433ac742c75de4ad2d4cb81d110f1c"
+  integrity sha512-48UL2kskKZGTBPSmbzLeadfm/QaNYrdoSd1xeKdv7c941DZcLgo1Qz+jVAjYkz7NZgCSjhBwjcDl6HoyF35i2Q==
+  dependencies:
+    schema-dts "^0.8.2"
+
 nuxt@^2.14.5:
   version "2.15.7"
   resolved "https://registry.yarnpkg.com/nuxt/-/nuxt-2.15.7.tgz#45332e3b00ba5c1cf04688d42373c8ed7ef4dca7"
@@ -7469,6 +7476,11 @@ sax@~1.2.4:
   version "1.2.4"
   resolved "https://registry.yarnpkg.com/sax/-/sax-1.2.4.tgz#2816234e2378bddc4e5354fab5caa895df7100d9"
   integrity sha512-NqVDv9TpANUjFm0N8uM5GxL36UgKi9/atZw+x7YFnQ8ckwFGKrl4xX4yWtrey3UJm5nP1kUbnYgLopqWNSRhWw==
+
+schema-dts@^0.8.2:
+  version "0.8.3"
+  resolved "https://registry.yarnpkg.com/schema-dts/-/schema-dts-0.8.3.tgz#6c03ca47200e80e9a871d6de626a7cf04fe009b7"
+  integrity sha512-GSLeVkUgEe8DzS8/FGWou1wlC8tQ1KXA5amCqCIH/psUzF74fWswtT0QFlSoJLT08CYyixnc3S/lkAm+RExoLQ==
 
 schema-utils@^1.0.0:
   version "1.0.0"

@@ -32,7 +32,7 @@ export default {
       contactPoint: [
         {
           '@type': 'ContactPoint',
-          telephone: this.generalInfo?.phones?.[0][`title_${this.LANGUAGE}`],
+          telephone: this.generalInfo?.phones?.[0].title,
           contactType: 'sales',
           areaServed: this.LANGUAGE,
         },
@@ -41,8 +41,8 @@ export default {
 
     let breadcrumbsItems = []
 
-    if (this.pageData.breadcrumbs) {
-      breadcrumbsItems = this.pageData.breadcrumbs.map((item, i) => {
+    if (this.breadcrumbs) {
+      breadcrumbsItems = this.breadcrumbs.map((item, i) => {
         const id = `${process.env.BASE_URL_PROD}${this.$URL(item.url)}`
 
         return {
@@ -66,6 +66,9 @@ export default {
           }
         : null
 
-    return [organization, breadcrumbs].filter(item => item)
+    return [
+      // organization,
+      breadcrumbs
+    ].filter(item => item)
   },
 }

@@ -17,13 +17,13 @@
 <script>
 import anime from 'animejs'
 import transitionMixin from '~/mixins/transition'
-// import { chunkArray } from '~/assets/scripts/helpers'
+import microdataMixin from '~/mixins/microdata'
 
 export default {
   name: 'PageWorks',
-  mixins: [transitionMixin],
+  mixins: [transitionMixin, microdataMixin],
   async asyncData({ store }) {
-    const { metatags } =
+    const { metatags, breadcrumbs } =
       (await store.dispatch('fetchCollection', {
         collection: 'works',
       })) || {}
@@ -35,6 +35,7 @@ export default {
 
     return {
       metatags,
+      breadcrumbs,
       works,
     }
   },

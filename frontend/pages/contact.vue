@@ -67,19 +67,21 @@ import { mapState } from 'vuex'
 import { validationMixin } from 'vuelidate'
 
 import transitionMixin from '~/mixins/transition'
+import microdataMixin from '~/mixins/microdata'
 import { getFormInputs } from '~/assets/scripts/helpers'
 
 export default {
   name: 'PageContact',
-  mixins: [validationMixin, transitionMixin],
+  mixins: [validationMixin, transitionMixin, microdataMixin],
   async asyncData({ store }) {
-    const { metatags } =
+    const { metatags, breadcrumbs } =
       (await store.dispatch('fetchCollection', {
         collection: 'contact',
       })) || {}
 
     return {
       metatags,
+      breadcrumbs,
     }
   },
   data() {
