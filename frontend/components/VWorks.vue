@@ -21,9 +21,9 @@
           <img
             class="js-lazy"
             src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="
-            :data-src="item.image.src"
-            :alt="item.image.alt"
-            :title="item.image.title"
+            :data-src="item.media_image.url"
+            :alt="item.media_image.alternativeText"
+            :title="item.media_image.caption"
           />
         </span>
 
@@ -64,6 +64,8 @@ export default {
     }
   },
   mounted() {
+    console.log(this.list)
+
     if (!isTouch) {
       this.scrollbar = Scrollbar.init(this.$el, {
         damping: 0.05,
