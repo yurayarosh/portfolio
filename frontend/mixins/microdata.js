@@ -1,31 +1,11 @@
 export default {
-  data() {
-    return {
-      pageData: {},
-    }
-  },
-  computed: {
-    organizationName() {
-      return this.generalInfo?.organization_name[`title_${this.LANGUAGE}`]
-    },
-  },
   jsonld() {
-    // type person example
-    // {
-    //   "@context": "http://schema.org",
-    //   "@type": "Person",
-    //   "name": "Jane Doe",
-    //   "jobTitle": "Frontend developer",
-    //   "gender": "http://schema.org/Male",
-    //   "email": "info@example.com",
-    //   "telephone": "(123) 456-6789",
-    //   "url": "http://www.example.com",
-    //   "sameAs": ["https://www.linkedin.com/in/yurayarosh/", "https://github.com/yurayarosh"]
-    // }
-
-    const baseOrganization = {
-      '@type': 'Organization',
-      name: this.organizationName,
+    const person = {
+      '@context': 'https://schema.org',
+      '@type': 'Person',
+      name: `${this.globalData?.name} ${this.globalData?.surname}`,
+      jobTitle: this.globalData?.job_title,
+      gender: 'http://schema.org/Male',
       url: `${process.env.BASE_URL_PROD}/`,
       logo: {
         '@context': 'http://schema.org',
@@ -34,22 +14,15 @@ export default {
         width: 512,
         height: 512,
       },
-    }
-
-    const organization = {
-      '@context': 'https://schema.org',
-      ...baseOrganization,
-      sameAs: this.generalInfo?.social.map(({ url }) => url),
-      diversityPolicy: `${process.env.BASE_URL_PROD}/`,
-      ethicsPolicy: `${process.env.BASE_URL_PROD}/`,
       contactPoint: [
         {
           '@type': 'ContactPoint',
-          telephone: this.generalInfo?.phones?.[0].title,
-          contactType: 'sales',
-          areaServed: this.LANGUAGE,
+          telephone: this.globalData?.phone,
+          email: this.globalData?.email,
+          contactType: 'Frontend services',
         },
       ],
+      sameAs: this.generalInfo?.social.map(({ url }) => url),
     }
 
     let breadcrumbsItems = []
@@ -79,9 +52,6 @@ export default {
           }
         : null
 
-    return [
-      // organization,
-      breadcrumbs
-    ].filter(item => item)
+    return [person, breadcrumbs].filter(item => item)
   },
 }

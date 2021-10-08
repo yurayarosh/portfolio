@@ -1,12 +1,16 @@
 export const state = () => ({
   isLoaded: false,
+  globalData: {},
   navigation: [],
-  feedbackForm: {}
+  feedbackForm: {},
 })
 
 export const mutations = {
   init(state) {
     state.isLoaded = true
+  },
+  setGlobalData(state, data) {
+    state.globalData = data
   },
   setNavigation(state, data) {
     state.navigation = data

@@ -28,6 +28,14 @@ export default {
   async fetch() {
     const hasStateValues = name => Object.values(this.$store.state[name]).length > 0
 
+    if (!hasStateValues('globalData')) {
+      const globalData = await this.$store.dispatch('fetchCollection', {
+        collection: 'global',
+      })
+
+      this.$store.commit('setGlobalData', globalData)
+    }
+
     if (!hasStateValues('navigation')) {
       const { navigation } = await this.$store.dispatch('fetchCollection', {
         collection: 'menu',
