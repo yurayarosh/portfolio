@@ -8,15 +8,15 @@
   "attributes": {
     "required": {
       "type": "boolean"
-    },
-    "format_string": {
-      "type": "string"
-    },
+    },    
     "min_length": {
       "type": "integer"
     },
     "max_length": {
       "type": "integer"
+    },
+    "format_string": {
+      "type": "string"
     }
   }
 }
