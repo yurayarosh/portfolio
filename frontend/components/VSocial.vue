@@ -31,7 +31,7 @@ export default {
 .social {
   display: flex;
   align-items: center;
-  font-size: 1.5em;
+  font-size: 2em;
 
   &__item {
     @include notlast {

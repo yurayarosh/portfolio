@@ -1,4 +1,9 @@
+import { mapState } from 'vuex'
+
 export default {
+  computed: {
+    ...mapState(['globalData']),
+  },
   jsonld() {
     const person = {
       '@context': 'https://schema.org',
@@ -22,7 +27,11 @@ export default {
           contactType: 'Frontend services',
         },
       ],
-      sameAs: this.generalInfo?.social.map(({ url }) => url),
+      sameAs: this.globalData?.socials.reduce(
+        (arr, { url }) =>
+          url.includes('http') && !url.includes('t.me') ? [...arr, url] : [...arr],
+        []
+      ),
     }
 
     let breadcrumbsItems = []

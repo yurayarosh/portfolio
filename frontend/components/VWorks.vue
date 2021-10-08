@@ -64,8 +64,6 @@ export default {
     }
   },
   mounted() {
-    console.log(this.list)
-
     if (!isTouch) {
       this.scrollbar = Scrollbar.init(this.$el, {
         damping: 0.05,
