@@ -22,11 +22,7 @@ export default {
     },
   },
   mounted() {
-    const icons = this.list.map(({ icon }) => icon)
-
-    icons.forEach(async icon => {
-      await import(`~/assets/icons/${icon}`)
-    })
+    this.list.forEach(async ({ icon }) => await import(`~/assets/icons/${icon}`))
   },
 }
 </script>
