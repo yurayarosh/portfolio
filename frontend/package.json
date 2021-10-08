@@ -8,7 +8,8 @@
     "start": "nuxt start",
     "generate": "nuxt generate",
     "lint:js": "eslint --ext .js,.vue --ignore-path .gitignore .",
-    "lint": "yarn lint:js"
+    "lint": "yarn lint:js",
+    "svg": "vsvg -s ./icons -t ./assets/icons"
   },
   "prettier": {
     "printWidth": 100,
@@ -29,6 +30,7 @@
     "splitting": "^1.0.6",
     "swipelistener-js": "^1.0.2",
     "throttle-debounce": "^3.0.1",
+    "vue-svgicon": "^3.2.9",
     "vuelidate": "^0.7.6"
   },
   "devDependencies": {

@@ -20,7 +20,7 @@ export default {
     //   "email": "info@example.com",
     //   "telephone": "(123) 456-6789",
     //   "url": "http://www.example.com",
-    //   "sameAs": ["https://www.linkedin.com/in/yurayarosh/"]
+    //   "sameAs": ["https://www.linkedin.com/in/yurayarosh/", "https://github.com/yurayarosh"]
     // }
 
     const baseOrganization = {

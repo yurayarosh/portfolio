@@ -4,6 +4,8 @@
       <div class="header__inner">
         <v-menu class="header__nav-wrap" />
 
+        <v-social class="header__social" :list="social" />
+
         <button
           class="header__burger burger"
           :class="{ 'burger--active': hasMenuOpen }"
@@ -21,6 +23,32 @@ import { mapGetters } from 'vuex'
 
 export default {
   name: 'VHeader',
+  data() {
+    return {
+      social: [
+        {
+          id: 1,
+          url: 'tel:+380987486978',
+          icon: 'phone',
+        },
+        {
+          id: 2,
+          url: '#',
+          icon: 'telegram',
+        },
+        {
+          id: 3,
+          url: '#',
+          icon: 'linkedin',
+        },
+        {
+          id: 4,
+          url: '#',
+          icon: 'github',
+        },
+      ],
+    }
+  },
   computed: {
     ...mapGetters({
       hasMenuOpen: 'menu/isOpen',
