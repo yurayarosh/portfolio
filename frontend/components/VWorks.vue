@@ -12,10 +12,11 @@
       :data-speed="i % 2 === 0 ? 1 : -3"
     >
       <a
-        :href="item.productionUrl"
+        :href="item.url"
         rel="noopener nofollow"
         target="_blank"
-        :class="`work-card work-card--${item.index}`"
+        class="work-card"
+        :class="{ [`work-card--${item.index}`]: item.index }"
       >
         <span class="work-card__img">
           <img
