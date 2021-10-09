@@ -68,18 +68,21 @@ import { validationMixin } from 'vuelidate'
 
 import transitionMixin from '~/mixins/transition'
 import microdataMixin from '~/mixins/microdata'
+import headMixin from '~/mixins/head'
+
 import { getFormInputs } from '~/assets/scripts/helpers'
 
 export default {
   name: 'PageContact',
-  mixins: [validationMixin, transitionMixin, microdataMixin],
+  mixins: [headMixin, validationMixin, transitionMixin, microdataMixin],
   async asyncData({ store }) {
-    const { metatags, breadcrumbs } =
+    const { alias, metatags, breadcrumbs } =
       (await store.dispatch('fetchCollection', {
         collection: 'contact',
       })) || {}
 
     return {
+      alias,
       metatags,
       breadcrumbs,
     }

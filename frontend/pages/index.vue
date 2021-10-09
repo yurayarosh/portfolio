@@ -21,17 +21,19 @@
 import anime from 'animejs'
 import transitionMixin from '~/mixins/transition'
 import microdataMixin from '~/mixins/microdata'
+import headMixin from '~/mixins/head'
 
 export default {
   name: 'PageHome',
-  mixins: [transitionMixin, microdataMixin],
+  mixins: [headMixin, transitionMixin, microdataMixin],
   async asyncData({ store }) {
-    const { title, text, metatags, breadcrumbs } =
+    const { alias, title, text, metatags, breadcrumbs } =
       (await store.dispatch('fetchCollection', {
         collection: 'home',
       })) || {}
 
     return {
+      alias,
       title,
       text,
       breadcrumbs,

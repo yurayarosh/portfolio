@@ -5,12 +5,10 @@ export default {
     ...mapState(['globalData']),
   },
   jsonld() {
-    const person = {
+    const organization = {
       '@context': 'https://schema.org',
-      '@type': 'Person',
-      name: `${this.globalData?.name} ${this.globalData?.surname}`,
-      jobTitle: this.globalData?.job_title,
-      gender: 'http://schema.org/Male',
+      '@type': 'Organization',
+      name: `${this.globalData?.name} ${this.globalData?.surname} | ${this.globalData?.job_title}`,
       url: `${process.env.BASE_URL_PROD}/`,
       logo: {
         '@context': 'http://schema.org',
@@ -19,6 +17,8 @@ export default {
         width: 512,
         height: 512,
       },
+      diversityPolicy: `${process.env.BASE_URL_PROD}/`,
+      ethicsPolicy: `${process.env.BASE_URL_PROD}/`,
       contactPoint: [
         {
           '@type': 'ContactPoint',
@@ -61,6 +61,6 @@ export default {
           }
         : null
 
-    return [person, breadcrumbs].filter(item => item)
+    return [organization, breadcrumbs].filter(item => item)
   },
 }

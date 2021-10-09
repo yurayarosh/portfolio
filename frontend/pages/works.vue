@@ -18,12 +18,13 @@
 import anime from 'animejs'
 import transitionMixin from '~/mixins/transition'
 import microdataMixin from '~/mixins/microdata'
+import headMixin from '~/mixins/head'
 
 export default {
   name: 'PageWorks',
-  mixins: [transitionMixin, microdataMixin],
+  mixins: [headMixin, transitionMixin, microdataMixin],
   async asyncData({ store }) {
-    const { metatags, breadcrumbs } =
+    const { alias, metatags, breadcrumbs } =
       (await store.dispatch('fetchCollection', {
         collection: 'works',
       })) || {}
@@ -34,6 +35,7 @@ export default {
       })) || []
 
     return {
+      alias,
       metatags,
       breadcrumbs,
       works,
