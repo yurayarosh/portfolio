@@ -103,11 +103,12 @@ export default {
       return {
         get name() {
           const { required, minLength, maxLength, format, $error } = self.$v.name
+
           if (!required)
             return "You haven' t provided a name. Isn' t there some way you'd like me to address you?"
           if (!minLength) return 'It should be more then two characters.'
           if (!maxLength) return 'I won’t remember such a long name.'
-          if (!format) return 'Only letters, numbers, spaces and dashes are allowed.'
+          if (!format) return 'Please, use only letters, numbers, spaces, dashes, at sign and ampersand.'
           if ($error) return 'The name contains errors.'
           return ''
         },

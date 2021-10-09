@@ -105,14 +105,16 @@ export const getFormInputs = form => {
     inputs[name] = ''
 
     if (!v) return
+    // console.log(JSON.parse(v.format_string)?.test('blah'))
+
     validations[name] = {
       required,
-      ...(v.minLength ? { minlength: minLength(v.minLength) } : {}),
-      ...(v.minLength ? { maxLength: maxLength(v.maxLength) } : {}),
-      ...(v.formatString
+      ...(v.min_length ? { minLength: minLength(v.min_length) } : {}),
+      ...(v.max_length ? { maxLength: maxLength(v.max_length) } : {}),
+      ...(v.format_string
         ? {
             format(value) {
-              return v.format_string.test(value)
+              return new RegExp(v.format_string).test(value)
             },
           }
         : {}),
