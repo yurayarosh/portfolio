@@ -6,6 +6,7 @@
         :target="item.url.includes('http') ? '_blank' : false"
         :rel="item.url.includes('http') ? 'noopener nofollow' : false"
         class="social__link"
+        :aria-label="item.icon"
         ><svgicon :name="item.icon" width="1em" height="1em"
       /></a>
     </li>

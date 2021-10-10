@@ -36,6 +36,7 @@
                 v-if="$v[input.name]"
                 :ref="`VInput-${input.name}`"
                 v-model.trim="$v[input.name].$model"
+                :id="input.id"
                 :type="input.type"
                 :name="input.name"
                 :label="input.label"

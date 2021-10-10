@@ -1,9 +1,9 @@
 <template>
   <div class="input" :class="classes">
-    <label v-if="label" class="input__label" :for="_uid">{{ label }}</label>
+    <label v-if="label" class="input__label" :for="id || _uid">{{ label }}</label>
     <component
       :is="type === 'textarea' ? 'textarea' : 'input'"
-      :id="_uid"
+      :id="id || _uid"
       v-bind="$attrs"
       class="input__input"
       :value="value"
@@ -27,6 +27,10 @@ export default {
   name: 'Input',
   inheritAttrs: false,
   props: {
+    id: {
+      type: [String, Number],
+      default: '',
+    },
     type: {
       type: String,
       default: 'text',
@@ -63,7 +67,9 @@ export default {
       }
     },
   },
-
+  mounted() {
+    console.log({ uid: this._uid })
+  },
   methods: {
     onInput(e) {
       this.$emit('input', e.target.value)
