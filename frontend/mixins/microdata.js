@@ -27,7 +27,7 @@ export default {
           contactType: 'Frontend services',
         },
       ],
-      sameAs: this.globalData?.socials.reduce(
+      sameAs: this.globalData?.socials?.reduce(
         (arr, { url }) =>
           url.includes('http') && !url.includes('t.me') ? [...arr, url] : [...arr],
         []

@@ -22,7 +22,12 @@ export default {
     },
   },
   mounted() {
-    this.list.forEach(async ({ icon }) => await import(`~/assets/icons/${icon}`))
+    const interval = setInterval(() => {
+      if (this.list?.length > 0) {
+        this.list.forEach(async ({ icon }) => await import(`~/assets/icons/${icon}`))
+        clearInterval(interval)
+      }
+    }, 300)
   },
 }
 </script>

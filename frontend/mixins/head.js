@@ -12,7 +12,9 @@ export default {
     }),
   },
   head() {
-    const title = `${this.globalData?.name} ${this.globalData?.surname} | ${this.globalData?.job_title}`
+    const title = `${this.globalData?.name || ''} ${this.globalData?.surname || ''} | ${this
+      .globalData?.job_title || ''}`
+      
     return {
       htmlAttrs: {
         lang: this.LANGUAGE,
