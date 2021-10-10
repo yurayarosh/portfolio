@@ -1,0 +1,96 @@
+.hero {
+  $this: &;
+
+  position: relative;
+
+  &__inner {
+    display: flex;
+    align-items: center;
+
+    height: calc(100vh - #{$header-height + $footer-height + px});
+
+    @include md {
+      height: calc(100vh - #{$header-height-md + $footer-height-md + px});
+    }
+  }
+
+  &__text {
+    @include xsmin {
+      width: 50%;
+    }
+
+    @include notlast {
+      margin-bottom: 30px;
+    }
+  }
+
+  &__text {
+    font-size: 40px;
+
+    padding-right: 15px;
+
+    @include xxxl {
+      font-size: vw(40);
+    }
+
+    @include xl {
+      font-size: vw(50);
+    }
+
+    @include xs {
+      font-size: 1rem;
+    }
+  }
+
+  &__img {
+    padding-left: 15px;
+  }
+
+  &__subttl-wrap {
+    overflow: hidden;
+    margin-bottom: 40px;
+  }
+
+  &__subttl {
+    font-size: 56px;
+
+    @include xxxl {
+      font-size: vw(56);
+    }
+
+    @include xl {
+      font-size: vw(70);
+    }
+
+    @include xs {
+      font-size: 1.1rem;
+    }
+  }
+
+  &__title {
+    margin-bottom: 30px;
+  }
+
+  &__title-wrap {
+    overflow: hidden;
+    margin-bottom: 30px;
+
+    #{$this}__title {
+      margin-bottom: 0;
+    }
+  }
+
+  &:not(#{$this}--static) {
+    #{$this}__text {
+      opacity: 0;
+    }
+
+    #{$this}__subttl {
+      transform: translate(0, 102%);
+    }
+
+    #{$this}__title {
+      transform: translate(0, 102%);
+    }
+  }
+}

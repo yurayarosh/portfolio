@@ -32,4 +32,16 @@ h6 {
       font-size: vh(160);
     }
   }
+
+  &--xl {
+    font-size: 240px;
+
+    @include xxxl {
+      font-size: vw(240);
+    }
+  
+    @media (max-height: 50vw) {
+      font-size: vh(240);
+    }
+  }
 }

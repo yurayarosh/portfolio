@@ -17,12 +17,12 @@ export default {
       htmlAttrs: {
         lang: this.LANGUAGE,
       },
-      title: this.metatags.title || title,
+      title: this.metatags?.title || title,
       meta: [
         {
           hid: 'description',
           name: 'description',
-          content: this.metatags.description || title,
+          content: this.metatags?.description || title,
         },
         {
           hid: 'og:site_name',
@@ -37,12 +37,12 @@ export default {
         {
           hid: 'og:title',
           property: 'og:title',
-          content: this.metatags.title || title,
+          content: this.metatags?.title || title,
         },
         {
           hid: 'og:description',
           property: 'og:description',
-          content: this.metatags.description || title,
+          content: this.metatags?.description || title,
         },
         {
           property: 'og:url',

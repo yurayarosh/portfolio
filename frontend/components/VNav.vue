@@ -32,7 +32,7 @@ export default {
   },
   computed: {
     navList() {
-      const list = this.$route.name.includes('index') ? this.list.slice(1) : this.list
+      const list = this.$route.name?.includes('index') ? this.list.slice(1) : this.list
       return list.map(item => ({
         id: item.id,
         title: item.title,

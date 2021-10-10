@@ -1,0 +1,32 @@
+{
+  "kind": "singleType",
+  "collectionName": "error_pages",
+  "info": {
+    "name": "error-page",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "alias": {
+      "type": "string"
+    },
+    "metatags": {
+      "type": "component",
+      "repeatable": false,
+      "component": "general.metatags"
+    },
+    "text": {
+      "type": "richtext"
+    },
+    "link": {
+      "type": "component",
+      "repeatable": false,
+      "component": "general.link"
+    }
+  }
+}
