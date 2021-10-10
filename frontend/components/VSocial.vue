@@ -34,6 +34,8 @@ export default {
 
 <style lang="scss">
 .social {
+  $this: &;
+
   display: flex;
   align-items: center;
   font-size: 2em;
@@ -42,6 +44,16 @@ export default {
     @include notlast {
       margin-right: 0.5em;
     }
+
+    @include hover {
+      #{$this}__link {
+        animation: wobble-hor-bottom 1000ms $easeInOutSine 1;
+      }
+    }
+  }
+
+  &__link {
+    display: block;
   }
 }
 </style>

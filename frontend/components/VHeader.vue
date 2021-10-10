@@ -70,6 +70,10 @@ export default {
   width: 50px;
   height: 30px;
 
+  @include hover {
+    animation: pulsate-fwd 500ms $easeInOutSine 1;
+  }
+
   &::before,
   &::after {
     content: '';

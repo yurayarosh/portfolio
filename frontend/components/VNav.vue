@@ -36,7 +36,7 @@ export default {
       return list.map(item => ({
         id: item.id,
         title: item.title,
-        to: this.$URL(item.url)
+        to: this.$URL(item.url),
       }))
     },
   },
