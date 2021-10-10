@@ -103,4 +103,23 @@ export default {
     fallback: '404.html',
     subFolders: false,
   },
+
+  // '@nuxtjs/pwa' module: https://pwa.nuxtjs.org/
+  pwa: {
+    meta: {
+      favicon: false,
+    },
+    icon: {
+      source: '/icon.png',
+      sizes: [192, 512],
+    },
+    manifest: {
+      name: 'Yurii Yaroshenko | Frontend developer',
+      short_name: 'Yurii Yaroshenko',
+      description: 'Yurii Yaroshenko | Frontend developer',
+      lang: 'en',
+      useWebmanifestExtension: true,
+      theme_color: '#0f1012',
+    },
+  },
 }
