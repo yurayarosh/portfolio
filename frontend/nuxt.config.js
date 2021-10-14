@@ -130,7 +130,7 @@ export default {
                 fontStyle: 'normal',
               },
               {
-                src: '@/assets/fonts/monumentextended-ultrabold-webfont',
+                src: '@/assets/fonts/monumentextended-black-webfont',
                 fontWeight: 700,
               },
             ],

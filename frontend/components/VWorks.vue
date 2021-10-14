@@ -346,6 +346,7 @@ export default {
   position: relative;
 
   text-align: center;
+  white-space: normal;
 
   height: 100%;
   width: 100%;
