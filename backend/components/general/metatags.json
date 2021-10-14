@@ -13,9 +13,6 @@
     "h1": {
       "type": "string"
     },
-    "description": {
-      "type": "richtext"
-    },
     "og_image": {
       "type": "component",
       "repeatable": false,
@@ -32,6 +29,9 @@
       "plugin": "upload",
       "required": false,
       "pluginOptions": {}
+    },
+    "description": {
+      "type": "text"
     }
   }
 }

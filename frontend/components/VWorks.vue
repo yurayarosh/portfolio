@@ -389,6 +389,14 @@ export default {
       left: 0;
     }
 
+    &::before {
+      content: '';
+
+      @extend %coverdiv;
+      z-index: 1;
+      background-color: rgba($black, 0.4);
+    }
+
     img {
       @extend %coverdiv;
       @extend %coverimage;
