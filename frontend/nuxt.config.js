@@ -122,16 +122,11 @@ export default {
           },
           {
             fileExtensions: ['woff2', 'woff'],
-            fontFamily: 'monument',
+            fontFamily: 'republica',
             fontFaces: [
               {
-                preload: true,
-                src: '@/assets/fonts/monumentextended-regular-webfont',
-                fontStyle: 'normal',
-              },
-              {
-                src: '@/assets/fonts/monumentextended-black-webfont',
-                fontWeight: 700,
+                src: '@/assets/fonts/republica_minor_regular-webfont',
+                fontWeight: 400,
               },
             ],
           },
