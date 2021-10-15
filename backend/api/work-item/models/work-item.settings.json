@@ -29,6 +29,10 @@
       "plugin": "upload",
       "required": false,
       "pluginOptions": {}
+    },
+    "index": {
+      "default": 0,
+      "type": "integer"
     }
   }
 }

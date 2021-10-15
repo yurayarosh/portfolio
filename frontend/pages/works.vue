@@ -8,7 +8,7 @@
       </div>
 
       <div ref="body" class="s-works__body">
-        <v-works :list="works" :animations-complete="animationsComplete" />
+        <v-works :list="worksList" :animations-complete="animationsComplete" />
       </div>
     </div>
   </section>
@@ -19,6 +19,7 @@ import anime from 'animejs'
 import transitionMixin from '~/mixins/transition'
 import microdataMixin from '~/mixins/microdata'
 import headMixin from '~/mixins/head'
+import { sortList } from '~/assets/scripts/helpers'
 
 export default {
   name: 'PageWorks',
@@ -47,18 +48,19 @@ export default {
     }
   },
   computed: {
-    // worksList() {
-    //   const NUMBER_OF_DIFFERENT_STYLED_ITEMS = 6
-    //   // sortList(this.works, 'date') // Sort by date.
+    worksList() {
+      // const NUMBER_OF_DIFFERENT_STYLED_ITEMS = 6
+      sortList(this.works, 'number', { title: 'index' }) // Sort by date.
+      return this.works
 
-    //   const chunkedList = chunkArray(this.works, NUMBER_OF_DIFFERENT_STYLED_ITEMS) // Output: [[{}, ...], [{}, ...], ...]
+      // const chunkedList = chunkArray(this.works, NUMBER_OF_DIFFERENT_STYLED_ITEMS) // Output: [[{}, ...], [{}, ...], ...]
 
-    //   const listWithIndexes = chunkedList.map(arr =>
-    //     arr.map((item, i) => ({ ...item, index: i + 1 }))
-    //   )
+      // const listWithIndexes = chunkedList.map(arr =>
+      //   arr.map((item, i) => ({ ...item, index: i + 1 }))
+      // )
 
-    //   return listWithIndexes.flat()
-    // },
+      // return listWithIndexes.flat()
+    },
   },
   methods: {
     animateEntrance() {
