@@ -67,9 +67,6 @@ export default {
       }
     },
   },
-  mounted() {
-    console.log({ uid: this._uid })
-  },
   methods: {
     onInput(e) {
       this.$emit('input', e.target.value)
