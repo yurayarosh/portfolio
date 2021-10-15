@@ -57,8 +57,8 @@ export default {
         {
           property: 'og:image',
           content:
-            // this.metatags?.media_og_image?.url ||
-            // this.globalData?.media_og_image?.url ||
+            this.metatags?.media_og_image?.url ||
+            this.globalData?.media_og_image?.url ||
             this.$icon(512),
         },
         {
