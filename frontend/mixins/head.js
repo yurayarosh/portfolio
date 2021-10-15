@@ -15,6 +15,21 @@ export default {
     const title = `${this.globalData?.name || ''} ${this.globalData?.surname || ''} | ${this
       .globalData?.job_title || ''}`
 
+    const ogImage = {
+      url:
+        this.metatags?.media_og_image?.formats?.large?.url ||
+        this.globalData?.media_og_image?.formats?.large?.url ||
+        this.$icon(512),
+      width:
+        this.metatags?.media_og_image?.formats?.large?.width ||
+        this.globalData?.media_og_image?.formats?.large?.width ||
+        '512',
+      height:
+        this.metatags?.media_og_image?.formats?.large?.height ||
+        this.globalData?.media_og_image?.formats?.large?.height ||
+        '512',
+    }
+
     return {
       htmlAttrs: {
         lang: this.LANGUAGE,
@@ -56,22 +71,15 @@ export default {
         },
         {
           property: 'og:image',
-          content:
-            this.metatags?.media_og_image?.url ||
-            this.globalData?.media_og_image?.url ||
-            this.$icon(512),
+          content: ogImage.url,
         },
         {
           property: 'og:image:height',
-          content:
-            this.metatags?.media_og_image?.height ||
-            this.globalData?.media_og_image?.height ||
-            '512',
+          content: ogImage.height,
         },
         {
           property: 'og:image:width',
-          content:
-            this.metatags?.media_og_image?.width || this.globalData?.media_og_image?.width || '512',
+          content: ogImage.width,
         },
         {
           property: 'og:image:type',
