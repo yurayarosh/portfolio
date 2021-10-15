@@ -14,7 +14,7 @@ export default {
   head() {
     const title = `${this.globalData?.name || ''} ${this.globalData?.surname || ''} | ${this
       .globalData?.job_title || ''}`
-      
+
     return {
       htmlAttrs: {
         lang: this.LANGUAGE,
@@ -57,17 +57,21 @@ export default {
         {
           property: 'og:image',
           content:
-            this.metatags?.media_og_image?.url ||
-            this.globalData?.media_og_image?.url ||
+            // this.metatags?.media_og_image?.url ||
+            // this.globalData?.media_og_image?.url ||
             this.$icon(512),
         },
         {
           property: 'og:image:height',
-          content: '628',
+          content:
+            this.metatags?.media_og_image?.height ||
+            this.globalData?.media_og_image?.height ||
+            '512',
         },
         {
           property: 'og:image:width',
-          content: '1200',
+          content:
+            this.metatags?.media_og_image?.width || this.globalData?.media_og_image?.width || '512',
         },
         {
           property: 'og:image:type',

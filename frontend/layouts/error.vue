@@ -9,9 +9,9 @@
             <p class="hero__text" v-html="text" />
 
             <v-btn
+              class="hero__btn"
               :href="$URL(link.url)"
               @click.prevent="$router.push($URL(link.url))"
-              class="hero__btn"
               >{{ link.title }}</v-btn
             >
           </div>
