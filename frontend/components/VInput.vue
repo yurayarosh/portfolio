@@ -1,18 +1,20 @@
 <template>
   <div class="input" :class="classes">
     <label v-if="label" class="input__label" :for="id || _uid">{{ label }}</label>
-    <component
-      :is="type === 'textarea' ? 'textarea' : 'input'"
-      :id="id || _uid"
-      v-bind="$attrs"
-      class="input__input"
-      :value="value"
-      :type="type"
-      @input="onInput"
-      @focus="onFocus"
-      @blur="onBlur"
-      >{{ type === 'textarea' ? value : '' }}</component
-    >
+    <div class="input__input-wrap">
+      <component
+        :is="type === 'textarea' ? 'textarea' : 'input'"
+        :id="id || _uid"
+        v-bind="$attrs"
+        class="input__input"
+        :value="value"
+        :type="type"
+        @input="onInput"
+        @focus="onFocus"
+        @blur="onBlur"
+        >{{ type === 'textarea' ? value : '' }}</component
+      >
+    </div>
     <transition name="input__errors" duration="1000">
       <div v-show="errorMessage && showErrors" class="input__errors">
         {{ errorMessage }}
@@ -89,6 +91,25 @@ export default {
 
   position: relative;
 
+  &__input-wrap {
+    position: relative;
+    overflow: hidden;
+
+    &::after {
+      content: '';
+
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+
+      border-bottom: 3px solid $c-text;
+      transform: translate(-101%, 0);
+
+      transition: transform 0.5s $easeInSine;
+    }
+  }
+
   &__label {
     display: block;
 
@@ -132,7 +153,7 @@ export default {
     width: 100%;
     height: 49px;
     background-color: transparent;
-    border-bottom: 3px solid lighten($c-text, 30%);
+    border-bottom: 3px solid lighten($c-text, 50%);
     padding: 0.5em 0;
 
     transition: border-color 0.4s, color 0.4s;
@@ -144,11 +165,6 @@ export default {
     @include xs {
       height: 40px;
     }
-
-    &:focus {
-      color: $c-text;
-      border-bottom-color: currentColor;
-    }
   }
 
   textarea {
@@ -157,6 +173,12 @@ export default {
 
   &--focus,
   &--has-text {
+    #{$this}__input-wrap {
+      &::after {
+        transform: translate(0, 0);
+      }
+    }
+
     #{$this}__label {
       transform: translate(0, -30px);
       font-size: 0.8em;
