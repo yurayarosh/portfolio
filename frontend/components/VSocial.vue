@@ -3,11 +3,12 @@
     <li v-for="item in list" :key="item.id" class="social__item">
       <a
         :href="item.url"
-        :target="item.url.includes('http') ? '_blank' : false"
-        :rel="item.url.includes('http') ? 'noopener nofollow' : false"
+        :target="item.url.includes('mailto:') ? false : '_blank'"
+        :rel="item.url.includes('mailto:') ? false : 'noopener nofollow'"
         class="social__link"
+        :title="item.title"
         :aria-label="item.icon"
-        ><svgicon :name="item.icon" width="1em" height="1em"
+        ><svgicon :class="`svg-icon--${item.icon}`" :name="item.icon" width="1em" height="1em"
       /></a>
     </li>
   </ul>
@@ -25,6 +26,7 @@ export default {
   mounted() {
     const interval = setInterval(() => {
       if (this.list?.length > 0) {
+        console.log(this.list)
         this.list.forEach(async ({ icon }) => await import(`~/assets/icons/${icon}`))
         clearInterval(interval)
       }
@@ -55,6 +57,14 @@ export default {
 
   &__link {
     display: block;
+
+    .svg-icon {
+      &--download {
+        fill: none;
+        stroke: currentColor;
+        stroke-width: 0.075em;
+      }
+    }
   }
 }
 </style>

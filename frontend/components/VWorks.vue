@@ -412,14 +412,14 @@ export default {
     @include f-title;
     line-height: 1;
 
-    font-size: 56px;
+    font-size: 52px;
 
     @include xxxl {
-      font-size: vw(56);
+      font-size: vw(52);
     }
 
     @include xxl {
-      font-size: vw(65);
+      font-size: vw(60);
     }
 
     @include xs {
