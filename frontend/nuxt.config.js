@@ -1,11 +1,12 @@
 export default {
   // Define environment variables that are required at build time: https://nuxtjs.org/docs/2.x/directory-structure/nuxt-config#env
   env: {
-    // BASE_URL_PROD: process.env.BASE_URL_PROD,
+    BASE_URL_PROD: process.env.BASE_URL_PROD,
     BASE_URL_BACK: process.env.BASE_URL_BACK,
     TELEGRAM_API_URL: process.env.TELEGRAM_API_URL,
     TELEGRAM_BOT_TOKEN: process.env.TELEGRAM_BOT_TOKEN,
     TELEGRAM_CHAT_ID: process.env.TELEGRAM_CHAT_ID,
+    GTM_ID: process.env.GTM_ID,
   },
 
   // Disable the Progress Bar
@@ -93,7 +94,6 @@ export default {
   buildModules: [
     // https://go.nuxtjs.dev/eslint
     '@nuxtjs/eslint-module',
-    // '@nuxt/image',
   ],
 
   // Modules (https://go.nuxtjs.dev/config-modules)
@@ -101,6 +101,8 @@ export default {
     // https://go.nuxtjs.dev/pwa
     '@nuxtjs/pwa',
     '@nuxtjs/style-resources',
+    '@nuxtjs/gtm',
+    '@nuxtjs/sitemap',
     [
       'nuxt-font-loader-strategy',
       {
@@ -161,5 +163,15 @@ export default {
       useWebmanifestExtension: true,
       theme_color: '#0f1012',
     },
+  },
+
+  // '@nuxtjs/gtm' module: https://github.com/nuxt-community/gtm-module
+  gtm: {
+    id: process.env.GTM_ID,
+  },
+
+  // '@nuxtjs/sitemap' module: https://sitemap.nuxtjs.org/
+  sitemap: {
+    hostname: process.env.BASE_URL_PROD,
   },
 }
