@@ -100,7 +100,7 @@ export default {
     // https://go.nuxtjs.dev/pwa
     '@nuxtjs/pwa',
     '@nuxtjs/style-resources',
-    // '@nuxtjs/gtm',
+    '@nuxtjs/gtm',
     '@nuxtjs/sitemap',
     [
       'nuxt-font-loader-strategy',
