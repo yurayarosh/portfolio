@@ -165,9 +165,9 @@ export default {
   },
 
   // '@nuxtjs/gtm' module: https://github.com/nuxt-community/gtm-module
-  // gtm: {
-  //   id: process.env.GTM_ID,
-  // },
+  gtm: {
+    id: process.env.GTM_ID,
+  },
 
   // '@nuxtjs/sitemap' module: https://sitemap.nuxtjs.org/
   sitemap: {
